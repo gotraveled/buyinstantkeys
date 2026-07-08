@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { ShieldCheck, Star, CheckCircle } from "@phosphor-icons/react";
+import { ShieldCheck, Star } from "@phosphor-icons/react";
+import ProductBox from "@/components/ProductBox";
 
 export default function ProductCard({ product }) {
   const minPrice = Math.min(...product.variants.map((v) => v.price));
@@ -7,14 +8,7 @@ export default function ProductCard({ product }) {
   const savings = maxOrig > minPrice ? Math.round(((maxOrig - minPrice) / maxOrig) * 100) : 0;
   return (
     <Link to={`/product/${product.slug}`} data-testid={`product-card-${product.slug}`} className="card-product group block p-6">
-      {product.badge && (
-        <div className="absolute right-4 top-4 z-10">
-          <span className="badge-hot">{product.badge}</span>
-        </div>
-      )}
-      <div className="flex h-40 items-center justify-center overflow-hidden rounded-lg bg-neutral-50">
-        <img src={product.image_url} alt={product.name} className="h-full w-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-105" />
-      </div>
+      <ProductBox product={product} size="md" />
       <div className="mt-5 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">
         <ShieldCheck size={14} weight="fill" className="text-emerald-600" /> {product.category}
       </div>

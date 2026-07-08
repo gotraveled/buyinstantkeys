@@ -66,7 +66,8 @@ class Product(BaseModel):
     tagline: str
     description: str
     category: str
-    image_url: str
+    image_url: str = ""
+    box_variant: str = "gold"  # gold | amber | black | green | purple
     badge: Optional[str] = None
     features: List[str] = []
     variants: List[Variant] = []
@@ -111,6 +112,7 @@ class OrderCreate(BaseModel):
     customer_name: str
     customer_email: EmailStr
     items: List[OrderItem]
+    coupon_code: Optional[str] = None
 
 class Order(BaseModel):
     model_config = ConfigDict(extra="ignore")
@@ -119,6 +121,9 @@ class Order(BaseModel):
     customer_name: str
     customer_email: str
     items: List[OrderItem]
+    subtotal: float = 0
+    discount_amount: float = 0
+    coupon_code: Optional[str] = None
     total: float
     status: str = "pending"  # pending, paid, delivered, cancelled, refunded
     payment_method: Optional[str] = None
@@ -162,153 +167,234 @@ def verify_admin(authorization: Optional[str] = Header(None)) -> str:
         raise HTTPException(status_code=401, detail="Invalid token")
 
 # ============ SEED DATA ============
+SEED_VERSION = "2026-02-v3"
+
 NORTON_PRODUCTS = [
     {
-        "slug": "norton-360-deluxe",
-        "name": "Norton 360 Deluxe",
-        "tagline": "Award-winning protection for up to 5 devices",
-        "description": "Multi-layered security with VPN, password manager, dark web monitoring, PC cloud backup and parental controls. Trusted by millions worldwide.",
-        "category": "Norton 360",
-        "image_url": "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=600",
-        "badge": "Best Seller",
-        "features": ["Real-time threat protection", "Secure VPN", "Password Manager", "50GB Cloud Backup", "Parental Controls", "SafeCam for PC"],
+        "slug": "norton-antivirus-plus",
+        "name": "Norton AntiVirus Plus",
+        "tagline": "Essential virus and malware protection for 1 PC",
+        "description": "Powerful protection against viruses, malware, ransomware and hacking, with password manager, smart firewall and cloud backup.",
+        "category": "AntiVirus",
+        "box_variant": "gold",
+        "image_url": "",
+        "features": ["Real-time threat protection", "Smart Firewall", "Password Manager", "2GB Cloud Backup", "Genie AI Assistant"],
         "variants": [
-            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 29.99, "original_price": 89.99},
-            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 39.99, "original_price": 104.99},
-            {"devices": 5, "years": 2, "label": "5 Devices / 2 Years", "price": 69.99, "original_price": 209.99},
+            {"devices": 1, "years": 1, "label": "1 PC / 1 Year", "price": 34.99, "original_price": 59.99},
+            {"devices": 1, "years": 2, "label": "1 PC / 2 Years", "price": 54.99, "original_price": 119.99},
         ],
-        "is_featured": True,
     },
     {
         "slug": "norton-360-standard",
         "name": "Norton 360 Standard",
-        "tagline": "Complete protection for 1 device",
-        "description": "Powerful, real-time protection against viruses, ransomware, malware and other online threats for a single device.",
+        "tagline": "Complete protection for up to 3 devices",
+        "description": "Real-time protection against viruses, ransomware and other online threats. Includes VPN, Password Manager, Dark Web Monitoring and Privacy Monitor.",
         "category": "Norton 360",
-        "image_url": "https://images.unsplash.com/photo-1614064548237-096f735f344f?w=600",
-        "features": ["Real-time threat protection", "Secure VPN", "Password Manager", "10GB Cloud Backup", "SafeCam for PC"],
+        "box_variant": "gold",
+        "image_url": "",
+        "features": ["Real-time threat protection", "Secure VPN", "Password Manager", "10GB Cloud Backup", "Dark Web Monitoring", "SafeCam for PC"],
         "variants": [
-            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 19.99, "original_price": 59.99},
-            {"devices": 1, "years": 2, "label": "1 Device / 2 Years", "price": 34.99, "original_price": 119.99},
+            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 39.99, "original_price": 79.99},
+            {"devices": 3, "years": 2, "label": "3 Devices / 2 Years", "price": 74.99, "original_price": 159.99},
         ],
         "is_featured": True,
     },
     {
-        "slug": "norton-360-premium",
-        "name": "Norton 360 Premium",
-        "tagline": "Advanced protection for up to 10 devices",
-        "description": "Comprehensive security suite covering up to 10 devices with all premium features and 75GB of cloud backup.",
+        "slug": "norton-360-deluxe",
+        "name": "Norton 360 Deluxe",
+        "tagline": "Award-winning protection for up to 5 devices",
+        "description": "Multi-layered security with VPN, password manager, dark web monitoring, 50GB PC cloud backup and parental controls. Trusted by millions worldwide.",
         "category": "Norton 360",
-        "image_url": "https://images.unsplash.com/photo-1633265486064-086b219458ec?w=600",
-        "features": ["Real-time threat protection", "Secure VPN", "Password Manager", "75GB Cloud Backup", "Parental Controls", "SafeCam"],
+        "box_variant": "gold",
+        "image_url": "",
+        "badge": "Best Seller",
+        "features": ["Real-time threat protection", "Secure VPN", "Password Manager", "50GB Cloud Backup", "Parental Controls", "SafeCam for PC", "Privacy Monitor Assistant"],
         "variants": [
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 49.99, "original_price": 124.99},
-            {"devices": 10, "years": 2, "label": "10 Devices / 2 Years", "price": 89.99, "original_price": 249.99},
+            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 49.99, "original_price": 109.99},
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 59.99, "original_price": 124.99},
+            {"devices": 5, "years": 2, "label": "5 Devices / 2 Years", "price": 99.99, "original_price": 229.99},
         ],
         "is_featured": True,
     },
     {
-        "slug": "norton-360-advanced",
-        "name": "Norton 360 Advanced",
-        "tagline": "Ultimate protection with LifeLock identity monitoring",
-        "description": "Our most comprehensive plan featuring identity theft protection, credit monitoring and up to 200GB cloud backup.",
+        "slug": "norton-360-deluxe-advantage",
+        "name": "Norton 360 Deluxe Advantage",
+        "tagline": "Deluxe protection with identity advisor",
+        "description": "Everything in Norton 360 Deluxe plus Norton Identity Advisor Plus — providing identity monitoring, restoration assistance and stolen wallet support.",
         "category": "Norton 360",
-        "image_url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600",
+        "box_variant": "amber",
+        "image_url": "",
+        "features": ["All Norton 360 Deluxe features", "Identity Advisor Plus", "Restoration specialist", "Stolen wallet protection", "Dark Web Monitoring"],
+        "variants": [
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 79.99, "original_price": 149.99},
+        ],
+    },
+    {
+        "slug": "norton-360-with-lifelock-select",
+        "name": "Norton 360 with LifeLock Select",
+        "tagline": "Device security + identity theft protection",
+        "description": "Combines Norton 360 device security with LifeLock identity theft protection. Includes Credit Monitoring (1 bureau) and up to $25K reimbursement for stolen funds.",
+        "category": "LifeLock",
+        "box_variant": "black",
+        "image_url": "",
+        "badge": "Popular",
+        "features": ["Everything in Norton 360 Deluxe", "LifeLock Identity Alert System", "Credit Monitoring (1 bureau)", "$25K stolen funds reimbursement", "Million Dollar Protection Package"],
+        "variants": [
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 89.99, "original_price": 189.99},
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 109.99, "original_price": 229.99},
+        ],
+        "is_featured": True,
+    },
+    {
+        "slug": "norton-360-with-lifelock-select-plus",
+        "name": "Norton 360 with LifeLock Select Plus",
+        "tagline": "Enhanced identity protection with credit reporting",
+        "description": "Upgrade to enhanced identity monitoring, annual credit report, credit lock and higher reimbursement limits.",
+        "category": "LifeLock",
+        "box_variant": "black",
+        "image_url": "",
+        "features": ["All Select features", "Annual credit report + score", "Credit lock (1 bureau)", "$50K stolen funds reimbursement", "Enhanced Dark Web Monitoring"],
+        "variants": [
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 109.99, "original_price": 249.99},
+        ],
+    },
+    {
+        "slug": "norton-360-with-lifelock-advantage",
+        "name": "Norton 360 with LifeLock Advantage",
+        "tagline": "Advanced identity protection with credit alerts",
+        "description": "Everything in Select plus enhanced credit monitoring, bank & credit card activity alerts, and up to $100K reimbursement for stolen funds.",
+        "category": "LifeLock",
+        "box_variant": "black",
+        "image_url": "",
+        "features": ["All Select Plus features", "Bank & credit card activity alerts", "Credit Monitoring (1 bureau)", "$100K stolen funds reimbursement", "Court records scanning"],
+        "variants": [
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 119.99, "original_price": 279.99},
+        ],
+        "is_featured": True,
+    },
+    {
+        "slug": "norton-360-with-lifelock-ultimate-plus",
+        "name": "Norton 360 with LifeLock Ultimate Plus",
+        "tagline": "Top-tier protection with 3-bureau monitoring",
+        "description": "Our most comprehensive plan: unlimited device coverage, 3-bureau credit monitoring, $1M reimbursement for stolen funds and 500GB cloud backup.",
+        "category": "LifeLock",
+        "box_variant": "black",
+        "image_url": "",
         "badge": "Ultimate",
-        "features": ["All Deluxe features", "Identity Theft Protection", "Credit Monitoring", "200GB Cloud Backup", "Social Media Monitoring"],
+        "features": ["Unlimited devices", "3-bureau credit monitoring", "$1M stolen funds reimbursement", "500GB Cloud Backup", "24/7 live support"],
         "variants": [
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 89.99, "original_price": 249.99},
+            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 159.99, "original_price": 349.99},
         ],
         "is_featured": True,
     },
     {
-        "slug": "norton-antivirus-plus",
-        "name": "Norton AntiVirus Plus",
-        "tagline": "Essential virus and malware protection",
-        "description": "Powerful protection against viruses, malware, ransomware and hacking, with password manager and smart firewall.",
-        "category": "AntiVirus",
-        "image_url": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600",
-        "features": ["Real-time protection", "Smart Firewall", "Password Manager", "2GB Cloud Backup"],
+        "slug": "norton-360-for-gamers",
+        "name": "Norton 360 for Gamers",
+        "tagline": "Multi-layered protection for PC gamers",
+        "description": "Game-optimized security with Game Optimizer, notification blocker and Secure VPN — no interruptions to your gameplay.",
+        "category": "Gaming",
+        "box_variant": "purple",
+        "image_url": "",
+        "badge": "Gamer's Choice",
+        "features": ["Game Optimizer", "Notification blocker", "Secure VPN", "Dark Web Monitoring", "Webcam protection"],
         "variants": [
-            {"devices": 1, "years": 1, "label": "1 PC / 1 Year", "price": 14.99, "original_price": 39.99},
-            {"devices": 1, "years": 2, "label": "1 PC / 2 Years", "price": 24.99, "original_price": 79.99},
+            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 49.99, "original_price": 99.99},
         ],
     },
     {
-        "slug": "norton-secure-vpn",
-        "name": "Norton Secure VPN",
+        "slug": "norton-vpn",
+        "name": "Norton VPN",
         "tagline": "Private, encrypted browsing anywhere",
-        "description": "Bank-grade encryption to keep your online activity private on public Wi-Fi and unsecured networks.",
+        "description": "Bank-grade encryption to keep your online activity private on public Wi-Fi and unsecured networks. Access global content without borders.",
         "category": "Privacy",
-        "image_url": "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600",
-        "features": ["Bank-grade encryption", "No-log VPN", "Ad tracker blocking", "Wi-Fi security"],
+        "box_variant": "green",
+        "image_url": "",
+        "features": ["Bank-grade encryption", "No-log VPN", "Ad tracker blocking", "Wi-Fi security", "Kill switch"],
         "variants": [
-            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 9.99, "original_price": 29.99},
-            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 19.99, "original_price": 49.99},
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 29.99, "original_price": 69.99},
+            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 29.99, "original_price": 49.99},
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 39.99, "original_price": 69.99},
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 49.99, "original_price": 89.99},
+        ],
+    },
+    {
+        "slug": "norton-antitrack",
+        "name": "Norton AntiTrack",
+        "tagline": "Stop trackers from following you online",
+        "description": "Prevents data collection companies from tracking your online activity, browser fingerprinting and behavior profiling.",
+        "category": "Privacy",
+        "box_variant": "green",
+        "image_url": "",
+        "features": ["Anti-fingerprinting", "Anonymizes searches", "Cookie blocking", "Privacy dashboard", "Ad tracker prevention"],
+        "variants": [
+            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 39.99, "original_price": 59.99},
+            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 49.99, "original_price": 89.99},
+        ],
+    },
+    {
+        "slug": "norton-identity-advisor-plus",
+        "name": "Norton Identity Advisor Plus",
+        "tagline": "Identity monitoring with restoration support",
+        "description": "24/7 identity monitoring with Dark Web scanning, restoration specialists on standby and stolen wallet assistance.",
+        "category": "Identity",
+        "box_variant": "amber",
+        "image_url": "",
+        "features": ["Identity theft monitoring", "Dark Web scanning", "Restoration specialist", "Stolen wallet protection", "Social media monitoring"],
+        "variants": [
+            {"devices": 1, "years": 1, "label": "1 Adult / 1 Year", "price": 99.99, "original_price": 189.99},
         ],
     },
     {
         "slug": "norton-utilities-ultimate",
         "name": "Norton Utilities Ultimate",
         "tagline": "Speed up and clean your PC",
-        "description": "Powerful tools to optimize PC performance, clean up junk files, and extend device life.",
+        "description": "Powerful tools to optimize PC performance, clean up junk files, fix registry issues and extend your device's life.",
         "category": "Utilities",
-        "image_url": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600",
-        "features": ["PC cleaner", "Speed optimizer", "Privacy cleaner", "Disk defragmenter"],
+        "box_variant": "gold",
+        "image_url": "",
+        "features": ["PC cleaner", "Speed optimizer", "Privacy cleaner", "Disk defragmenter", "App uninstaller"],
         "variants": [
-            {"devices": 10, "years": 1, "label": "10 PCs / 1 Year", "price": 19.99, "original_price": 39.99},
+            {"devices": 10, "years": 1, "label": "10 PCs / 1 Year", "price": 39.99, "original_price": 79.99},
         ],
     },
     {
         "slug": "norton-family",
         "name": "Norton Family",
         "tagline": "Parental controls for kids online",
-        "description": "Help keep your kids safer online with screen time limits, content filtering, location supervision and school time features.",
+        "description": "Keep your kids safer online with screen time limits, content filtering, location supervision and school time features.",
         "category": "Family",
-        "image_url": "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=600",
-        "features": ["Web supervision", "Screen time management", "Location tracking", "School time"],
+        "box_variant": "amber",
+        "image_url": "",
+        "features": ["Web supervision", "Screen time management", "Location tracking", "School time", "Video supervision"],
         "variants": [
-            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 24.99, "original_price": 49.99},
+            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 44.99, "original_price": 79.99},
         ],
     },
     {
         "slug": "norton-small-business",
         "name": "Norton Small Business",
         "tagline": "Protection built for small businesses",
-        "description": "Easy-to-deploy protection for PCs, Macs, iOS and Android devices in your small business.",
+        "description": "Easy-to-deploy protection for PCs, Macs, iOS and Android devices in your small business. Cloud console for centralized management.",
         "category": "Business",
-        "image_url": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600",
-        "features": ["Multi-device deployment", "Cloud console", "24/7 support"],
+        "box_variant": "black",
+        "image_url": "",
+        "features": ["Multi-device deployment", "Cloud console", "24/7 support", "Reputation-based protection"],
         "variants": [
-            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 49.99, "original_price": 99.99},
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 89.99, "original_price": 149.99},
-            {"devices": 20, "years": 1, "label": "20 Devices / 1 Year", "price": 149.99, "original_price": 249.99},
-        ],
-    },
-    {
-        "slug": "norton-360-for-gamers",
-        "name": "Norton 360 for Gamers",
-        "tagline": "Multi-layered protection for PC gamers",
-        "description": "Game-optimized protection with Game Optimizer, notification blocker and full VPN — no interruptions to your gameplay.",
-        "category": "Gaming",
-        "image_url": "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600",
-        "badge": "Gamer's Choice",
-        "features": ["Game Optimizer", "Notification blocker", "Secure VPN", "Dark Web Monitoring"],
-        "variants": [
-            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 29.99, "original_price": 79.99},
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 69.99, "original_price": 129.99},
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 109.99, "original_price": 179.99},
+            {"devices": 20, "years": 1, "label": "20 Devices / 1 Year", "price": 169.99, "original_price": 279.99},
         ],
     },
     {
         "slug": "norton-mobile-security",
         "name": "Norton Mobile Security",
         "tagline": "Powerful protection for iOS & Android",
-        "description": "Safeguard your smartphone from cyber threats, malicious apps, phishing, and Wi-Fi risks.",
+        "description": "Safeguard your smartphone from cyber threats, malicious apps, phishing links, unsafe Wi-Fi and web attacks.",
         "category": "Mobile",
-        "image_url": "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=600",
-        "features": ["App advisor", "Wi-Fi security", "Web protection", "SMS filtering"],
+        "box_variant": "green",
+        "image_url": "",
+        "features": ["App advisor", "Wi-Fi security", "Web protection", "SMS filtering", "Anti-theft"],
         "variants": [
-            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 9.99, "original_price": 29.99},
+            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 29.99, "original_price": 49.99},
         ],
     },
     {
@@ -317,34 +403,156 @@ NORTON_PRODUCTS = [
         "tagline": "Secure, generate and remember passwords",
         "description": "Store, generate, and autofill strong passwords in a secure encrypted vault across all your devices.",
         "category": "Privacy",
-        "image_url": "https://images.unsplash.com/photo-1633265486501-0cf524a07213?w=600",
-        "features": ["Encrypted vault", "Password generator", "Auto-fill", "Cross-device sync"],
+        "box_variant": "green",
+        "image_url": "",
+        "features": ["Encrypted vault", "Password generator", "Auto-fill", "Cross-device sync", "Security dashboard"],
         "variants": [
-            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 4.99, "original_price": 19.99},
+            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 24.99, "original_price": 39.99},
+        ],
+    },
+    {
+        "slug": "norton-ultimate-help-desk",
+        "name": "Norton Ultimate Help Desk",
+        "tagline": "24/7 tech support for any device",
+        "description": "Expert tech support for setup, troubleshooting, malware removal and optimization — anytime, any device.",
+        "category": "Support",
+        "box_variant": "amber",
+        "image_url": "",
+        "features": ["24/7 remote help", "Setup assistance", "Malware removal", "Data recovery help", "Software installation"],
+        "variants": [
+            {"devices": 999, "years": 1, "label": "Unlimited Support / 1 Year", "price": 119.99, "original_price": 199.99},
+        ],
+    },
+    {
+        "slug": "norton-genie-scam-detector",
+        "name": "Norton Genie Scam Detector",
+        "tagline": "AI-powered scam detection",
+        "description": "Norton's AI-powered scam detection tool that analyzes messages, emails and URLs to warn you before you fall for a scam.",
+        "category": "AntiVirus",
+        "box_variant": "purple",
+        "image_url": "",
+        "badge": "AI-Powered",
+        "features": ["AI scam analysis", "Message & email scanning", "URL safety check", "Real-time alerts"],
+        "variants": [
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 39.99, "original_price": 69.99},
+        ],
+    },
+    {
+        "slug": "norton-360-premium",
+        "name": "Norton 360 Premium",
+        "tagline": "Advanced protection for up to 10 devices",
+        "description": "Comprehensive security suite covering up to 10 devices with all premium features and 75GB cloud backup.",
+        "category": "Norton 360",
+        "box_variant": "amber",
+        "image_url": "",
+        "features": ["Real-time threat protection", "Secure VPN", "Password Manager", "75GB Cloud Backup", "Parental Controls", "SafeCam"],
+        "variants": [
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 69.99, "original_price": 149.99},
+            {"devices": 10, "years": 2, "label": "10 Devices / 2 Years", "price": 119.99, "original_price": 279.99},
         ],
     },
 ]
 
+DEFAULT_COUPONS = [
+    {"code": "WELCOME10", "description": "10% off your first order", "discount_type": "percent", "discount_value": 10, "max_uses": 1000, "min_order": 0, "is_active": True},
+    {"code": "SAVE20", "description": "$20 off orders over $80", "discount_type": "fixed", "discount_value": 20, "max_uses": 1000, "min_order": 80, "is_active": True},
+    {"code": "FLASH70", "description": "Flash sale — 70% off (limited)", "discount_type": "percent", "discount_value": 70, "max_uses": 100, "min_order": 0, "is_active": True},
+]
+
+DEFAULT_BANNER = {
+    "id": "site-banner",
+    "title": "MEGA SAVINGS EVENT",
+    "message": "Save up to 70% + extra 10% off with code WELCOME10 — instant email delivery",
+    "coupon_code": "FLASH70",
+    "expires_at": (datetime.now(timezone.utc) + timedelta(days=2)).isoformat(),
+    "is_active": True,
+}
+
 async def seed_data():
-    # Seed admin
     admin = await db.admins.find_one({"email": ADMIN_EMAIL})
     if not admin:
         pw_hash = bcrypt.hashpw(ADMIN_PASSWORD.encode(), bcrypt.gensalt()).decode()
         await db.admins.insert_one({"email": ADMIN_EMAIL, "password_hash": pw_hash, "created_at": now_iso()})
         logger.info(f"Seeded admin: {ADMIN_EMAIL}")
 
-    # Seed products
-    count = await db.products.count_documents({})
-    if count == 0:
+    meta = await db.meta.find_one({"key": "seed_version"})
+    if not meta or meta.get("value") != SEED_VERSION:
+        await db.products.delete_many({})
         for p in NORTON_PRODUCTS:
             variants = [Variant(**v).model_dump() for v in p["variants"]]
             product = Product(**{**p, "variants": variants})
             await db.products.insert_one(product.model_dump())
-        logger.info(f"Seeded {len(NORTON_PRODUCTS)} products")
+        await db.meta.update_one({"key": "seed_version"}, {"$set": {"value": SEED_VERSION}}, upsert=True)
+        logger.info(f"Reseeded {len(NORTON_PRODUCTS)} products (version={SEED_VERSION})")
+
+    # Coupons
+    for c in DEFAULT_COUPONS:
+        existing = await db.coupons.find_one({"code": c["code"]})
+        if not existing:
+            doc = {**c, "id": str(uuid.uuid4()), "current_uses": 0, "created_at": now_iso()}
+            await db.coupons.insert_one(doc)
+
+    # Banner
+    existing_banner = await db.banner.find_one({"id": "site-banner"})
+    if not existing_banner:
+        await db.banner.insert_one(DEFAULT_BANNER)
 
 @app.on_event("startup")
 async def startup():
     await seed_data()
+
+# ============ COUPON MODELS ============
+class Coupon(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    code: str
+    description: str = ""
+    discount_type: str = "percent"  # percent | fixed
+    discount_value: float
+    max_uses: int = 1000
+    current_uses: int = 0
+    min_order: float = 0
+    is_active: bool = True
+    expires_at: Optional[str] = None
+    created_at: str = Field(default_factory=now_iso)
+
+class CouponCreate(BaseModel):
+    code: str
+    description: str = ""
+    discount_type: str = "percent"
+    discount_value: float
+    max_uses: int = 1000
+    min_order: float = 0
+    is_active: bool = True
+    expires_at: Optional[str] = None
+
+class CouponUpdate(BaseModel):
+    description: Optional[str] = None
+    discount_value: Optional[float] = None
+    max_uses: Optional[int] = None
+    min_order: Optional[float] = None
+    is_active: Optional[bool] = None
+    expires_at: Optional[str] = None
+
+class ValidateCoupon(BaseModel):
+    code: str
+    subtotal: float
+
+class Banner(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = "site-banner"
+    title: str
+    message: str
+    coupon_code: Optional[str] = None
+    expires_at: Optional[str] = None
+    is_active: bool = True
+
+class BannerUpdate(BaseModel):
+    title: Optional[str] = None
+    message: Optional[str] = None
+    coupon_code: Optional[str] = None
+    expires_at: Optional[str] = None
+    is_active: Optional[bool] = None
 
 # ============ EMAIL ============
 async def send_email(to: str, subject: str, html: str):
@@ -453,7 +661,7 @@ async def create_order(body: OrderCreate):
         raise HTTPException(status_code=400, detail="Cart is empty")
     # Validate items and recompute totals from DB
     validated_items = []
-    total = 0.0
+    subtotal = 0.0
     for it in body.items:
         prod = await db.products.find_one({"id": it.product_id, "is_active": True}, {"_id": 0})
         if not prod:
@@ -462,18 +670,34 @@ async def create_order(body: OrderCreate):
         if not variant:
             raise HTTPException(status_code=400, detail=f"Variant not found for {prod['name']}")
         qty = max(1, int(it.quantity))
-        subtotal = round(variant["price"] * qty, 2)
-        total += subtotal
+        line_subtotal = round(variant["price"] * qty, 2)
+        subtotal += line_subtotal
         validated_items.append(OrderItem(
             product_id=prod["id"], product_name=prod["name"],
             variant_id=variant["id"], variant_label=variant["label"],
-            unit_price=variant["price"], quantity=qty, subtotal=subtotal,
+            unit_price=variant["price"], quantity=qty, subtotal=line_subtotal,
         ))
-    total = round(total, 2)
+    subtotal = round(subtotal, 2)
+    discount_amount = 0.0
+    coupon_code = None
+    if body.coupon_code:
+        code_up = body.coupon_code.strip().upper()
+        coupon = await db.coupons.find_one({"code": code_up, "is_active": True}, {"_id": 0})
+        if coupon:
+            if coupon.get("current_uses", 0) < coupon.get("max_uses", 0) and subtotal >= coupon.get("min_order", 0):
+                if coupon["discount_type"] == "percent":
+                    discount_amount = round(subtotal * (coupon["discount_value"] / 100), 2)
+                else:
+                    discount_amount = min(round(coupon["discount_value"], 2), subtotal)
+                coupon_code = code_up
+                await db.coupons.update_one({"code": code_up}, {"$inc": {"current_uses": 1}})
+    total = round(max(0, subtotal - discount_amount), 2)
     order_number = "BIK-" + datetime.now(timezone.utc).strftime("%Y%m%d") + "-" + uuid.uuid4().hex[:6].upper()
     order = Order(
         order_number=order_number, customer_name=body.customer_name,
-        customer_email=body.customer_email, items=validated_items, total=total,
+        customer_email=body.customer_email, items=validated_items,
+        subtotal=subtotal, discount_amount=discount_amount, coupon_code=coupon_code,
+        total=total,
     )
     await db.orders.insert_one(order.model_dump())
     return order
@@ -668,6 +892,71 @@ async def admin_update_product(product_id: str, body: ProductUpdate, admin_email
 async def admin_delete_product(product_id: str, admin_email: str = Depends(verify_admin)):
     await db.products.update_one({"id": product_id}, {"$set": {"is_active": False}})
     return {"status": "deleted"}
+
+# ============ COUPONS ============
+@api_router.post("/coupons/validate")
+async def validate_coupon(body: ValidateCoupon):
+    code_up = body.code.strip().upper()
+    coupon = await db.coupons.find_one({"code": code_up, "is_active": True}, {"_id": 0})
+    if not coupon:
+        raise HTTPException(status_code=404, detail="Invalid coupon code")
+    if coupon.get("current_uses", 0) >= coupon.get("max_uses", 0):
+        raise HTTPException(status_code=400, detail="Coupon has reached its usage limit")
+    if body.subtotal < coupon.get("min_order", 0):
+        raise HTTPException(status_code=400, detail=f"Minimum order of ${coupon['min_order']:.2f} required")
+    if coupon["discount_type"] == "percent":
+        discount = round(body.subtotal * (coupon["discount_value"] / 100), 2)
+    else:
+        discount = min(round(coupon["discount_value"], 2), body.subtotal)
+    return {
+        "code": coupon["code"], "description": coupon["description"],
+        "discount_type": coupon["discount_type"], "discount_value": coupon["discount_value"],
+        "discount_amount": discount, "new_total": round(body.subtotal - discount, 2),
+    }
+
+@api_router.get("/admin/coupons", response_model=List[Coupon])
+async def admin_list_coupons(admin_email: str = Depends(verify_admin)):
+    docs = await db.coupons.find({}, {"_id": 0}).sort("created_at", -1).to_list(500)
+    return [Coupon(**d) for d in docs]
+
+@api_router.post("/admin/coupons", response_model=Coupon)
+async def admin_create_coupon(body: CouponCreate, admin_email: str = Depends(verify_admin)):
+    body_up = body.model_dump()
+    body_up["code"] = body_up["code"].strip().upper()
+    if await db.coupons.find_one({"code": body_up["code"]}):
+        raise HTTPException(status_code=400, detail="Coupon code already exists")
+    coupon = Coupon(**body_up)
+    await db.coupons.insert_one(coupon.model_dump())
+    return coupon
+
+@api_router.patch("/admin/coupons/{coupon_id}", response_model=Coupon)
+async def admin_update_coupon(coupon_id: str, body: CouponUpdate, admin_email: str = Depends(verify_admin)):
+    upd = {k: v for k, v in body.model_dump(exclude_unset=True).items() if v is not None}
+    await db.coupons.update_one({"id": coupon_id}, {"$set": upd})
+    doc = await db.coupons.find_one({"id": coupon_id}, {"_id": 0})
+    if not doc:
+        raise HTTPException(status_code=404, detail="Coupon not found")
+    return Coupon(**doc)
+
+@api_router.delete("/admin/coupons/{coupon_id}")
+async def admin_delete_coupon(coupon_id: str, admin_email: str = Depends(verify_admin)):
+    await db.coupons.delete_one({"id": coupon_id})
+    return {"status": "deleted"}
+
+# ============ BANNER ============
+@api_router.get("/banner")
+async def get_banner():
+    doc = await db.banner.find_one({"id": "site-banner"}, {"_id": 0})
+    if not doc or not doc.get("is_active"):
+        return None
+    return doc
+
+@api_router.patch("/admin/banner")
+async def admin_update_banner(body: BannerUpdate, admin_email: str = Depends(verify_admin)):
+    upd = {k: v for k, v in body.model_dump(exclude_unset=True).items() if v is not None}
+    await db.banner.update_one({"id": "site-banner"}, {"$set": upd}, upsert=True)
+    doc = await db.banner.find_one({"id": "site-banner"}, {"_id": 0})
+    return doc
 
 app.include_router(api_router)
 app.add_middleware(

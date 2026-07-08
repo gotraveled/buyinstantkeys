@@ -1,0 +1,47 @@
+{
+  "summary": "Iteration 2 testing of Norton store additions (20 products, box_variant SVGs, coupons WELCOME10/SAVE20/FLASH70, offer banner, orders w/ coupon). Backend: 15/15 pytest cases passed. Frontend: banner+countdown+close, 20 product cards (all requested slugs present), product-detail for norton-360-with-lifelock-ultimate-plus (name/price $159.99/SVG box), cart coupon apply/discount/remove, checkout with coupon-adjusted total, order-success and DB order shows coupon_code='WELCOME10' and discount_amount=16.0.",
+  "tested_scope": ["backend", "frontend", "integration"],
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "passed_backend": [
+    "GET /api/products → 20 items",
+    "All 20 products carry non-empty box_variant ∈ {gold,amber,black,green,purple}",
+    "All 10 NEW slugs present (antitrack, identity-advisor-plus, lifelock select/select-plus/advantage/ultimate-plus, 360-deluxe-advantage, ultimate-help-desk, genie-scam-detector, vpn)",
+    "norton-360-with-lifelock-ultimate-plus base price $159.99",
+    "POST /api/coupons/validate WELCOME10 subtotal=100 → discount=10, new_total=90",
+    "SAVE20 subtotal=50 → 400 (min_order 80)",
+    "INVALID → 404",
+    "lowercase 'save20' → case-insensitive success, discount=20",
+    "POST /api/orders with WELCOME10 → order.subtotal, discount_amount>0, coupon_code='WELCOME10', total=subtotal-discount",
+    "POST /api/orders with INVALID coupon → order created, discount_amount=0",
+    "POST /api/orders with SAVE20 & subtotal<80 → order created, discount_amount=0",
+    "GET /api/banner (public) → title, coupon_code='FLASH70', is_active=true, expires_at set",
+    "GET /api/admin/coupons contains WELCOME10, SAVE20, FLASH70",
+    "POST /api/admin/coupons uppercases code; duplicate returns 400; PATCH is_active=false makes public validate return 404; DELETE succeeds",
+    "PATCH /api/admin/banner updates title reflected in GET /api/banner"
+  ],
+  "passed_frontend": [
+    "offer-banner visible at top with MEGA SAVINGS EVENT title, FLASH70 code, offer-countdown timer",
+    "offer-banner-close removes banner",
+    "/products shows 20 cards; testids for antitrack, lifelock-select, identity-advisor-plus, vpn, ultimate-help-desk all present",
+    "/product/norton-360-with-lifelock-ultimate-plus: product-name='Norton 360 with LifeLock Ultimate Plus', product-price='$159.99', SVG product-box-<slug> rendered",
+    "Cart: cart-coupon-input + apply with WELCOME10 shows cart-coupon-applied, cart-discount=-$16.00, cart-total $159.99→$143.99; remove restores to $159.99",
+    "Checkout retains coupon (checkout-total $143.99); simulate-btn creates order",
+    "Order-success page shows order number BIK-20260708-11A552",
+    "Backend verification: order has coupon_code='WELCOME10' and discount_amount=16.0"
+  ],
+  "test_report_links": ["/app/backend/tests/backend_test.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py at 972 lines is approaching the 700-line split threshold — consider extracting coupons/banner/admin modules for future maintainability.",
+    "Prior iteration_1 issue (admin-deliver on non-paid order returning 200 instead of 400) was noted as fixed but not re-tested in this iteration; unchanged by new features."
+  ],
+  "updated_files": ["/app/backend/tests/backend_test.py"],
+  "success_rate": {"backend": "100% (15/15)", "frontend": "100% (all requested testids and flows verified)"},
+  "test_credentials": "admin@buyinstantkeys.com / Admin@123456",
+  "seed_data_creation": "Test orders created with customer_email TEST_coupon@example.com and TEST_buyer/x/y@e.com; admin coupon TEST10 create/delete cycle self-cleans.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "mocked_apis_note": "PayPal and Resend still in MOCK mode as documented; not re-verified beyond simulate-payment happy path.",
+  "context_for_next_testing_agent": "All new endpoints and UI wiring for coupons/banner/box_variant are green. If reseeding again, verify FLASH70 banner + 3 default coupons repopulate via SEED_VERSION bump."
+}

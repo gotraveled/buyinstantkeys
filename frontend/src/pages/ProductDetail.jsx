@@ -4,6 +4,7 @@ import { api } from "@/lib/api";
 import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
 import { StarRating } from "@/components/Trust";
+import ProductBox from "@/components/ProductBox";
 import { ShieldCheck, Check, ArrowRight, Envelope, LockKey } from "@phosphor-icons/react";
 
 export default function ProductDetail() {
@@ -47,8 +48,8 @@ export default function ProductDetail() {
       </div>
       <div className="grid gap-12 lg:grid-cols-2">
         <div>
-          <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-50">
-            <img src={product.image_url} alt={product.name} className="h-[420px] w-full object-cover" />
+          <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white p-4">
+            <ProductBox product={product} size="lg" />
           </div>
           <div className="mt-6 grid grid-cols-3 gap-3">
             {[<ShieldCheck size={20} weight="duotone" />, <Envelope size={20} weight="duotone" />, <LockKey size={20} weight="duotone" />].map((icon, i) => (

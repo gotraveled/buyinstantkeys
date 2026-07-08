@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
-import { Package, CheckCircle, Clock, Envelope } from "@phosphor-icons/react";
+import { Package, Clock, Envelope } from "@phosphor-icons/react";
 
 const statusMeta = {
   pending: { label: "Awaiting payment", color: "bg-neutral-100 text-neutral-700" },

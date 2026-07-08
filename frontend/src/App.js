@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import { CartProvider } from "@/lib/cart";
 import Navbar from "@/components/Layout/Navbar";
 import Footer from "@/components/Layout/Footer";
+import OfferBanner from "@/components/OfferBanner";
 import Home from "@/pages/Home";
 import Products from "@/pages/Products";
 import ProductDetail from "@/pages/ProductDetail";
@@ -27,6 +28,7 @@ function ScrollToTop() {
 function Layout({ children, showChrome = true }) {
   return (
     <div className="App flex min-h-screen flex-col">
+      {showChrome && <OfferBanner />}
       {showChrome && <Navbar />}
       <main className="flex-1">{children}</main>
       {showChrome && <Footer />}
