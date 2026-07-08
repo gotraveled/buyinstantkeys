@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
@@ -15,7 +15,7 @@ export default function AdminDashboard() {
   const token = typeof window !== "undefined" ? localStorage.getItem("bik_admin_token") : null;
   const adminEmail = typeof window !== "undefined" ? localStorage.getItem("bik_admin_email") : null;
 
-  const load = async () => {
+  const load = useCallback(async () => {
     try {
       const [s, o, p] = await Promise.all([
         api.get("/admin/stats"),
@@ -29,13 +29,13 @@ export default function AdminDashboard() {
         nav("/admin/login");
       }
     }
-  };
+  }, [filter, nav]);
 
   useEffect(() => {
     if (!token) { nav("/admin/login"); return; }
     load();
      
-  }, [token, filter]);
+  }, [token, load, nav]);
 
   const logout = () => {
     localStorage.removeItem("bik_admin_token");
