@@ -48,19 +48,43 @@ export default function Home() {
             </div>
           </div>
           <div className="relative">
-            <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-br from-neutral-100 to-yellow-50 blur-2xl" />
-            <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-gradient-to-br from-white to-neutral-50 p-6 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.25)]">
-              <div className="mx-auto flex h-[440px] w-full items-center justify-center">
-                {heroProduct && <ProductBox product={heroProduct} size="lg" />}
-              </div>
-              <div className="mt-4 rounded-xl border border-neutral-200 bg-white/95 p-4">
-                <div className="flex items-center gap-3">
-                  <div className="grid h-11 w-11 place-items-center rounded-lg bg-neutral-900 text-[#FCE029]"><Envelope size={22} weight="duotone" /></div>
-                  <div>
-                    <div className="font-display text-sm font-semibold">License delivered to your inbox</div>
-                    <div className="text-xs text-neutral-500">Typically within 5–15 minutes after payment</div>
-                  </div>
+            <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-br from-yellow-50 via-white to-neutral-50 blur-2xl" />
+
+            {/* Hero composition: layered product cards + floating trust badges */}
+            <div className="relative mx-auto flex h-[480px] w-full max-w-[520px] items-center justify-center">
+              {/* Background soft grid */}
+              <div className="absolute inset-0 rounded-3xl border border-neutral-200 bg-white/80 backdrop-blur"
+                   style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(0,0,0,0.06) 1px, transparent 0)", backgroundSize: "20px 20px" }} />
+
+              {/* Big central shield */}
+              <div className="relative z-10 grid h-56 w-56 place-items-center rounded-full bg-white shadow-[0_30px_60px_-20px_rgba(252,194,32,0.55)]">
+                <div className="grid h-44 w-44 place-items-center rounded-full bg-[#FFC220]">
+                  <ShieldCheck size={90} weight="fill" className="text-white" />
                 </div>
+              </div>
+
+              {/* Left floating product card */}
+              {heroProduct && (
+                <div className="absolute left-2 top-8 z-20 w-44 -rotate-[8deg] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.25)]" style={{ height: 220 }}>
+                  <ProductBox product={heroProduct} size="sm" />
+                </div>
+              )}
+              {/* Right floating product card */}
+              {featured[1] && (
+                <div className="absolute right-2 bottom-8 z-20 w-44 rotate-[8deg] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.25)]" style={{ height: 220 }}>
+                  <ProductBox product={featured[1]} size="sm" />
+                </div>
+              )}
+
+              {/* Floating pill: PayPal secure */}
+              <div className="absolute -bottom-3 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2 rounded-full border border-neutral-200 bg-white px-4 py-2 shadow-lg">
+                <LockKey size={16} weight="duotone" />
+                <span className="text-xs font-semibold">Instant email delivery · 5–15 min</span>
+              </div>
+
+              {/* Floating small badge (top-right) */}
+              <div className="absolute right-4 top-4 z-30 flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[11px] font-semibold text-emerald-700">
+                <CheckCircle size={12} weight="fill" /> 100% Genuine
               </div>
             </div>
           </div>

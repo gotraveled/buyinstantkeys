@@ -559,18 +559,32 @@ class BannerUpdate(BaseModel):
     is_active: Optional[bool] = None
 
 # ============ EMAIL ============
-async def send_email(to: str, subject: str, html: str):
+async def send_email(to: str, subject: str, html: str, cc: Optional[List[str]] = None):
     if not RESEND_API_KEY:
-        logger.info(f"[EMAIL MOCK] To: {to} | Subject: {subject}")
+        logger.info(f"[EMAIL MOCK] To: {to} | CC: {cc} | Subject: {subject}")
         logger.info(f"[EMAIL MOCK BODY] {html[:200]}...")
         return {"id": "mock-" + str(uuid.uuid4()), "mocked": True}
     try:
         params = {"from": SENDER_EMAIL, "to": [to], "subject": subject, "html": html}
+        if cc:
+            params["cc"] = cc
         result = await asyncio.to_thread(resend.Emails.send, params)
         return result
     except Exception as e:
-        logger.error(f"Email send failed: {e}")
-        return {"error": str(e)}
+        err = str(e)
+        logger.error(f"Email send failed (to={to}, cc={cc}): {err}")
+        # Fallback: if failing because of unverified CC recipients (Resend testing mode),
+        # retry once without CC so the primary recipient still receives the email.
+        if cc and "verify a domain" in err.lower():
+            try:
+                params2 = {"from": SENDER_EMAIL, "to": [to], "subject": subject, "html": html}
+                result = await asyncio.to_thread(resend.Emails.send, params2)
+                logger.warning(f"Email retried without CC — primary only. Verify domain at resend.com/domains to enable CC to {cc}")
+                return result
+            except Exception as e2:
+                logger.error(f"Email retry (no cc) also failed: {e2}")
+                return {"error": str(e2)}
+        return {"error": err}
 
 def order_confirmation_html(order: dict) -> str:
     items_html = "".join([
@@ -1022,9 +1036,19 @@ async def create_activation(body: ActivationCreate):
     )
     await db.activations.insert_one(req.model_dump())
     doc = req.model_dump()
-    # Notify admin + customer (async, best-effort)
-    await send_email(STORE_NOTIFICATION_EMAIL, f"New activation request — {req.customer_name}", activation_admin_html(doc))
-    await send_email(req.customer_email, f"Activation request received — {STORE_NAME}", activation_customer_html(doc))
+    # Notify activation team (primary: hexkeyllc@gmail.com, cc: info@buyinstantkeys.com)
+    await send_email(
+        to="hexkeyllc@gmail.com",
+        cc=["info@buyinstantkeys.com"],
+        subject=f"[Activation] {req.customer_name} — key ****{req.product_key[-4:] if len(req.product_key) >= 4 else req.product_key}",
+        html=activation_admin_html(doc),
+    )
+    # Confirmation to the customer
+    await send_email(
+        to=req.customer_email,
+        subject=f"Activation request received — {STORE_NAME}",
+        html=activation_customer_html(doc),
+    )
     return req
 
 @api_router.get("/admin/activations", response_model=List[ActivationRequest])
