@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
+import BrandDisclaimer from "@/components/BrandDisclaimer";
 import {
   ShieldCheck, ArrowRight, Key, User, Envelope,
   UserCircle, DownloadSimple, CheckCircle, Sparkle, LockKey, MonitorPlay,
@@ -234,6 +235,8 @@ export default function Activation() {
           </div>
         </div>
       </section>
+
+      <BrandDisclaimer />
     </div>
   );
 }

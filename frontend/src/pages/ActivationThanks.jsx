@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { CheckCircle, ChatCircleDots, Envelope, ShieldCheck, ArrowRight, Clock } from "@phosphor-icons/react";
+import BrandDisclaimer from "@/components/BrandDisclaimer";
 
 export default function ActivationThanks() {
   const openChat = () => {
@@ -87,6 +88,7 @@ export default function ActivationThanks() {
           </div>
         </div>
       </section>
+      <BrandDisclaimer />
     </div>
   );
 }

@@ -16,6 +16,11 @@ import OrderTrack from "@/pages/OrderTrack";
 import FAQ from "@/pages/FAQ";
 import Contact from "@/pages/Contact";
 import RefundPolicy from "@/pages/RefundPolicy";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import Terms from "@/pages/Terms";
+import Disclaimer from "@/pages/Disclaimer";
+import DigitalDelivery from "@/pages/DigitalDelivery";
+import About from "@/pages/About";
 import Activation from "@/pages/Activation";
 import ActivationThanks from "@/pages/ActivationThanks";
 import AdminLogin from "@/pages/AdminLogin";
@@ -56,6 +61,14 @@ function AppShell() {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/refund-policy" element={<RefundPolicy />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/terms-and-conditions" element={<Terms />} />
+        <Route path="/disclaimer" element={<Disclaimer />} />
+        <Route path="/digital-delivery" element={<DigitalDelivery />} />
+        <Route path="/how-it-works" element={<DigitalDelivery />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/about-us" element={<About />} />
         <Route path="/activation" element={<Activation />} />
         <Route path="/activation/thanks" element={<ActivationThanks />} />
         <Route path="/admin/login" element={<AdminLogin />} />
