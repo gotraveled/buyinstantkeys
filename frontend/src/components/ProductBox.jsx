@@ -1,4 +1,4 @@
-import { ShieldCheck, WindowsLogo, AppleLogo, AndroidLogo, CheckCircle } from "@phosphor-icons/react";
+import { ShieldCheck, WindowsLogo, AppleLogo, AndroidLogo, CheckCircle, Lightning, LockKey, Envelope, Star } from "@phosphor-icons/react";
 
 // Light 3D packaging palette with better text visibility
 const PALETTE = {
@@ -129,7 +129,8 @@ export default function ProductBox({ product, variant, size = "md", showRibbon =
                     className="font-display font-semibold leading-tight"
                     style={{
                       fontSize: size === "lg" ? 16 : 12,
-                      color: cfg.secondary,
+                      color: "#FFFFFF",
+                      textShadow: "0 1px 2px rgba(0,0,0,0.3)",
                     }}
                   >
                     {name}
@@ -163,6 +164,42 @@ export default function ProductBox({ product, variant, size = "md", showRibbon =
               {product?.category || cfg.tag}
             </div>
 
+            {/* Trust badges */}
+            {showDetails && (
+              <div className="mt-3 flex flex-wrap gap-2">
+                <div
+                  className="flex items-center gap-1.5 rounded-full px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.08em]"
+                  style={{
+                    color: "#059669",
+                    background: "rgba(5,150,105,0.1)",
+                  }}
+                >
+                  <Lightning size={10} weight="fill" />
+                  Instant Delivery
+                </div>
+                <div
+                  className="flex items-center gap-1.5 rounded-full px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.08em]"
+                  style={{
+                    color: "#7C3AED",
+                    background: "rgba(124,58,237,0.1)",
+                  }}
+                >
+                  <LockKey size={10} weight="fill" />
+                  Secure
+                </div>
+                <div
+                  className="flex items-center gap-1.5 rounded-full px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.08em]"
+                  style={{
+                    color: "#DC2626",
+                    background: "rgba(220,38,38,0.1)",
+                  }}
+                >
+                  <Star size={10} weight="fill" />
+                  100% Genuine
+                </div>
+              </div>
+            )}
+
             {/* Features */}
             {showDetails && features.length > 0 && (
               <ul className="mt-4 space-y-2">
@@ -173,6 +210,14 @@ export default function ProductBox({ product, variant, size = "md", showRibbon =
                   </li>
                 ))}
               </ul>
+            )}
+
+            {/* Additional info */}
+            {showDetails && (
+              <div className="mt-3 flex items-center gap-2 text-xs" style={{ color: "#6B7280" }}>
+                <Envelope size={14} weight="duotone" />
+                <span>Email delivery in 5-15 min</span>
+              </div>
             )}
 
             {/* Spacer */}
