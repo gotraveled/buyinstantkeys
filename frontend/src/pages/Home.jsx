@@ -66,7 +66,7 @@ export default function Home() {
       <div>
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-neutral-200 grain-bg">
-        <div className="container-page grid gap-12 py-20 md:grid-cols-2 md:py-32">
+        <div className="container-page grid gap-12 py-10 md:grid-cols-2 md:py-16">
           <div className="fade-up">
             <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-700">
               <ShieldCheck size={14} weight="fill" className="text-emerald-600" /> Trusted reseller · 100% genuine
