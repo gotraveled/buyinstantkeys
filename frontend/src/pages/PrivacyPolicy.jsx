@@ -1,4 +1,5 @@
 import PolicyLayout, { Section } from "@/components/PolicyLayout";
+import SEO from "@/components/SEO";
 
 const SECTIONS = [
   { id: "intro", title: "1. Introduction" },
@@ -21,12 +22,18 @@ const SECTIONS = [
 
 export default function PrivacyPolicy() {
   return (
-    <PolicyLayout
-      title="Privacy Policy"
-      subtitle="How we collect, use, and protect your personal information when you purchase Norton license keys from BuyInstantKeys."
-      lastUpdated="February 1, 2026"
-      sections={SECTIONS}
-    >
+    <>
+      <SEO
+        title="Privacy Policy | BuyInstantKeys"
+        description="Read BuyInstantKeys privacy policy. Learn how we collect, use, and protect your personal information when purchasing Norton license keys."
+        keywords="BuyInstantKeys privacy policy, data protection, personal information security, Norton key purchase privacy, customer data protection"
+      />
+      <PolicyLayout
+        title="Privacy Policy"
+        subtitle="How we collect, use, and protect your personal information when you purchase Norton license keys from BuyInstantKeys."
+        lastUpdated="February 1, 2026"
+        sections={SECTIONS}
+      >
       <Section id="intro" title="1. Introduction">
         <p>BuyInstantKeys ("we", "our", "us", "the Company") is committed to protecting the privacy of our customers, visitors, and users of our website located at buyinstantkeys.com (the "Site"). This Privacy Policy explains what personal information we collect, how we use and share that information, and the rights you have regarding your personal data.</p>
         <p>By accessing or using the Site, submitting an order, or otherwise providing us with your personal information, you agree to the collection and use of information in accordance with this Privacy Policy. If you do not agree with our policies and practices, do not use the Site.</p>
@@ -189,5 +196,6 @@ export default function PrivacyPolicy() {
         </p>
       </Section>
     </PolicyLayout>
+    </>
   );
 }

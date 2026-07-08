@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://buyinstantkeys.com/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /cart
+Disallow: /checkout
+
+# Disallow tracking parameters
+Disallow: /*?*
+
+# Crawl-delay (optional, be respectful)
+Crawl-delay: 1

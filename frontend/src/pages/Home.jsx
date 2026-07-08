@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { api } from "@/lib/api";
 import ProductCard from "@/components/ProductCard";
 import ProductBox from "@/components/ProductBox";
+import SEO from "@/components/SEO";
 import { TrustBadges, TrustMarquee, StarRating } from "@/components/Trust";
 import { ShieldCheck, LockKey, Envelope, CreditCard, Lightning, ArrowRight, CheckCircle } from "@phosphor-icons/react";
 
@@ -17,14 +18,58 @@ export default function Home() {
     }).catch(() => {});
   }, []);
 
+  const homeSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "BuyInstantKeys",
+    "url": "https://buyinstantkeys.com",
+    "description": "Buy genuine Norton license keys at up to 70% off retail. Instant email delivery, 100% authentic keys, 30-day money-back guarantee.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://buyinstantkeys.com/products?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "BuyInstantKeys",
+    "url": "https://buyinstantkeys.com",
+    "logo": "https://buyinstantkeys.com/logo.png",
+    "description": "Independent digital software reseller specializing in genuine Norton license keys with instant email delivery.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Westwood Street",
+      "addressLocality": "Hayward",
+      "addressRegion": "CA",
+      "postalCode": "94544",
+      "addressCountry": "US"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-510-555-0123",
+      "contactType": "customer service",
+      "email": "info@buyinstantkeys.com",
+      "availableLanguage": "English"
+    }
+  };
+
   return (
-    <div>
+    <>
+      <SEO
+        title="Buy Norton License Keys - Instant Delivery | Up to 70% Off"
+        description="Buy genuine Norton 360, Norton with LifeLock, VPN & more at up to 70% off retail. Instant email delivery, 100% authentic keys, 30-day money-back guarantee. Norton 360 Deluxe with LifeLock deals."
+        keywords="Norton 360 Deluxe with LifeLock, Norton license keys, Norton 360, Norton antivirus, Norton VPN, LifeLock identity protection, Norton 360 Premium, Norton 360 Deluxe, cheap Norton keys, genuine Norton software"
+        schema={[homeSchema, organizationSchema]}
+      />
+      <div>
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-neutral-200 grain-bg">
         <div className="container-page grid gap-12 py-20 md:grid-cols-2 md:py-32">
           <div className="fade-up">
             <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-700">
-              <ShieldCheck size={14} weight="fill" className="text-emerald-600" /> Authorized reseller · 100% genuine
+              <ShieldCheck size={14} weight="fill" className="text-emerald-600" /> Trusted reseller · 100% genuine
             </div>
             <h1 className="mt-6 font-display text-4xl font-bold leading-[1.05] tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl">
               Norton license keys.<br />
@@ -157,5 +202,6 @@ export default function Home() {
         </div>
       </section>
     </div>
+    </>
   );
 }

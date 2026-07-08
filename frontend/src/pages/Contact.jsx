@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import SEO from "@/components/SEO";
 import { Envelope, ChatCircle, MapPin, Phone } from "@phosphor-icons/react";
 
 export default function Contact() {
@@ -9,8 +10,42 @@ export default function Contact() {
     toast.success("Message sent!", { description: "We'll reply within 12 hours." });
     setForm({ name: "", email: "", message: "" });
   };
+
+  const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "BuyInstantKeys",
+      "url": "https://buyinstantkeys.com",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-510-555-0123",
+        "contactType": "customer service",
+        "email": "info@buyinstantkeys.com",
+        "availableLanguage": "English",
+        "areaServed": "US"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Westwood Street",
+        "addressLocality": "Hayward",
+        "addressRegion": "CA",
+        "postalCode": "94544",
+        "addressCountry": "US"
+      }
+    }
+  };
+
   return (
-    <div className="container-page py-14">
+    <>
+      <SEO
+        title="Contact Us | BuyInstantKeys"
+        description="Get in touch with BuyInstantKeys for Norton license key inquiries, order assistance, and activation help. We respond within 12 hours."
+        keywords="Contact BuyInstantKeys, Norton customer service, Norton key assistance, order inquiry, activation help, Norton support contact"
+        schema={[contactSchema]}
+      />
+      <div className="container-page py-14">
       <div className="mx-auto max-w-4xl">
         <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Contact</div>
         <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">We're here to help</h1>
@@ -53,5 +88,6 @@ export default function Contact() {
         </form>
       </div>
     </div>
+    </>
   );
 }

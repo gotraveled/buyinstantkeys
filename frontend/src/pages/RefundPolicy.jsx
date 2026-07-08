@@ -1,4 +1,5 @@
 import PolicyLayout, { Section } from "@/components/PolicyLayout";
+import SEO from "@/components/SEO";
 
 const SECTIONS = [
   { id: "overview", title: "1. Overview" },
@@ -15,12 +16,18 @@ const SECTIONS = [
 
 export default function RefundPolicy() {
   return (
-    <PolicyLayout
-      title="Refund Policy"
-      subtitle="We stand behind every Norton license we sell. If something goes wrong, we make it right."
-      lastUpdated="February 1, 2026"
-      sections={SECTIONS}
-    >
+    <>
+      <SEO
+        title="Refund Policy | BuyInstantKeys - 30 Day Money Back Guarantee"
+        description="Read BuyInstantKeys refund policy. 30-day money-back guarantee for Norton license keys. Easy refund process if your key doesn't work."
+        keywords="BuyInstantKeys refund policy, Norton key refund, 30 day money back guarantee, Norton license refund, money back guarantee, refund process"
+      />
+      <PolicyLayout
+        title="Refund Policy"
+        subtitle="We stand behind every Norton license we sell. If something goes wrong, we make it right."
+        lastUpdated="February 1, 2026"
+        sections={SECTIONS}
+      >
       <Section id="overview" title="1. Overview">
         <p>At BuyInstantKeys, customer satisfaction is our top priority. This Refund Policy explains when and how you may request a refund for digital License keys purchased through our website at buyinstantkeys.com. This policy is part of our <a href="/terms" className="underline">Terms and Conditions</a>.</p>
         <p>Because Products sold on our Site are digital License keys (not physical goods), refund conditions are specific to the nature of software licenses. Please read this policy carefully before placing an Order.</p>
@@ -104,5 +111,6 @@ export default function RefundPolicy() {
         </p>
       </Section>
     </PolicyLayout>
+    </>
   );
 }

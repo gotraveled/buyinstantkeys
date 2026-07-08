@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { api } from "@/lib/api";
+import SEO from "@/components/SEO";
 import ProductCard from "@/components/ProductCard";
 
 export default function Products() {
@@ -24,8 +25,39 @@ export default function Products() {
 
   const allCategories = ["All", "Norton 360", "AntiVirus", "Privacy", "Utilities", "Family", "Business", "Gaming", "Mobile"];
 
+  const categoryTitle = category ? `${category} Products` : "All Norton Products";
+  const categoryDescription = category 
+    ? `Browse our ${category} collection. Genuine Norton ${category} software at up to 70% off retail with instant email delivery.`
+    : "Browse our complete Norton product catalog. Norton 360, LifeLock, VPN, AntiVirus and more at up to 70% off retail.";
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://buyinstantkeys.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": categoryTitle,
+        "item": `https://buyinstantkeys.com/products${category ? '?category=' + category : ''}`
+      }
+    ]
+  };
+
   return (
-    <div className="container-page py-14">
+    <>
+      <SEO
+        title={categoryTitle}
+        description={categoryDescription}
+        keywords={`${category || 'Norton products'}, Norton 360 Deluxe with LifeLock, Norton license keys, ${category || 'Norton antivirus, Norton VPN, LifeLock'}, genuine Norton software, cheap Norton keys`}
+        schema={[breadcrumbSchema]}
+      />
+      <div className="container-page py-14">
       <div className="mb-8">
         <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Catalog</div>
         <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">All Norton products</h1>
@@ -70,5 +102,6 @@ export default function Products() {
         </div>
       )}
     </div>
+    </>
   );
 }

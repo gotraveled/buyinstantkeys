@@ -12,7 +12,7 @@ export default function Footer() {
             <span className="font-display text-lg font-bold">BuyInstantKeys</span>
           </div>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-neutral-600">
-            An independent digital software reseller. Authentic Norton license keys with instant email delivery and 24/7 human support.
+            An independent digital software reseller. Authentic Norton license keys with instant email delivery and 24/7 customer service.
           </p>
           <div className="mt-5 space-y-1.5 text-sm text-neutral-700">
             <div className="flex items-start gap-2">
@@ -39,7 +39,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Help</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Resources</div>
           <ul className="mt-4 space-y-2 text-sm">
             <li><Link to="/track" className="text-neutral-700 hover:text-neutral-900">Track Order</Link></li>
             <li><Link to="/digital-delivery" className="text-neutral-700 hover:text-neutral-900">How Digital Delivery Works</Link></li>

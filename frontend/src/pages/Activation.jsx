@@ -51,8 +51,8 @@ export default function Activation() {
           </div>
           <div className="hidden items-center gap-4 text-sm text-neutral-700 md:flex">
             <a href="#activation-form" className="hover:text-neutral-900">Activate</a>
-            <Link to="/faq" className="hover:text-neutral-900">Help</Link>
-            <Link to="/contact" className="hover:text-neutral-900">Support</Link>
+            <Link to="/faq" className="hover:text-neutral-900">Resources</Link>
+            <Link to="/contact" className="hover:text-neutral-900">Contact Us</Link>
           </div>
         </div>
       </div>
@@ -73,7 +73,7 @@ export default function Activation() {
             <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-neutral-700">
               <div className="inline-flex items-center gap-1.5"><CheckCircle size={16} weight="fill" className="text-emerald-600" /> 100% genuine keys</div>
               <div className="inline-flex items-center gap-1.5"><CheckCircle size={16} weight="fill" className="text-emerald-600" /> Free installation help</div>
-              <div className="inline-flex items-center gap-1.5"><CheckCircle size={16} weight="fill" className="text-emerald-600" /> 24/7 support</div>
+              <div className="inline-flex items-center gap-1.5"><CheckCircle size={16} weight="fill" className="text-emerald-600" /> 24/7 customer service</div>
             </div>
           </div>
 
@@ -122,7 +122,7 @@ export default function Activation() {
                 <div>
                   <div className="font-display font-semibold">Where do I find my 25-digit product key?</div>
                   <p className="mt-1 text-sm text-neutral-700">
-                    You'll find your product key in the email we sent after purchase. It's a 25-character alphanumeric code formatted like <code className="font-mono">XXXXX-XXXXX-XXXXX-XXXXX-XXXXX</code>. If you can't find it, <Link to="/contact" className="font-semibold underline">contact support</Link>.
+                    You'll find your product key in the email we sent after purchase. It's a 25-character alphanumeric code formatted like <code className="font-mono">XXXXX-XXXXX-XXXXX-XXXXX-XXXXX</code>. If you can't find it, <Link to="/contact" className="font-semibold underline">contact us</Link>.
                   </p>
                 </div>
               </div>
@@ -220,7 +220,7 @@ export default function Activation() {
 
               <div className="mt-6 flex items-center justify-center gap-4 border-t border-neutral-200 pt-4 text-xs text-neutral-600">
                 <div className="inline-flex items-center gap-1.5"><ShieldCheck size={14} weight="fill" className="text-emerald-600" /> SSL Secured</div>
-                <div className="inline-flex items-center gap-1.5"><CheckCircle size={14} weight="fill" className="text-emerald-600" /> Human support</div>
+                <div className="inline-flex items-center gap-1.5"><CheckCircle size={14} weight="fill" className="text-emerald-600" /> Human assistance</div>
               </div>
             </div>
           </div>

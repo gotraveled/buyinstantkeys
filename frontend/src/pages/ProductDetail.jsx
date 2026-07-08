@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "@/lib/api";
 import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
+import SEO from "@/components/SEO";
 import { StarRating } from "@/components/Trust";
 import ProductBox from "@/components/ProductBox";
 import { ShieldCheck, Check, ArrowRight, Envelope, LockKey } from "@phosphor-icons/react";
@@ -41,8 +42,71 @@ export default function ProductDetail() {
     if (goCheckout) nav("/cart");
   };
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.name,
+    "description": product.description,
+    "image": product.image_url || "https://buyinstantkeys.com/products/default.jpg",
+    "brand": {
+      "@type": "Brand",
+      "name": "Norton"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": `https://buyinstantkeys.com/product/${product.slug}`,
+      "priceCurrency": "USD",
+      "price": variant.price,
+      "priceValidUntil": "2025-12-31",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "BuyInstantKeys",
+        "url": "https://buyinstantkeys.com"
+      }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "340"
+    }
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://buyinstantkeys.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Products",
+        "item": "https://buyinstantkeys.com/products"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": product.name,
+        "item": `https://buyinstantkeys.com/product/${product.slug}`
+      }
+    ]
+  };
+
   return (
-    <div className="container-page py-14">
+    <>
+      <SEO
+        title={`${product.name} - ${variant.label} | BuyInstantKeys`}
+        description={`${product.description} Get ${product.name} at ${savings > 0 ? savings + '% off' : 'best price'}. Instant email delivery, 100% genuine Norton license key, 30-day money-back guarantee.`}
+        keywords={`${product.name}, ${product.category}, Norton 360 Deluxe with LifeLock, Norton license key, ${product.tagline}, genuine Norton software, cheap Norton ${product.category}`}
+        ogType="product"
+        schema={[productSchema, breadcrumbSchema]}
+      />
+      <div className="container-page py-14">
       <div className="mb-6 text-sm text-neutral-500">
         <Link to="/products" className="hover:text-neutral-900">Products</Link> / <span className="text-neutral-900">{product.name}</span>
       </div>
@@ -134,5 +198,6 @@ export default function ProductDetail() {
         </div>
       </div>
     </div>
+    </>
   );
 }

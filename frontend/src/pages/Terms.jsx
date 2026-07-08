@@ -1,4 +1,5 @@
 import PolicyLayout, { Section } from "@/components/PolicyLayout";
+import SEO from "@/components/SEO";
 
 const SECTIONS = [
   { id: "acceptance", title: "1. Acceptance of terms" },
@@ -23,12 +24,18 @@ const SECTIONS = [
 
 export default function Terms() {
   return (
-    <PolicyLayout
-      title="Terms and Conditions"
-      subtitle="These Terms govern your use of BuyInstantKeys.com and the purchase of digital license keys through our platform."
-      lastUpdated="February 1, 2026"
-      sections={SECTIONS}
-    >
+    <>
+      <SEO
+        title="Terms & Conditions | BuyInstantKeys"
+        description="Read BuyInstantKeys terms and conditions for Norton license key purchases. Understand our refund policy, delivery terms, and customer rights."
+        keywords="BuyInstantKeys terms, Norton license terms, refund policy terms, digital delivery terms, purchase conditions, Norton key terms and conditions"
+      />
+      <PolicyLayout
+        title="Terms and Conditions"
+        subtitle="These Terms govern your use of BuyInstantKeys.com and the purchase of digital license keys through our platform."
+        lastUpdated="February 1, 2026"
+        sections={SECTIONS}
+      >
       <Section id="acceptance" title="1. Acceptance of terms">
         <p>Welcome to BuyInstantKeys ("we", "us", "our", or "the Company"). These Terms and Conditions ("Terms") constitute a legally binding agreement between you ("Customer", "you", "your") and BuyInstantKeys governing your access to and use of the website located at <strong>buyinstantkeys.com</strong> (the "Site") and any purchases you make through it.</p>
         <p>By accessing the Site, creating an account, submitting an order, or using any of our services, you acknowledge that you have read, understood, and agree to be bound by these Terms and by our Privacy Policy, Refund Policy, and Disclaimer, which are incorporated herein by reference. If you do not agree to these Terms, you must not use the Site.</p>
@@ -131,5 +138,6 @@ export default function Terms() {
         </p>
       </Section>
     </PolicyLayout>
+    </>
   );
 }

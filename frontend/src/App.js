@@ -1,6 +1,7 @@
 import "@/App.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { Toaster } from "sonner";
 import { CartProvider } from "@/lib/cart";
 import Navbar from "@/components/Layout/Navbar";
@@ -23,6 +24,7 @@ import DigitalDelivery from "@/pages/DigitalDelivery";
 import About from "@/pages/About";
 import Activation from "@/pages/Activation";
 import ActivationThanks from "@/pages/ActivationThanks";
+import CategoryPage from "@/pages/CategoryPage";
 import AdminLogin from "@/pages/AdminLogin";
 import AdminDashboard from "@/pages/AdminDashboard";
 
@@ -71,6 +73,7 @@ function AppShell() {
         <Route path="/about-us" element={<About />} />
         <Route path="/activation" element={<Activation />} />
         <Route path="/activation/thanks" element={<ActivationThanks />} />
+        <Route path="/category/:category" element={<CategoryPage />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
@@ -80,13 +83,15 @@ function AppShell() {
 
 function App() {
   return (
-    <CartProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <AppShell />
-        <Toaster position="top-right" richColors />
-      </BrowserRouter>
-    </CartProvider>
+    <HelmetProvider>
+      <CartProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <AppShell />
+          <Toaster position="top-right" richColors />
+        </BrowserRouter>
+      </CartProvider>
+    </HelmetProvider>
   );
 }
 

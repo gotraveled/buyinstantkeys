@@ -227,7 +227,7 @@ NORTON_PRODUCTS = [
         "slug": "norton-360-deluxe-advantage",
         "name": "Norton 360 Deluxe Advantage",
         "tagline": "Deluxe protection with identity advisor",
-        "description": "Everything in Norton 360 Deluxe plus Norton Identity Advisor Plus — providing identity monitoring, restoration assistance and stolen wallet support.",
+        "description": "Everything in Norton 360 Deluxe plus Norton Identity Advisor Plus — providing identity monitoring, restoration assistance and stolen wallet protection.",
         "category": "Norton 360",
         "box_variant": "amber",
         "image_url": "",
@@ -288,7 +288,7 @@ NORTON_PRODUCTS = [
         "box_variant": "black",
         "image_url": "",
         "badge": "Ultimate",
-        "features": ["Unlimited devices", "3-bureau credit monitoring", "$1M stolen funds reimbursement", "500GB Cloud Backup", "24/7 live support"],
+        "features": ["Unlimited devices", "3-bureau credit monitoring", "$1M stolen funds reimbursement", "500GB Cloud Backup", "24/7 live assistance"],
         "variants": [
             {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 159.99, "original_price": 349.99},
         ],
@@ -340,7 +340,7 @@ NORTON_PRODUCTS = [
     {
         "slug": "norton-identity-advisor-plus",
         "name": "Norton Identity Advisor Plus",
-        "tagline": "Identity monitoring with restoration support",
+        "tagline": "Identity monitoring with restoration assistance",
         "description": "24/7 identity monitoring with Dark Web scanning, restoration specialists on standby and stolen wallet assistance.",
         "category": "Identity",
         "box_variant": "amber",
@@ -384,7 +384,7 @@ NORTON_PRODUCTS = [
         "category": "Business",
         "box_variant": "black",
         "image_url": "",
-        "features": ["Multi-device deployment", "Cloud console", "24/7 support", "Reputation-based protection"],
+        "features": ["Multi-device deployment", "Cloud console", "24/7 customer service", "Reputation-based protection"],
         "variants": [
             {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 69.99, "original_price": 129.99},
             {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 109.99, "original_price": 179.99},
@@ -420,14 +420,14 @@ NORTON_PRODUCTS = [
     {
         "slug": "norton-ultimate-help-desk",
         "name": "Norton Ultimate Help Desk",
-        "tagline": "24/7 tech support for any device",
-        "description": "Expert tech support for setup, troubleshooting, malware removal and optimization — anytime, any device.",
-        "category": "Support",
+        "tagline": "24/7 expert assistance for any device",
+        "description": "Expert assistance for setup, troubleshooting, malware removal and optimization — anytime, any device.",
+        "category": "Services",
         "box_variant": "amber",
         "image_url": "",
-        "features": ["24/7 remote help", "Setup assistance", "Malware removal", "Data recovery help", "Software installation"],
+        "features": ["24/7 remote assistance", "Setup assistance", "Malware removal", "Data recovery assistance", "Software installation"],
         "variants": [
-            {"devices": 999, "years": 1, "label": "Unlimited Support / 1 Year", "price": 119.99, "original_price": 199.99},
+            {"devices": 999, "years": 1, "label": "Unlimited Assistance / 1 Year", "price": 119.99, "original_price": 199.99},
         ],
     },
     {
