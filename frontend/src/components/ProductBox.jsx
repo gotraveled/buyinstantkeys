@@ -65,216 +65,190 @@ export default function ProductBox({ product, variant, size = "md", showRibbon =
   return (
     <div
       data-testid={`product-box-${product?.slug}`}
-      className="relative flex h-full w-full flex-col overflow-hidden"
+      className="relative flex h-full w-full flex-col overflow-hidden rounded-xl transition-all hover:scale-[1.02] hover:shadow-lg"
       style={{
-        perspective: "1000px",
+        background: `linear-gradient(135deg, ${cfg.bodyGradient[0]} 0%, ${cfg.bodyGradient[1]} 100%)`,
+        boxShadow: `
+          0 10px 30px rgba(0,0,0,0.1),
+          0 5px 15px rgba(0,0,0,0.05),
+          inset 0 1px 0 rgba(255,255,255,0.8),
+          inset 0 -1px 0 rgba(0,0,0,0.05)
+        `,
+        border: "1px solid rgba(0,0,0,0.08)",
       }}
     >
-      {/* 3D Box Container */}
+      {/* Glossy overlay */}
       <div
-        className="relative flex h-full w-full transition-transform hover:scale-[1.03]"
+        className="pointer-events-none absolute left-0 top-0 h-full w-1/2"
         style={{
-          transformStyle: "preserve-3d",
+          background: "linear-gradient(90deg, rgba(255,255,255,0.5) 0%, transparent 100%)",
+        }}
+      />
+
+      {/* Color header */}
+      <div
+        className="px-4 py-3"
+        style={{ 
+          background: `linear-gradient(180deg, ${cfg.primary} 0%, ${cfg.accent} 100%)`,
+          borderBottom: "1px solid rgba(0,0,0,0.1)",
         }}
       >
-        {/* Main Box Face */}
-        <div
-          className="relative flex flex-1 flex-col overflow-hidden rounded-xl"
-          style={{
-            background: `linear-gradient(135deg, ${cfg.bodyGradient[0]} 0%, ${cfg.bodyGradient[1]} 100%)`,
-            boxShadow: `
-              0 15px 35px rgba(0,0,0,0.15),
-              0 5px 15px rgba(0,0,0,0.1),
-              inset 0 1px 0 rgba(255,255,255,0.8),
-              inset 0 -1px 0 rgba(0,0,0,0.05)
-            `,
-            border: "1px solid rgba(0,0,0,0.08)",
-          }}
-        >
-          {/* Glossy overlay */}
-          <div
-            className="pointer-events-none absolute left-0 top-0 h-full w-1/2"
-            style={{
-              background: "linear-gradient(90deg, rgba(255,255,255,0.4) 0%, transparent 100%)",
-            }}
-          />
-
-          {/* Color header */}
-          <div
-            className="px-5 py-4"
-            style={{ 
-              background: `linear-gradient(180deg, ${cfg.primary} 0%, ${cfg.accent} 100%)`,
-              borderBottom: "1px solid rgba(0,0,0,0.1)",
-            }}
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div
-                  className="grid h-10 w-10 place-items-center rounded-full"
-                  style={{ background: "rgba(255,255,255,0.9)" }}
-                >
-                  <ShieldCheck size={20} weight="fill" style={{ color: cfg.primary }} />
-                </div>
-                <div>
-                  <div
-                    className="font-display font-bold tracking-tight"
-                    style={{
-                      fontSize: size === "lg" ? 20 : 16,
-                      color: cfg.secondary,
-                    }}
-                  >
-                    NORTON
-                  </div>
-                  <div
-                    className="font-display font-semibold leading-tight"
-                    style={{
-                      fontSize: size === "lg" ? 16 : 12,
-                      color: "#FFFFFF",
-                      textShadow: "0 1px 2px rgba(0,0,0,0.3)",
-                    }}
-                  >
-                    {name}
-                  </div>
-                </div>
-              </div>
-              {showRibbon && product?.badge && (
-                <span
-                  className="rounded-full px-3 py-1 font-display text-[10px] font-bold uppercase tracking-[0.1em]"
-                  style={{
-                    background: "rgba(255,255,255,0.9)",
-                    color: cfg.primary,
-                  }}
-                >
-                  {product.badge}
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="flex flex-1 flex-col px-5 pb-5 pt-4">
-            {/* Category tag */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
             <div
-              className="inline-flex w-fit items-center gap-2 rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.1em]"
-              style={{
-                color: "#6B7280",
-                background: "rgba(255,255,255,0.7)",
-              }}
+              className="grid h-8 w-8 place-items-center rounded-full"
+              style={{ background: "rgba(255,255,255,0.9)" }}
             >
-              {product?.category || cfg.tag}
+              <ShieldCheck size={16} weight="fill" style={{ color: cfg.primary }} />
             </div>
-
-            {/* Trust badges */}
-            {showDetails && (
-              <div className="mt-3 flex flex-wrap gap-2">
-                <div
-                  className="flex items-center gap-1.5 rounded-full px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.08em]"
-                  style={{
-                    color: "#059669",
-                    background: "rgba(5,150,105,0.1)",
-                  }}
-                >
-                  <Lightning size={10} weight="fill" />
-                  Instant Delivery
-                </div>
-                <div
-                  className="flex items-center gap-1.5 rounded-full px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.08em]"
-                  style={{
-                    color: "#7C3AED",
-                    background: "rgba(124,58,237,0.1)",
-                  }}
-                >
-                  <LockKey size={10} weight="fill" />
-                  Secure
-                </div>
-                <div
-                  className="flex items-center gap-1.5 rounded-full px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.08em]"
-                  style={{
-                    color: "#DC2626",
-                    background: "rgba(220,38,38,0.1)",
-                  }}
-                >
-                  <Star size={10} weight="fill" />
-                  100% Genuine
-                </div>
-              </div>
-            )}
-
-            {/* Features */}
-            {showDetails && features.length > 0 && (
-              <ul className="mt-4 space-y-2">
-                {features.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm" style={{ color: "#4B5563" }}>
-                    <CheckCircle size={16} weight="fill" style={{ color: cfg.primary, marginTop: 1, flexShrink: 0 }} />
-                    <span className="line-clamp-1">{f}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            {/* Additional info */}
-            {showDetails && (
-              <div className="mt-3 flex items-center gap-2 text-xs" style={{ color: "#6B7280" }}>
-                <Envelope size={14} weight="duotone" />
-                <span>Email delivery in 5-15 min</span>
-              </div>
-            )}
-
-            {/* Spacer */}
-            <div className="flex-1" />
-
-            {/* Tier information */}
-            {showDetails && (
+            <div>
               <div
-                className="mt-4 flex items-center justify-between rounded-lg px-3 py-2"
+                className="font-display font-bold tracking-tight"
                 style={{
-                  background: "rgba(255,255,255,0.6)",
-                  border: "1px solid rgba(0,0,0,0.08)",
+                  fontSize: size === "lg" ? 18 : 14,
+                  color: cfg.secondary,
                 }}
               >
-                <div className="min-w-0">
-                  <div
-                    className="font-display text-[10px] font-semibold uppercase tracking-[0.1em]"
-                    style={{ color: "#6B7280" }}
-                  >
-                    Plan
-                  </div>
-                  <div
-                    className="font-display text-sm font-semibold"
-                    style={{ color: "#1F2937" }}
-                  >
-                    {devices} · {years}
-                  </div>
-                </div>
-                <div className="flex items-center gap-2" style={{ color: "#9CA3AF" }}>
-                  <WindowsLogo size={16} weight="fill" />
-                  <AppleLogo size={16} weight="fill" />
-                  <AndroidLogo size={16} weight="fill" />
-                </div>
+                NORTON
               </div>
-            )}
-
-            {/* Small size: minimal tier */}
-            {!showDetails && (
               <div
-                className="mt-3 text-[10px] font-semibold uppercase tracking-[0.1em]"
-                style={{ color: "#9CA3AF" }}
+                className="font-display font-semibold leading-tight"
+                style={{
+                  fontSize: size === "lg" ? 14 : 11,
+                  color: "#FFFFFF",
+                  textShadow: "0 1px 2px rgba(0,0,0,0.3)",
+                }}
+              >
+                {name}
+              </div>
+            </div>
+          </div>
+          {showRibbon && product?.badge && (
+            <span
+              className="rounded-full px-2 py-0.5 font-display text-[8px] font-bold uppercase tracking-[0.08em]"
+              style={{
+                background: "rgba(255,255,255,0.9)",
+                color: cfg.primary,
+              }}
+            >
+              {product.badge}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="flex flex-1 flex-col px-4 pb-4 pt-3">
+        {/* Category tag */}
+        <div
+          className="inline-flex w-fit items-center gap-1.5 rounded-full px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.08em]"
+          style={{
+            color: "#6B7280",
+            background: "rgba(255,255,255,0.7)",
+          }}
+        >
+          {product?.category || cfg.tag}
+        </div>
+
+        {/* Trust badges */}
+        {showDetails && (
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            <div
+              className="flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[8px] font-semibold uppercase tracking-[0.06em]"
+              style={{
+                color: "#059669",
+                background: "rgba(5,150,105,0.1)",
+              }}
+            >
+              <Lightning size={8} weight="fill" />
+              Instant
+            </div>
+            <div
+              className="flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[8px] font-semibold uppercase tracking-[0.06em]"
+              style={{
+                color: "#7C3AED",
+                background: "rgba(124,58,237,0.1)",
+              }}
+            >
+              <LockKey size={8} weight="fill" />
+              Secure
+            </div>
+            <div
+              className="flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[8px] font-semibold uppercase tracking-[0.06em]"
+              style={{
+                color: "#DC2626",
+                background: "rgba(220,38,38,0.1)",
+              }}
+            >
+              <Star size={8} weight="fill" />
+              Genuine
+            </div>
+          </div>
+        )}
+
+        {/* Features */}
+        {showDetails && features.length > 0 && (
+          <ul className="mt-3 space-y-1.5">
+            {features.map((f, i) => (
+              <li key={i} className="flex items-start gap-1.5 text-xs" style={{ color: "#4B5563" }}>
+                <CheckCircle size={14} weight="fill" style={{ color: cfg.primary, marginTop: 1, flexShrink: 0 }} />
+                <span className="line-clamp-1">{f}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {/* Additional info */}
+        {showDetails && (
+          <div className="mt-2 flex items-center gap-1.5 text-[10px]" style={{ color: "#6B7280" }}>
+            <Envelope size={12} weight="duotone" />
+            <span>Email in 5-15 min</span>
+          </div>
+        )}
+
+        {/* Spacer */}
+        <div className="flex-1" />
+
+        {/* Tier information */}
+        {showDetails && (
+          <div
+            className="mt-3 flex items-center justify-between rounded-lg px-2 py-1.5"
+            style={{
+              background: "rgba(255,255,255,0.6)",
+              border: "1px solid rgba(0,0,0,0.08)",
+            }}
+          >
+            <div className="min-w-0">
+              <div
+                className="font-display text-[8px] font-semibold uppercase tracking-[0.08em]"
+                style={{ color: "#6B7280" }}
+              >
+                Plan
+              </div>
+              <div
+                className="font-display text-xs font-semibold"
+                style={{ color: "#1F2937" }}
               >
                 {devices} · {years}
               </div>
-            )}
+            </div>
+            <div className="flex items-center gap-1.5" style={{ color: "#9CA3AF" }}>
+              <WindowsLogo size={14} weight="fill" />
+              <AppleLogo size={14} weight="fill" />
+              <AndroidLogo size={14} weight="fill" />
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Box Spine (3D effect) */}
-        <div
-          className="absolute left-0 top-0 h-full w-3"
-          style={{
-            background: `linear-gradient(90deg, rgba(0,0,0,0.1) 0%, ${cfg.bodyGradient[1]} 100%)`,
-            transform: "rotateY(-90deg) translateZ(-1.5px)",
-            transformOrigin: "left",
-          }}
-        />
+        {/* Small size: minimal tier */}
+        {!showDetails && (
+          <div
+            className="mt-2 text-[9px] font-semibold uppercase tracking-[0.08em]"
+            style={{ color: "#9CA3AF" }}
+          >
+            {devices} · {years}
+          </div>
+        )}
       </div>
     </div>
   );

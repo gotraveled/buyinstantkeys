@@ -148,7 +148,7 @@ export default function Home() {
           <Link to="/products" className="hidden text-sm font-semibold text-neutral-700 hover:text-neutral-900 md:inline-flex md:items-center md:gap-1">View all <ArrowRight size={16} /></Link>
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {featured.map((p) => (<ProductCard key={p.id} product={p} />))}
+          {featured.slice(0, 8).map((p) => (<ProductCard key={p.id} product={p} />))}
         </div>
       </section>
 
