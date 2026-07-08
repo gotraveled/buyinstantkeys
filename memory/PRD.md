@@ -9,6 +9,7 @@
 - Key delivery: Manual (admin sends within 5-15 min)
 - Admin panel: Full, login-protected
 - Design: Trust/security focused
+- (Iteration 2) Add all Norton products including LifeLock variants, +$20 pricing, Norton product-box images, coupon system + limited-time offer banner
 
 ## Architecture
 - Backend: FastAPI + MongoDB (motor)
@@ -16,43 +17,52 @@
 - Payment: PayPal REST (mock fallback via `/api/orders/{id}/simulate-payment`)
 - Email: Resend (mock/log mode when key empty)
 - Auth: JWT (admin only) with bcrypt
+- Product visuals: In-app SVG `ProductBox` component (5 tier colors: gold/amber/black/green/purple)
 
 ## Core Requirements
-- 10-15 Norton products catalog
+- Full Norton product catalog with LifeLock variants
 - Guest checkout with email
 - Email license delivery within 5-15 min
 - Admin dashboard for order management & key delivery
 - Order tracking by email + order number
+- Coupon codes + limited-time offer banner
 
-## What's been implemented (2026-07-08)
-- 12 Norton products seeded (Norton 360 Deluxe/Standard/Premium/Advanced, AntiVirus Plus, Secure VPN, Utilities Ultimate, Family, Small Business, 360 for Gamers, Mobile Security, Password Manager) with 1-3 variants each
-- Public pages: Home (hero + trust marquee + featured + how-it-works), Products (with category filters), Product Detail (variants + pricing), Cart, Checkout (PayPal + Simulate), Order Success, Track Order, FAQ, Contact, Refund Policy
-- Admin pages: Login, Dashboard (stats + orders queue + product list + key delivery)
-- Backend: 15+ endpoints (products, orders, tracking, PayPal create/capture, admin auth + CRUD + delivery, stats)
-- Trust/security design with Outfit + IBM Plex fonts, yellow (#FCE029) accent, high-contrast
-- Testing: full E2E passed (backend 100%, frontend 100%)
+## Iteration 1 (2026-07-08)
+- Seeded 12 Norton products, admin auth, order flow, PayPal integration (mock fallback), Resend integration (mock fallback), admin dashboard, full E2E tests passed
+
+## Iteration 2 (2026-07-08)
+- Expanded catalog to **20 products** including all major Norton offerings:
+  Norton AntiVirus Plus, 360 Standard, 360 Deluxe, 360 Deluxe Advantage, 360 with LifeLock Select, LifeLock Select Plus, LifeLock Advantage, LifeLock Ultimate Plus, 360 for Gamers, VPN, AntiTrack, Identity Advisor Plus, Utilities Ultimate, Family, Small Business, Mobile Security, Password Manager, Ultimate Help Desk, Genie Scam Detector, 360 Premium
+- **+$20 markup** applied to all base prices (with proportional strike-through original prices)
+- Replaced Unsplash images with **SVG-based Norton-branded product boxes** rendered client-side via `ProductBox` component — always renders, no external dependency
+- Added **coupon/discount code system**: WELCOME10 (10% off), SAVE20 ($20 off $80+), FLASH70 (70% off, limited use); public `POST /api/coupons/validate` + admin CRUD; cart + checkout UI to apply/remove codes
+- Added **limited-time offer banner** with live countdown timer visible on all public pages; admin can update via `PATCH /api/admin/banner`
+- Full E2E tests passed: backend 15/15, frontend 100%
+- Reseed via `SEED_VERSION` bump (currently 2026-02-v3)
 
 ## Admin Credentials
 - Email: `admin@buyinstantkeys.com`
 - Password: `Admin@123456`
-- Configurable via `ADMIN_EMAIL`/`ADMIN_PASSWORD` in `/app/backend/.env`
+
+## Coupon Codes (seeded)
+- `WELCOME10` — 10% off any order
+- `SAVE20` — $20 off orders ≥ $80
+- `FLASH70` — 70% off (limited to 100 uses)
 
 ## Integration Keys Needed for Production
 - PAYPAL_CLIENT_ID + PAYPAL_CLIENT_SECRET (currently empty → mock mode)
 - RESEND_API_KEY + verified SENDER_EMAIL (currently empty → email mocked to logs)
 
 ## Backlog (P1)
-- Coupon/discount codes
-- Multiple items per order tested in UI (works but not visually polished)
-- License key inventory pre-loaded per product (auto-deliver instead of manual)
-- Order status webhooks / SMS notifications
-- Sales analytics with charts (recharts already installed)
+- Admin coupon management UI (backend API exists; frontend can add a Coupons tab)
+- Admin banner editor UI (backend API exists)
+- Pre-loaded key inventory per product for auto-delivery
+- Sales analytics with charts (recharts installed)
 - SEO meta tags per product + sitemap
-- Multi-currency (currently USD only)
-- Login for customers (order history)
+- Multi-currency support
 
 ## Backlog (P2)
 - Product reviews / ratings
-- Related products on detail page
+- Customer login for order history
 - Live chat integration
 - Bulk business licensing tiers
