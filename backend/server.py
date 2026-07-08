@@ -964,6 +964,86 @@ async def admin_update_banner(body: BannerUpdate, admin_email: str = Depends(ver
     doc = await db.banner.find_one({"id": "site-banner"}, {"_id": 0})
     return doc
 
+# ============ ACTIVATION REQUESTS ============
+class ActivationCreate(BaseModel):
+    customer_name: str
+    customer_email: EmailStr
+    product_key: str
+
+class ActivationRequest(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    customer_name: str
+    customer_email: str
+    product_key: str
+    status: str = "pending"  # pending, activated, contacted
+    admin_notes: Optional[str] = None
+    created_at: str = Field(default_factory=now_iso)
+
+def activation_admin_html(req: dict) -> str:
+    return f"""
+    <div style="font-family:Arial,sans-serif;max-width:600px;padding:20px">
+      <h2>New activation request received</h2>
+      <p><strong>Name:</strong> {req['customer_name']}</p>
+      <p><strong>Email:</strong> {req['customer_email']}</p>
+      <p><strong>Product Key:</strong> <code style="background:#f3f4f6;padding:6px 8px;border-radius:4px;font-family:monospace">{req['product_key']}</code></p>
+      <p><strong>Received:</strong> {req['created_at']}</p>
+      <p>Please contact this customer to help complete their Norton activation.</p>
+    </div>
+    """
+
+def activation_customer_html(req: dict) -> str:
+    return f"""
+    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;background:#f9fafb">
+      <div style="background:#0A0A0A;padding:24px;border-radius:8px 8px 0 0">
+        <h1 style="color:#FCE029;margin:0;font-size:24px">{STORE_NAME}</h1>
+      </div>
+      <div style="background:#fff;padding:32px;border-radius:0 0 8px 8px">
+        <h2 style="color:#0A0A0A">We received your activation request</h2>
+        <p>Hi {req['customer_name']},</p>
+        <p>Thanks for submitting your Norton product key. Our activation team is reviewing your request and will reach out within a few minutes with activation instructions or direct help.</p>
+        <div style="background:#FEF9C3;padding:16px;border-radius:6px;margin:16px 0;border-left:4px solid #FCE029">
+          Reference key ending: <code style="font-family:monospace">****-****-{req['product_key'][-4:] if len(req['product_key']) >= 4 else req['product_key']}</code>
+        </div>
+        <p>Need urgent help? Reply to this email or click <a href="{STORE_URL}/activation/thanks">here to chat with us</a>.</p>
+        <p style="color:#6B7280;font-size:12px;margin-top:24px">© {STORE_NAME}. Norton is a trademark of Gen Digital Inc.</p>
+      </div>
+    </div>
+    """
+
+@api_router.post("/activations", response_model=ActivationRequest)
+async def create_activation(body: ActivationCreate):
+    if not body.product_key.strip():
+        raise HTTPException(status_code=400, detail="Product key is required")
+    req = ActivationRequest(
+        customer_name=body.customer_name.strip(),
+        customer_email=body.customer_email.lower(),
+        product_key=body.product_key.strip(),
+    )
+    await db.activations.insert_one(req.model_dump())
+    doc = req.model_dump()
+    # Notify admin + customer (async, best-effort)
+    await send_email(STORE_NOTIFICATION_EMAIL, f"New activation request — {req.customer_name}", activation_admin_html(doc))
+    await send_email(req.customer_email, f"Activation request received — {STORE_NAME}", activation_customer_html(doc))
+    return req
+
+@api_router.get("/admin/activations", response_model=List[ActivationRequest])
+async def admin_list_activations(status: Optional[str] = None, admin_email: str = Depends(verify_admin)):
+    q = {}
+    if status:
+        q["status"] = status
+    docs = await db.activations.find(q, {"_id": 0}).sort("created_at", -1).to_list(500)
+    return [ActivationRequest(**d) for d in docs]
+
+@api_router.patch("/admin/activations/{req_id}")
+async def admin_update_activation(req_id: str, body: dict, admin_email: str = Depends(verify_admin)):
+    upd = {k: v for k, v in body.items() if v is not None and k in ("status", "admin_notes")}
+    await db.activations.update_one({"id": req_id}, {"$set": upd})
+    doc = await db.activations.find_one({"id": req_id}, {"_id": 0})
+    if not doc:
+        raise HTTPException(status_code=404, detail="Not found")
+    return doc
+
 app.include_router(api_router)
 app.add_middleware(
     CORSMiddleware,

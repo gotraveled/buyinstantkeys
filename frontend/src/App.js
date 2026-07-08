@@ -16,6 +16,8 @@ import OrderTrack from "@/pages/OrderTrack";
 import FAQ from "@/pages/FAQ";
 import Contact from "@/pages/Contact";
 import RefundPolicy from "@/pages/RefundPolicy";
+import Activation from "@/pages/Activation";
+import ActivationThanks from "@/pages/ActivationThanks";
 import AdminLogin from "@/pages/AdminLogin";
 import AdminDashboard from "@/pages/AdminDashboard";
 
@@ -39,8 +41,10 @@ function Layout({ children, showChrome = true }) {
 function AppShell() {
   const { pathname } = useLocation();
   const isAdmin = pathname.startsWith("/admin");
+  const isActivation = pathname.startsWith("/activation");
+  const hideChrome = isAdmin || isActivation;
   return (
-    <Layout showChrome={!isAdmin}>
+    <Layout showChrome={!hideChrome}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
@@ -52,6 +56,8 @@ function AppShell() {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/refund-policy" element={<RefundPolicy />} />
+        <Route path="/activation" element={<Activation />} />
+        <Route path="/activation/thanks" element={<ActivationThanks />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
