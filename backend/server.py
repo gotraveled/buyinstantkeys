@@ -203,8 +203,8 @@ NORTON_PRODUCTS = [
         "image_url": "",
         "features": ["Real-time threat protection", "Secure VPN", "Password Manager", "10GB Cloud Backup", "Dark Web Monitoring", "SafeCam for PC"],
         "variants": [
-            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 39.99, "original_price": 79.99},
-            {"devices": 3, "years": 2, "label": "3 Devices / 2 Years", "price": 74.99, "original_price": 159.99},
+            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 114.99, "original_price": 94.99},
+            {"devices": 3, "years": 2, "label": "3 Devices / 2 Years", "price": 229.99, "original_price": 189.99},
         ],
         "is_featured": True,
     },
@@ -219,9 +219,9 @@ NORTON_PRODUCTS = [
         "badge": "Best Seller",
         "features": ["Real-time threat protection", "Secure VPN", "Password Manager", "50GB Cloud Backup", "Parental Controls", "SafeCam for PC", "Privacy Monitor Assistant"],
         "variants": [
-            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 49.99, "original_price": 109.99},
-            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 59.99, "original_price": 124.99},
-            {"devices": 5, "years": 2, "label": "5 Devices / 2 Years", "price": 99.99, "original_price": 229.99},
+            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 139.99, "original_price": 119.99},
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 139.99, "original_price": 119.99},
+            {"devices": 5, "years": 2, "label": "5 Devices / 2 Years", "price": 249.99, "original_price": 239.99},
         ],
         "is_featured": True,
     },
@@ -235,7 +235,7 @@ NORTON_PRODUCTS = [
         "image_url": "",
         "features": ["All Norton 360 Deluxe features", "Identity Advisor Plus", "Restoration specialist", "Stolen wallet protection", "Dark Web Monitoring"],
         "variants": [
-            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 79.99, "original_price": 149.99},
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 169.99, "original_price": 149.99},
         ],
     },
     {
@@ -249,8 +249,8 @@ NORTON_PRODUCTS = [
         "badge": "Popular",
         "features": ["Everything in Norton 360 Deluxe", "LifeLock Identity Alert System", "Credit Monitoring (1 bureau)", "$25K stolen funds reimbursement", "Million Dollar Protection Package"],
         "variants": [
-            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 89.99, "original_price": 189.99},
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 109.99, "original_price": 229.99},
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 209.99, "original_price": 189.99},
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 209.99, "original_price": 189.99},
         ],
         "is_featured": True,
     },
@@ -264,7 +264,7 @@ NORTON_PRODUCTS = [
         "image_url": "",
         "features": ["All Select features", "Annual credit report + score", "Credit lock (1 bureau)", "$50K stolen funds reimbursement", "Enhanced Dark Web Monitoring"],
         "variants": [
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 109.99, "original_price": 249.99},
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 209.99, "original_price": 189.99},
         ],
     },
     {
@@ -277,7 +277,7 @@ NORTON_PRODUCTS = [
         "image_url": "",
         "features": ["All Select Plus features", "Bank & credit card activity alerts", "Credit Monitoring (1 bureau)", "$100K stolen funds reimbursement", "Court records scanning"],
         "variants": [
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 119.99, "original_price": 279.99},
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 279.99, "original_price": 259.99},
         ],
         "is_featured": True,
     },
@@ -292,7 +292,7 @@ NORTON_PRODUCTS = [
         "badge": "Ultimate",
         "features": ["Unlimited devices", "3-bureau credit monitoring", "$1M stolen funds reimbursement", "500GB Cloud Backup", "24/7 live assistance"],
         "variants": [
-            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 159.99, "original_price": 349.99},
+            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 384.99, "original_price": 364.99},
         ],
         "is_featured": True,
     },
@@ -307,7 +307,7 @@ NORTON_PRODUCTS = [
         "badge": "Gamer's Choice",
         "features": ["Game Optimizer", "Notification blocker", "Secure VPN", "Dark Web Monitoring", "Webcam protection"],
         "variants": [
-            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 49.99, "original_price": 99.99},
+            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 119.99, "original_price": 99.99},
         ],
     },
     {
@@ -320,9 +320,9 @@ NORTON_PRODUCTS = [
         "image_url": "",
         "features": ["Bank-grade encryption", "No-log VPN", "Ad tracker blocking", "Wi-Fi security", "Kill switch"],
         "variants": [
-            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 29.99, "original_price": 49.99},
-            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 39.99, "original_price": 69.99},
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 49.99, "original_price": 89.99},
+            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 69.99, "original_price": 49.99},
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 89.99, "original_price": 69.99},
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 109.99, "original_price": 89.99},
         ],
     },
     {
@@ -335,8 +335,8 @@ NORTON_PRODUCTS = [
         "image_url": "",
         "features": ["Anti-fingerprinting", "Anonymizes searches", "Cookie blocking", "Privacy dashboard", "Ad tracker prevention"],
         "variants": [
-            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 39.99, "original_price": 59.99},
-            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 49.99, "original_price": 89.99},
+            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 69.99, "original_price": 49.99},
+            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 89.99, "original_price": 59.99},
         ],
     },
     {
@@ -349,7 +349,7 @@ NORTON_PRODUCTS = [
         "image_url": "",
         "features": ["Identity theft monitoring", "Dark Web scanning", "Restoration specialist", "Stolen wallet protection", "Social media monitoring"],
         "variants": [
-            {"devices": 1, "years": 1, "label": "1 Adult / 1 Year", "price": 99.99, "original_price": 189.99},
+            {"devices": 1, "years": 1, "label": "1 Adult / 1 Year", "price": 209.99, "original_price": 189.99},
         ],
     },
     {
@@ -362,7 +362,7 @@ NORTON_PRODUCTS = [
         "image_url": "",
         "features": ["PC cleaner", "Speed optimizer", "Privacy cleaner", "Disk defragmenter", "App uninstaller"],
         "variants": [
-            {"devices": 10, "years": 1, "label": "10 PCs / 1 Year", "price": 39.99, "original_price": 79.99},
+            {"devices": 10, "years": 1, "label": "10 PCs / 1 Year", "price": 99.99, "original_price": 79.99},
         ],
     },
     {
@@ -375,7 +375,7 @@ NORTON_PRODUCTS = [
         "image_url": "",
         "features": ["Web supervision", "Screen time management", "Location tracking", "School time", "Video supervision"],
         "variants": [
-            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 44.99, "original_price": 79.99},
+            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 99.99, "original_price": 79.99},
         ],
     },
     {
@@ -388,9 +388,9 @@ NORTON_PRODUCTS = [
         "image_url": "",
         "features": ["Multi-device deployment", "Cloud console", "24/7 customer service", "Reputation-based protection"],
         "variants": [
-            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 69.99, "original_price": 129.99},
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 109.99, "original_price": 179.99},
-            {"devices": 20, "years": 1, "label": "20 Devices / 1 Year", "price": 169.99, "original_price": 279.99},
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 149.99, "original_price": 129.99},
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 199.99, "original_price": 179.99},
+            {"devices": 20, "years": 1, "label": "20 Devices / 1 Year", "price": 299.99, "original_price": 279.99},
         ],
     },
     {
@@ -403,7 +403,7 @@ NORTON_PRODUCTS = [
         "image_url": "",
         "features": ["App advisor", "Wi-Fi security", "Web protection", "SMS filtering", "Anti-theft"],
         "variants": [
-            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 29.99, "original_price": 49.99},
+            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 49.99, "original_price": 29.99},
         ],
     },
     {
@@ -416,7 +416,7 @@ NORTON_PRODUCTS = [
         "image_url": "",
         "features": ["Encrypted vault", "Password generator", "Auto-fill", "Cross-device sync", "Security dashboard"],
         "variants": [
-            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 24.99, "original_price": 39.99},
+            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 59.99, "original_price": 39.99},
         ],
     },
     {
@@ -429,7 +429,7 @@ NORTON_PRODUCTS = [
         "image_url": "",
         "features": ["24/7 online assistance", "Setup assistance", "Malware removal", "Data recovery assistance", "Software installation"],
         "variants": [
-            {"devices": 999, "years": 1, "label": "Unlimited Assistance / 1 Year", "price": 119.99, "original_price": 199.99},
+            {"devices": 999, "years": 1, "label": "Unlimited Assistance / 1 Year", "price": 219.99, "original_price": 199.99},
         ],
     },
     {
@@ -443,7 +443,7 @@ NORTON_PRODUCTS = [
         "badge": "AI-Powered",
         "features": ["AI scam analysis", "Message & email scanning", "URL safety check", "Real-time alerts"],
         "variants": [
-            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 39.99, "original_price": 69.99},
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 89.99, "original_price": 69.99},
         ],
     },
     {
@@ -456,8 +456,8 @@ NORTON_PRODUCTS = [
         "image_url": "",
         "features": ["Real-time threat protection", "Secure VPN", "Password Manager", "75GB Cloud Backup", "Parental Controls", "SafeCam"],
         "variants": [
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 69.99, "original_price": 149.99},
-            {"devices": 10, "years": 2, "label": "10 Devices / 2 Years", "price": 119.99, "original_price": 279.99},
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 169.99, "original_price": 149.99},
+            {"devices": 10, "years": 2, "label": "10 Devices / 2 Years", "price": 299.99, "original_price": 279.99},
         ],
     },
 ]
