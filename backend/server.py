@@ -617,8 +617,8 @@ async def admin_deliver(order_id: str, body: DeliverKeysBody, admin_email: str =
     doc = await db.orders.find_one({"id": order_id}, {"_id": 0})
     if not doc:
         raise HTTPException(status_code=404, detail="Order not found")
-    if doc["status"] not in ("paid", "delivered"):
-        raise HTTPException(status_code=400, detail="Order not paid yet")
+    if doc["status"] != "paid":
+        raise HTTPException(status_code=400, detail="Order is not in paid state")
     # keys is list ordered by item index: [{"license_key": "..."}]
     items = doc["items"]
     if len(body.keys) != len(items):
