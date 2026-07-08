@@ -1,50 +1,40 @@
 import { ShieldCheck, WindowsLogo, AppleLogo, AndroidLogo, CheckCircle } from "@phosphor-icons/react";
 
-// 3D packaging palette matching Norton retail boxes
+// Clean retail packaging palette
 const PALETTE = {
   gold:   { 
-    primary: "#FFC220", 
-    secondary: "#0A0A0A", 
-    body: "#0047AB", 
-    bodyGradient: ["#0047AB", "#003366"],
-    spine: "#002244",
-    accent: "#FFD700",
+    primary: "#FFD700", 
+    secondary: "#FFFFFF", 
+    body: "#0052CC",
+    accent: "#E6F0FF",
     tag: "AntiVirus" 
   },
   amber:  { 
-    primary: "#F59E0B", 
-    secondary: "#0A0A0A", 
-    body: "#1E3A5F", 
-    bodyGradient: ["#1E3A5F", "#152A45"],
-    spine: "#0D1F33",
-    accent: "#FFB84D",
+    primary: "#FF9500", 
+    secondary: "#FFFFFF", 
+    body: "#FF6B00",
+    accent: "#FFF0E6",
     tag: "Premium" 
   },
   black:  { 
-    primary: "#0A0A0A", 
-    secondary: "#FCE029", 
-    body: "#1A1A1A", 
-    bodyGradient: ["#1A1A1A", "#0D0D0D"],
-    spine: "#000000",
-    accent: "#FCE029",
+    primary: "#000000", 
+    secondary: "#FFFFFF", 
+    body: "#1A1A1A",
+    accent: "#F5F5F5",
     tag: "LifeLock" 
   },
   green:  { 
-    primary: "#059669", 
+    primary: "#00C853", 
     secondary: "#FFFFFF", 
-    body: "#064E3B", 
-    bodyGradient: ["#064E3B", "#022C22"],
-    spine: "#011912",
-    accent: "#34D399",
+    body: "#006400",
+    accent: "#E8F5E9",
     tag: "Privacy" 
   },
   purple: { 
-    primary: "#6D28D9", 
+    primary: "#7C4DFF", 
     secondary: "#FFFFFF", 
-    body: "#4C1D95", 
-    bodyGradient: ["#4C1D95", "#2E1065"],
-    spine: "#1E0A4A",
-    accent: "#A78BFA",
+    body: "#4A148C",
+    accent: "#F3E5F5",
     tag: "Gaming" 
   },
 };
@@ -67,194 +57,130 @@ export default function ProductBox({ product, variant, size = "md", showRibbon =
   const features = (product?.features || []).slice(0, 2);
   const showDetails = size !== "sm";
 
-  const boxScale = size === "lg" ? 1 : size === "md" ? 0.9 : 0.75;
-
   return (
     <div
       data-testid={`product-box-${product?.slug}`}
-      className="relative flex h-full w-full flex-col overflow-hidden"
+      className="relative flex h-full w-full flex-col overflow-hidden rounded-xl border transition-all hover:scale-[1.02] hover:shadow-lg"
       style={{
-        transform: `scale(${boxScale})`,
-        transformOrigin: "center center",
+        borderColor: "#E5E7EB",
+        background: "#FFFFFF",
       }}
     >
-      {/* 3D Box Container */}
+      {/* Color header */}
       <div
-        className="relative flex h-full w-full"
-        style={{
-          perspective: "1200px",
-          transformStyle: "preserve-3d",
-        }}
+        className="px-5 py-4"
+        style={{ background: cfg.body }}
       >
-        {/* Main Box Face */}
-        <div
-          className="relative flex flex-1 flex-col overflow-hidden rounded-lg"
-          style={{
-            background: `linear-gradient(135deg, ${cfg.bodyGradient[0]} 0%, ${cfg.bodyGradient[1]} 100%)`,
-            boxShadow: `
-              0 20px 50px rgba(0,0,0,0.5),
-              0 10px 20px rgba(0,0,0,0.3),
-              inset 0 1px 0 rgba(255,255,255,0.1),
-              inset 0 -1px 0 rgba(0,0,0,0.2)
-            `,
-            border: "1px solid rgba(255,255,255,0.1)",
-          }}
-        >
-          {/* Glossy overlay */}
-          <div
-            className="pointer-events-none absolute left-0 top-0 h-full w-1/2"
-            style={{
-              background: "linear-gradient(90deg, rgba(255,255,255,0.15) 0%, transparent 100%)",
-            }}
-          />
-
-          {/* Top header band */}
-          <div
-            className="relative flex items-center justify-between px-4 py-3"
-            style={{
-              background: `linear-gradient(180deg, ${cfg.primary} 0%, ${cfg.accent} 100%)`,
-              borderBottom: "2px solid rgba(0,0,0,0.3)",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
-            }}
-          >
-            <div className="flex items-center gap-2">
-              <ShieldCheck size={size === "lg" ? 24 : 20} weight="fill" style={{ color: cfg.secondary }} />
-              <span
-                className="font-display font-black tracking-tight"
-                style={{
-                  fontSize: size === "lg" ? 22 : 18,
-                  color: cfg.secondary,
-                  textShadow: "0 2px 4px rgba(0,0,0,0.3)",
-                }}
-              >
-                NORTON
-              </span>
-            </div>
-            {showRibbon && product?.badge && (
-              <span
-                className="rounded-sm px-2 py-0.5 font-display text-[9px] font-bold uppercase tracking-[0.14em]"
-                style={{
-                  background: cfg.secondary,
-                  color: cfg.primary,
-                  boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
-                }}
-              >
-                {product.badge}
-              </span>
-            )}
-          </div>
-
-          {/* Body content */}
-          <div className="flex flex-1 flex-col px-4 pb-4 pt-4" style={{ color: cfg.secondary }}>
-            {/* Category badge */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
             <div
-              className="inline-flex w-fit items-center gap-1.5 rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em]"
-              style={{
-                borderColor: cfg.primary,
-                color: cfg.secondary,
-                background: `${cfg.primary}33`,
-                backdropFilter: "blur(4px)",
-              }}
+              className="grid h-10 w-10 place-items-center rounded-full"
+              style={{ background: cfg.primary }}
             >
-              <span className="h-1.5 w-1.5 rounded-full" style={{ background: cfg.primary }} />
-              {product?.category || cfg.tag}
+              <ShieldCheck size={20} weight="fill" style={{ color: cfg.secondary }} />
             </div>
-
-            {/* Product name */}
-            <div className="mt-3">
+            <div>
               <div
-                className="font-display font-black leading-[1.05] tracking-tight"
+                className="font-display font-bold tracking-tight"
                 style={{
-                  fontSize: size === "lg" ? 28 : size === "md" ? 22 : 16,
+                  fontSize: size === "lg" ? 20 : 16,
                   color: cfg.secondary,
-                  textShadow: "0 2px 8px rgba(0,0,0,0.5)",
                 }}
               >
                 NORTON
               </div>
               <div
-                className="font-display font-extrabold leading-[1.05] tracking-tight"
+                className="font-display font-semibold leading-tight"
                 style={{
-                  fontSize: size === "lg" ? 24 : size === "md" ? 18 : 12,
+                  fontSize: size === "lg" ? 16 : 12,
                   color: cfg.primary,
-                  textShadow: "0 2px 8px rgba(0,0,0,0.5)",
                 }}
               >
                 {name}
               </div>
             </div>
-
-            {/* Features */}
-            {showDetails && features.length > 0 && (
-              <ul className="mt-3 space-y-1.5 text-[11px]" style={{ color: "rgba(255,255,255,0.85)" }}>
-                {features.map((f, i) => (
-                  <li key={i} className="flex items-start gap-1.5">
-                    <CheckCircle size={12} weight="fill" style={{ color: cfg.primary, marginTop: 2 }} />
-                    <span className="line-clamp-1">{f}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            {/* Spacer */}
-            <div className="flex-1" />
-
-            {/* Tier information */}
-            {showDetails && (
-              <div
-                className="mt-4 flex items-center justify-between rounded-lg border px-3 py-2"
-                style={{
-                  borderColor: cfg.primary,
-                  background: `${cfg.primary}22`,
-                  backdropFilter: "blur(4px)",
-                }}
-              >
-                <div className="min-w-0">
-                  <div
-                    className="font-display text-[9px] font-semibold uppercase tracking-[0.12em]"
-                    style={{ color: "rgba(255,255,255,0.7)" }}
-                  >
-                    Plan
-                  </div>
-                  <div className="font-display text-xs font-bold" style={{ color: cfg.secondary }}>
-                    {devices} · {years}
-                  </div>
-                </div>
-                <div className="flex items-center gap-2" style={{ color: "rgba(255,255,255,0.7)" }}>
-                  <WindowsLogo size={14} weight="fill" />
-                  <AppleLogo size={14} weight="fill" />
-                  <AndroidLogo size={14} weight="fill" />
-                </div>
-              </div>
-            )}
-
-            {/* Small size: minimal tier */}
-            {!showDetails && (
-              <div className="mt-2 text-[9px] font-semibold uppercase tracking-[0.12em]" style={{ color: "rgba(255,255,255,0.7)" }}>
-                {devices} · {years}
-              </div>
-            )}
           </div>
+          {showRibbon && product?.badge && (
+            <span
+              className="rounded-full px-3 py-1 font-display text-[10px] font-bold uppercase tracking-[0.1em]"
+              style={{
+                background: cfg.primary,
+                color: cfg.secondary,
+              }}
+            >
+              {product.badge}
+            </span>
+          )}
+        </div>
+      </div>
 
-          {/* Bottom accent */}
-          <div
-            className="h-1.5"
-            style={{
-              background: `linear-gradient(90deg, ${cfg.primary} 0%, ${cfg.accent} 50%, ${cfg.primary} 100%)`,
-            }}
-          />
+      {/* Content */}
+      <div className="flex flex-1 flex-col px-5 pb-5 pt-4">
+        {/* Category tag */}
+        <div
+          className="inline-flex w-fit items-center gap-2 rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.1em]"
+          style={{
+            color: "#6B7280",
+            background: "#F3F4F6",
+          }}
+        >
+          {product?.category || cfg.tag}
         </div>
 
-        {/* Box Spine (3D effect) */}
-        <div
-          className="absolute left-0 top-0 h-full w-4"
-          style={{
-            background: `linear-gradient(90deg, ${cfg.spine} 0%, ${cfg.bodyGradient[1]} 100%)`,
-            transform: "rotateY(-90deg) translateZ(-2px)",
-            transformOrigin: "left",
-            boxShadow: "inset -2px 0 6px rgba(0,0,0,0.4)",
-          }}
-        />
+        {/* Features */}
+        {showDetails && features.length > 0 && (
+          <ul className="mt-4 space-y-2">
+            {features.map((f, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm" style={{ color: "#4B5563" }}>
+                <CheckCircle size={16} weight="fill" style={{ color: cfg.primary, marginTop: 1, flexShrink: 0 }} />
+                <span className="line-clamp-1">{f}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {/* Spacer */}
+        <div className="flex-1" />
+
+        {/* Tier information */}
+        {showDetails && (
+          <div
+            className="mt-4 flex items-center justify-between rounded-lg px-3 py-2"
+            style={{
+              background: cfg.accent,
+            }}
+          >
+            <div className="min-w-0">
+              <div
+                className="font-display text-[10px] font-semibold uppercase tracking-[0.1em]"
+                style={{ color: "#6B7280" }}
+              >
+                Plan
+              </div>
+              <div
+                className="font-display text-sm font-semibold"
+                style={{ color: "#1F2937" }}
+              >
+                {devices} · {years}
+              </div>
+            </div>
+            <div className="flex items-center gap-2" style={{ color: "#9CA3AF" }}>
+              <WindowsLogo size={16} weight="fill" />
+              <AppleLogo size={16} weight="fill" />
+              <AndroidLogo size={16} weight="fill" />
+            </div>
+          </div>
+        )}
+
+        {/* Small size: minimal tier */}
+        {!showDetails && (
+          <div
+            className="mt-3 text-[10px] font-semibold uppercase tracking-[0.1em]"
+            style={{ color: "#9CA3AF" }}
+          >
+            {devices} · {years}
+          </div>
+        )}
       </div>
     </div>
   );
