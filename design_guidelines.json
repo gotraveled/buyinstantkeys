@@ -1,0 +1,104 @@
+{
+  "theme": "light",
+  "design_philosophy": "Trust/security focused design with Swiss high-contrast layout, blending the authority of cybersecurity with modern, frictionless e-commerce. High readability, clear value proposition, and instant visual feedback for license delivery.",
+  "typography": {
+    "headings": {
+      "font_family": "Outfit",
+      "weights": ["600", "700", "800"],
+      "tracking": "tracking-tight",
+      "forbidden": ["Inter", "Roboto", "Open Sans", "Lato"]
+    },
+    "body": {
+      "font_family": "IBM Plex Sans",
+      "weights": ["400", "500"],
+      "leading": "leading-relaxed"
+    },
+    "scales": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tight",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl tracking-tight",
+      "h3": "text-xl sm:text-2xl",
+      "h4": "text-lg sm:text-xl",
+      "body": "text-base",
+      "small": "text-sm",
+      "overline": "text-xs uppercase tracking-[0.2em] font-semibold"
+    }
+  },
+  "colors": {
+    "archetype": "ARCHETYPE 4: SWISS & HIGH-CONTRAST (Authority, Clarity, Trust) with Norton-inspired accents",
+    "background": "#FFFFFF",
+    "foreground": "#0A0A0A",
+    "primary": "#FCE029", 
+    "primary_foreground": "#0A0A0A",
+    "secondary": "#F3F4F6",
+    "secondary_foreground": "#111827",
+    "accent_success": "#10B981", 
+    "accent_success_foreground": "#FFFFFF",
+    "muted": "#F9FAFB",
+    "muted_foreground": "#6B7280",
+    "border": "#E5E7EB",
+    "note": "Avoid pure black/white, slightly tint greys. Use Alert Yellow (primary) sparingly for CTAs, and Secure Green for delivery/trust badges. Use deep gray (#0A0A0A) for structural foundations."
+  },
+  "surfaces_and_micro_themes": {
+    "headers": "Crystal Glass variant: backdrop-blur-xl bg-white/80, 1px bottom border border-border.",
+    "cards_products": "Flat solid backgrounds, 1px subtle border, rounded-lg, hover:-translate-y-1 hover:shadow-lg transition-transform duration-300.",
+    "cards_dashboard": "Grid Borders: border-collapse style layout. Minimal shadow. High density.",
+    "checkout_panel": "Neumorphism tactile variant but flat: soft shadow with sharp inner contrast, 1px border black/5 to ground it. Highlights security."
+  },
+  "spacing_and_layout": {
+    "marketing_sections": "Generous Spacing: py-20 md:py-32. Container padded p-6 or p-8.",
+    "bento_grid": "Mode A 'Tetris' grid for 'How it Works' or Features. grid-cols-1 md:grid-cols-12 gap-8.",
+    "dashboard_grid": "Mode B 'High Density' for Admin panel. grid-cols-1 md:grid-cols-4 gap-6.",
+    "product_catalog": "Grid cols-1 sm:cols-2 lg:cols-3 gap-8. Image constraints: max-h-[300px] object-contain."
+  },
+  "components": {
+    "strategy": "Hybrid. Custom HTML/Tailwind for marketing hero and bento grids. Shadcn UI for forms, selects, tables (dashboard), dialogs, and accordion (FAQs).",
+    "buttons": "Pill-shaped or slightly rounded (rounded-md), strong contrast, clear hover state (e.g., hover:bg-yellow-400 hover:text-black).",
+    "inputs": "Shadcn default but with focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400.",
+    "badges": "Use secure green or muted gray for product tiers. Essential for 'Instant Delivery' and 'Trust' indicators."
+  },
+  "motion": {
+    "interactions": "Hover states on all interactive elements. Click/press states. Transition transform 0.2s ease, opacity 0.2s ease.",
+    "entrance": "Staggered fade-up for product lists.",
+    "marquee": "Use react-fast-marquee for a subtle trust banner (e.g., 'Trusted by 10,000+ users • 100% Secure Checkout • Instant Email Delivery')."
+  },
+  "icons_and_assets": {
+    "library": "@phosphor-icons/react (Duotone for marketing, Regular for dashboard) to convey a premium, secure feel. Run `yarn add @phosphor-icons/react`.",
+    "required_icons": "ShieldCheck, LockKey, EnvelopeOpen (for instant delivery), CreditCard, CheckCircle."
+  },
+  "images": [
+    {
+      "url": "https://images.unsplash.com/photo-1614064548237-096f735f344f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwyfHxsYXB0b3AlMjBzZWN1cml0eSUyMHNjcmVlbnxlbnwwfHx8fDE3ODM1MTMwODJ8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Padlock on laptop with light trails. Great for hero section background or 'Instant Delivery & Security' feature block.",
+      "category": "hero/security"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwxfHxsYXB0b3AlMjBzZWN1cml0eSUyMHNjcmVlbnxlbnwwfHx8fDE3ODM1MTMwODJ8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Red padlock on black keyboard. Suitable for 'Secure Payment' section.",
+      "category": "trust/checkout"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1563013544-824ae1b704d3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzV8MHwxfHNlYXJjaHwxfHxvbmxpbmUlMjBwYXltZW50JTIwc2VjdXJlfGVufDB8fHx8MTc4MzUxMzEwMHww&ixlib=rb-4.1.0&q=85",
+      "description": "Person using laptop computer holding card. Ideal for the Checkout or How it Works (Payment) step.",
+      "category": "checkout/process"
+    }
+  ],
+  "accessibility": {
+    "contrast": "Ensure text over any background meets 4.5:1 ratio. Yellow primary buttons must have black text.",
+    "focus": "High-contrast focus rings for keyboard navigation.",
+    "testing": "All interactive and key informational elements MUST include a `data-testid` attribute to facilitate robust automated testing (e.g., data-testid='checkout-paypal-button')."
+  },
+  "universal_guidelines_for_main_agent": [
+    "You tend to converge toward generic, 'on distribution' outputs. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Do NOT use pure black/white/gray without tinting. Do NOT use standard SaaS blue.",
+    "Ensure generous spacing (p-12, p-16) instead of cramped p-4.",
+    "Use glass-morphism (backdrop-blur-xl bg-white/80) for sticky headers over content. DO NOT use complete transparent background in header or dropdowns.",
+    "NEVER use generic placeholder images or text. Rely on provided image URLs.",
+    "NEVER apply transition: all. Always add transitions for specific interactive elements excluding transforms.",
+    "DO NOT center align the app container. Use proper layout grids.",
+    "Use Phosphor Icons (@phosphor-icons/react) for security badges and UI elements.",
+    "Include hover states and micro-animations for all buttons, product cards, and links.",
+    "Component Reuse: Prioritize Shadcn components. Create custom components matching Shadcn patterns when necessary.",
+    "Toasts: Use Sonner for instant delivery notifications and cart updates."
+  ],
+  "instructions_to_main_agent": "Implement a full e-commerce flow for BuyInstantKeys. Start with the marketing homepage featuring hero, trust badges, featured products, and how-it-works. Create product catalog, detailed product pages (with 1/3/5 device tiers), a shopping cart, and a secure checkout page. Also build an order tracking page and an admin dashboard for managing product keys. Ensure high contrast, professional typography (Outfit + IBM Plex Sans), and a secure, trustworthy aesthetic. The project uses .js files, so write React code without TypeScript annotations."
+}
