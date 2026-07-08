@@ -1,0 +1,43 @@
+{
+  "summary": "First-finish smoke tests for BuyInstantKeys Norton store. Backend (13 endpoints) and full frontend E2E (home → products → filter → product detail (variant switch) → cart → checkout (simulate payment) → order-success → track → admin login → admin deliver → re-track) all passed. Order lifecycle pending → paid → delivered validated end-to-end, license key surfaced on customer track page. One MEDIUM backend spec deviation found: delivering an already-delivered order returns 200 instead of 400.",
+  "tested_scope": ["backend", "frontend", "auth", "integration"],
+  "passed": [
+    "GET /api/config → paypal_enabled=false, paypal_client_id='', paypal_mode='sandbox'",
+    "GET /api/products returns 12 items",
+    "GET /api/products/norton-360-deluxe returns product with 3 variants",
+    "POST /api/orders with empty items → 400 'Cart is empty'",
+    "POST /api/orders with valid item → creates pending order with order_number matching BIK-YYYYMMDD-XXXXXX (e.g. BIK-20260708-2BD1FE)",
+    "POST /api/orders/{id}/simulate-payment → 200 {status:'paid'}",
+    "Second simulate-payment on same order → 400 'Order already processed'",
+    "POST /api/orders/track correct email+number → 200 with order",
+    "Track wrong email → 404, wrong order_number → 404",
+    "POST /api/admin/login wrong password → 401, correct → returns token",
+    "GET /api/admin/stats without token → 401; with token → {total_orders,pending,paid,delivered,products,revenue} all present",
+    "GET /api/admin/orders?status=paid returns paid orders including our order",
+    "POST /api/admin/orders/{id}/deliver with keys → 200 {status:'delivered'} on paid order; license_key persisted",
+    "Frontend home: nav-logo, hero-shop-btn, nav-cart present; hero-shop-btn navigates to /products",
+    "Frontend /products: 12 cards; filter-norton-360 → 4 cards; filter-all → 12 cards",
+    "Frontend product-detail: product-name & product-price render; clicking 2nd variant changes price ($29.99 → $39.99)",
+    "Frontend buy-now → /cart with cart-total visible; cart-checkout-btn → /checkout",
+    "Frontend checkout: fill name+email, click checkout-simulate-btn → /order-success with order-success-title and order-success-number (BIK-20260708-9BD47A)",
+    "Frontend /track for paid order → track-status='Payment received — preparing keys'",
+    "Frontend admin login → /admin dashboard, stat-total-orders/stat-paid/stat-products visible, admin-order-{num} card visible",
+    "Frontend admin deliver: toggle → fill key input → deliver-btn → success toast 'Keys delivered — email sent', status flips to delivered",
+    "Frontend re-track delivered order → track-status='Delivered — check your email' and license key NORTN-TEST-ABCD-1234-XYZ00 visible in results"
+  ],
+  "failed": [
+    {
+      "area": "backend / admin deliver endpoint",
+      "issue": "POST /api/admin/orders/{id}/deliver returns 200 even when the order is already 'delivered' (i.e. no longer 'paid'). Spec requires 400 when order is not paid. Second delivery call also overwrites the previously stored license_key.",
+      "evidence": "Delivered order 6d03e70d... first call returned 200 delivered with key 'NORTN-TEST-1234-5678-XXXX'; second call with key 'XXX' also returned HTTP 200 {status:'delivered'} and track showed license_key='XXX', meaning key was overwritten.",
+      "priority": "MEDIUM"
+    }
+  ],
+  "action_items": [
+    "In backend admin deliver route, validate current order.status == 'paid' before delivery; return 400 'Order is not in paid state' otherwise. This will also prevent accidental license_key overwrite for already-delivered orders."
+  ],
+  "success_rate": {"backend": "92% (12/13 checks; deliver-when-not-paid returns 200 instead of 400)", "frontend": "100%"},
+  "retest_needed": false,
+  "full_testing_deferred": true,
+  "mocked_apis_note": "PayPal in MOCK mode via /api/orders/{id}/simulate-payment; Resend in MOCK mode (emails only logged). Not verified beyond backend/DB state."
+}
