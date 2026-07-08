@@ -176,7 +176,7 @@ def verify_admin(authorization: Optional[str] = Header(None)) -> str:
         raise HTTPException(status_code=401, detail="Invalid token")
 
 # ============ SEED DATA ============
-SEED_VERSION = "2026-02-v3"
+SEED_VERSION = "2026-07-v4"
 
 NORTON_PRODUCTS = [
     {
