@@ -982,6 +982,7 @@ async def admin_update_banner(body: BannerUpdate, admin_email: str = Depends(ver
 class ActivationCreate(BaseModel):
     customer_name: str
     customer_email: EmailStr
+    customer_phone: Optional[str] = None
     product_key: str
 
 class ActivationRequest(BaseModel):
@@ -989,17 +990,20 @@ class ActivationRequest(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     customer_name: str
     customer_email: str
+    customer_phone: Optional[str] = None
     product_key: str
     status: str = "pending"  # pending, activated, contacted
     admin_notes: Optional[str] = None
     created_at: str = Field(default_factory=now_iso)
 
 def activation_admin_html(req: dict) -> str:
+    phone_html = f"<p><strong>Phone:</strong> {req['customer_phone']}</p>" if req.get('customer_phone') else ""
     return f"""
     <div style="font-family:Arial,sans-serif;max-width:600px;padding:20px">
       <h2>New activation request received</h2>
       <p><strong>Name:</strong> {req['customer_name']}</p>
       <p><strong>Email:</strong> {req['customer_email']}</p>
+      {phone_html}
       <p><strong>Product Key:</strong> <code style="background:#f3f4f6;padding:6px 8px;border-radius:4px;font-family:monospace">{req['product_key']}</code></p>
       <p><strong>Received:</strong> {req['created_at']}</p>
       <p>Please contact this customer to help complete their Norton activation.</p>
@@ -1032,6 +1036,7 @@ async def create_activation(body: ActivationCreate):
     req = ActivationRequest(
         customer_name=body.customer_name.strip(),
         customer_email=body.customer_email.lower(),
+        customer_phone=body.customer_phone.strip() if body.customer_phone else None,
         product_key=body.product_key.strip(),
     )
     await db.activations.insert_one(req.model_dump())

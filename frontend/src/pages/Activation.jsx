@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import BrandDisclaimer from "@/components/BrandDisclaimer";
 import {
   ShieldCheck, ArrowRight, Key, User, Envelope,
-  UserCircle, DownloadSimple, CheckCircle, Sparkle, LockKey, MonitorPlay,
+  UserCircle, DownloadSimple, CheckCircle, Sparkle, LockKey, MonitorPlay, Phone,
 } from "@phosphor-icons/react";
 
 const STEPS = [
@@ -17,7 +17,7 @@ const STEPS = [
 
 export default function Activation() {
   const nav = useNavigate();
-  const [form, setForm] = useState({ customer_name: "", customer_email: "", product_key: "" });
+  const [form, setForm] = useState({ customer_name: "", customer_email: "", customer_phone: "", product_key: "" });
   const [submitting, setSubmitting] = useState(false);
 
   const submit = async (e) => {
@@ -168,6 +168,20 @@ export default function Activation() {
                       value={form.customer_email}
                       onChange={(e) => setForm({ ...form, customer_email: e.target.value })}
                       placeholder="you@example.com"
+                      className="w-full rounded-md border border-neutral-300 bg-white py-3 pl-10 pr-4 text-sm focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Phone number (optional)</label>
+                  <div className="relative mt-1">
+                    <Phone size={18} weight="duotone" className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
+                    <input
+                      data-testid="activation-phone-input"
+                      type="tel"
+                      value={form.customer_phone}
+                      onChange={(e) => setForm({ ...form, customer_phone: e.target.value })}
+                      placeholder="+1 (555) 123-4567"
                       className="w-full rounded-md border border-neutral-300 bg-white py-3 pl-10 pr-4 text-sm focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400"
                     />
                   </div>
