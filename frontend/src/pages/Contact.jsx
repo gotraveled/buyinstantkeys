@@ -1,14 +1,25 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import { api } from "@/lib/api";
 import SEO from "@/components/SEO";
 import { Envelope, ChatCircle, MapPin, Phone } from "@phosphor-icons/react";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const submit = (e) => {
+  const [submitting, setSubmitting] = useState(false);
+  
+  const submit = async (e) => {
     e.preventDefault();
-    toast.success("Message sent!", { description: "We'll reply within 12 hours." });
-    setForm({ name: "", email: "", message: "" });
+    setSubmitting(true);
+    try {
+      await api.post("/contact", form);
+      toast.success("Message sent!", { description: "We'll reply within 12 hours." });
+      setForm({ name: "", email: "", message: "" });
+    } catch (error) {
+      toast.error("Failed to send message", { description: "Please try again later." });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const contactSchema = {
@@ -84,7 +95,9 @@ export default function Contact() {
             <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Message</label>
             <textarea required rows={5} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} data-testid="contact-message-input" className="mt-1 w-full rounded-md border border-neutral-300 px-4 py-3 text-sm focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400" />
           </div>
-          <button data-testid="contact-submit-btn" type="submit" className="btn-primary">Send message</button>
+          <button data-testid="contact-submit-btn" type="submit" className="btn-primary" disabled={submitting}>
+            {submitting ? "Sending..." : "Send message"}
+          </button>
         </form>
       </div>
     </div>

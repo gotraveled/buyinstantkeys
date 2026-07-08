@@ -1001,6 +1001,20 @@ class ActivationRequest(BaseModel):
     admin_notes: Optional[str] = None
     created_at: str = Field(default_factory=now_iso)
 
+class ContactCreate(BaseModel):
+    name: str
+    email: str
+    message: str
+
+class ContactRequest(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    email: str
+    message: str
+    status: str = "pending"  # pending, responded
+    created_at: str = Field(default_factory=now_iso)
+
 def activation_admin_html(req: dict) -> str:
     phone_html = f"<p><strong>Phone:</strong> {req['customer_phone']}</p>" if req.get('customer_phone') else ""
     return f"""
@@ -1017,20 +1031,43 @@ def activation_admin_html(req: dict) -> str:
 
 def activation_customer_html(req: dict) -> str:
     return f"""
-    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;background:#f9fafb">
-      <div style="background:#0A0A0A;padding:24px;border-radius:8px 8px 0 0">
-        <h1 style="color:#FCE029;margin:0;font-size:24px">{STORE_NAME}</h1>
+    <div style="font-family:Arial,sans-serif;max-width:600px;padding:20px">
+      <h2>Activation request received</h2>
+      <p>Hi {req['customer_name']},</p>
+      <p>We've received your Norton activation request. Our team will contact you within 12 hours to help complete the activation process.</p>
+      <p><strong>Your product key:</strong> <code style="background:#f3f4f6;padding:6px 8px;border-radius:4px;font-family:monospace">{req['product_key']}</code></p>
+      <p>If you have any questions, please reply to this email.</p>
+      <p>Best regards,<br/>{STORE_NAME} Team</p>
+    </div>
+    """
+
+def contact_admin_html(req: dict) -> str:
+    return f"""
+    <div style="font-family:Arial,sans-serif;max-width:600px;padding:20px">
+      <h2>New contact form submission</h2>
+      <p><strong>Name:</strong> {req['name']}</p>
+      <p><strong>Email:</strong> {req['email']}</p>
+      <p><strong>Message:</strong></p>
+      <div style="background:#f9f9f9;padding:15px;border-left:4px solid #FFC220;margin:10px 0">
+        {req['message'].replace('\n', '<br/>')}
       </div>
-      <div style="background:#fff;padding:32px;border-radius:0 0 8px 8px">
-        <h2 style="color:#0A0A0A">We received your activation request</h2>
-        <p>Hi {req['customer_name']},</p>
-        <p>Thanks for submitting your Norton product key. Our activation team is reviewing your request and will reach out within a few minutes with activation instructions or direct help.</p>
-        <div style="background:#FEF9C3;padding:16px;border-radius:6px;margin:16px 0;border-left:4px solid #FCE029">
-          Reference key ending: <code style="font-family:monospace">****-****-{req['product_key'][-4:] if len(req['product_key']) >= 4 else req['product_key']}</code>
-        </div>
-        <p>Need urgent help? Reply to this email or click <a href="{STORE_URL}/activation/thanks">here to chat with us</a>.</p>
-        <p style="color:#6B7280;font-size:12px;margin-top:24px">© {STORE_NAME}. Norton is a trademark of Gen Digital Inc.</p>
+      <p><strong>Received:</strong> {req['created_at']}</p>
+      <p>Please respond to this customer inquiry.</p>
+    </div>
+    """
+
+def contact_customer_html(req: dict) -> str:
+    return f"""
+    <div style="font-family:Arial,sans-serif;max-width:600px;padding:20px">
+      <h2>Message received</h2>
+      <p>Hi {req['name']},</p>
+      <p>Thank you for contacting {STORE_NAME}. We've received your message and will respond within 12 hours.</p>
+      <p><strong>Your message:</strong></p>
+      <div style="background:#f9f9f9;padding:15px;border-left:4px solid #FFC220;margin:10px 0">
+        {req['message'].replace('\n', '<br/>')}
       </div>
+      <p>If you have any urgent questions, please email us at info@buyinstantkeys.com</p>
+      <p>Best regards,<br/>{STORE_NAME} Team</p>
     </div>
     """
 
@@ -1068,6 +1105,39 @@ async def admin_list_activations(status: Optional[str] = None, admin_email: str 
         q["status"] = status
     docs = await db.activations.find(q, {"_id": 0}).sort("created_at", -1).to_list(500)
     return [ActivationRequest(**d) for d in docs]
+
+@api_router.post("/contact", response_model=ContactRequest)
+async def create_contact(body: ContactCreate):
+    if not body.message.strip():
+        raise HTTPException(status_code=400, detail="Message is required")
+    req = ContactRequest(
+        name=body.name.strip(),
+        email=body.email.lower(),
+        message=body.message.strip(),
+    )
+    await db.contacts.insert_one(req.model_dump())
+    doc = req.model_dump()
+    # Notify admin team (primary: info@buyinstantkeys.com)
+    await send_email(
+        to="info@buyinstantkeys.com",
+        subject=f"[Contact] {req.name} — {req.email}",
+        html=contact_admin_html(doc),
+    )
+    # Confirmation to the customer
+    await send_email(
+        to=req.email,
+        subject=f"Message received — {STORE_NAME}",
+        html=contact_customer_html(doc),
+    )
+    return req
+
+@api_router.get("/admin/contacts", response_model=List[ContactRequest])
+async def admin_list_contacts(status: Optional[str] = None, admin_email: str = Depends(verify_admin)):
+    q = {}
+    if status:
+        q["status"] = status
+    docs = await db.contacts.find(q, {"_id": 0}).sort("created_at", -1).to_list(500)
+    return [ContactRequest(**d) for d in docs]
 
 @api_router.patch("/admin/activations/{req_id}")
 async def admin_update_activation(req_id: str, body: dict, admin_email: str = Depends(verify_admin)):
