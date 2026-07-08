@@ -1,8 +1,10 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Depends, Header
+from fastapi import FastAPI, APIRouter, HTTPException, Depends, Header, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import Response
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import asyncio
@@ -1091,118 +1093,27 @@ if FRONTEND_BUILD.exists():
             return FileResponse(str(index_file))
         raise HTTPException(status_code=404, detail="Frontend not built. Run 'npm run build' in frontend directory.")
     
-    # SPA routes - handle common frontend routes
-    @app.get("/products")
-    async def serve_products():
+    # Catch-all route for SPA routing - will only be reached if no API route matches
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        logger.info(f"SPA route requested: {full_path}")
+        
+        # Check if the requested file exists in the build directory
+        requested_file = FRONTEND_BUILD / full_path
+        if requested_file.exists() and requested_file.is_file():
+            logger.info(f"Serving file: {requested_file}")
+            return FileResponse(str(requested_file))
+        
+        # For all other routes, serve index.html for SPA routing
         index_file = FRONTEND_BUILD / "index.html"
         if index_file.exists():
+            logger.info(f"Serving index.html for route: {full_path}")
             return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
+        
+        logger.error(f"Frontend not built at {FRONTEND_BUILD}")
+        raise HTTPException(status_code=404, detail="Frontend not built. Run 'npm run build' in frontend directory.")
     
-    @app.get("/product/{slug}")
-    async def serve_product_detail(slug: str):
-        index_file = FRONTEND_BUILD / "index.html"
-        if index_file.exists():
-            return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
-    
-    @app.get("/faq")
-    async def serve_faq():
-        index_file = FRONTEND_BUILD / "index.html"
-        if index_file.exists():
-            return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
-    
-    @app.get("/contact")
-    async def serve_contact():
-        index_file = FRONTEND_BUILD / "index.html"
-        if index_file.exists():
-            return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
-    
-    @app.get("/about")
-    async def serve_about():
-        index_file = FRONTEND_BUILD / "index.html"
-        if index_file.exists():
-            return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
-    
-    @app.get("/activation")
-    async def serve_activation():
-        index_file = FRONTEND_BUILD / "index.html"
-        if index_file.exists():
-            return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
-    
-    @app.get("/activation/thanks")
-    async def serve_activation_thanks():
-        index_file = FRONTEND_BUILD / "index.html"
-        if index_file.exists():
-            return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
-    
-    @app.get("/track")
-    async def serve_track():
-        index_file = FRONTEND_BUILD / "index.html"
-        if index_file.exists():
-            return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
-    
-    @app.get("/digital-delivery")
-    async def serve_digital_delivery():
-        index_file = FRONTEND_BUILD / "index.html"
-        if index_file.exists():
-            return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
-    
-    @app.get("/terms")
-    async def serve_terms():
-        index_file = FRONTEND_BUILD / "index.html"
-        if index_file.exists():
-            return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
-    
-    @app.get("/privacy-policy")
-    async def serve_privacy():
-        index_file = FRONTEND_BUILD / "index.html"
-        if index_file.exists():
-            return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
-    
-    @app.get("/refund-policy")
-    async def serve_refund():
-        index_file = FRONTEND_BUILD / "index.html"
-        if index_file.exists():
-            return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
-    
-    @app.get("/disclaimer")
-    async def serve_disclaimer():
-        index_file = FRONTEND_BUILD / "index.html"
-        if index_file.exists():
-            return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
-    
-    @app.get("/category/{category}")
-    async def serve_category(category: str):
-        index_file = FRONTEND_BUILD / "index.html"
-        if index_file.exists():
-            return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
-    
-    @app.get("/admin/login")
-    async def serve_admin_login():
-        index_file = FRONTEND_BUILD / "index.html"
-        if index_file.exists():
-            return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
-    
-    @app.get("/admin")
-    async def serve_admin():
-        index_file = FRONTEND_BUILD / "index.html"
-        if index_file.exists():
-            return FileResponse(str(index_file))
-        raise HTTPException(status_code=404, detail="Frontend not built.")
+    logger.info(f"SPA routing enabled for frontend build at {FRONTEND_BUILD}")
 else:
     logger.warning(f"Frontend build directory not found at {FRONTEND_BUILD}. SPA routing disabled.")
 
