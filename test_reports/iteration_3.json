@@ -1,0 +1,37 @@
+{
+  "summary": "Iteration 3 testing: Order model phone+address, PayPal LIVE mode config, ProductBox hero on Home, product cards SVG, variant chip → box tier badge update, Checkout 4-field form, Footer & Contact address/email. Backend: 4/4 new pytest cases green (+ 15/15 iteration_2 unchanged). Frontend: all requested testids present; hero uses SVG ProductBox (no Unsplash); variant switch updates tier badge from '1 Year | 3 Devices' to '2 Years | 5 Devices'; footer and Contact contain 'Westwood Street, Hayward, California, 94544' and 'info@buyinstantkeys.com' mailto link; simulate-btn correctly hidden in PayPal LIVE mode.",
+  "tested_scope": ["backend", "frontend", "integration"],
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "passed_backend": [
+    "POST /api/orders with customer_phone + customer_address → order object contains both, GET /api/orders/{id} round-trips values",
+    "POST /api/orders without phone/address → still 200, fields are null",
+    "GET /api/config → paypal_enabled=true, paypal_mode='live', paypal_client_id exposed",
+    "POST /api/orders/{id}/paypal/create → returns real paypal_order_id (LIVE mode); capture intentionally NOT invoked"
+  ],
+  "passed_frontend": [
+    "Home /: [data-testid='product-box-norton-360-deluxe'] present in hero; no Unsplash <img> in hero section",
+    "Offer banner + code FLASH70 + countdown still visible above header",
+    "/products: 20 SVG product boxes (data-testid='product-box-<slug>') rendered",
+    "/product/norton-360-deluxe: clicking variant chip[2] changes SVG tier badge text from '1 Year | 3 Devices' to '2 Years | 5 Devices'",
+    "/checkout: has checkout-name-input, checkout-email-input, checkout-phone-input, checkout-address-input",
+    "In LIVE PayPal mode: checkout-simulate-btn hidden; live PayPal buttons render (not clicked per instructions)",
+    "Footer on / contains 'Westwood Street', 'Hayward', 'California, 94544', 'info@buyinstantkeys.com'",
+    "/contact: 'Visit us' card shows full address incl. 'United States'; 'Email us' card links via mailto:info@buyinstantkeys.com"
+  ],
+  "test_report_links": ["/app/backend/tests/test_iteration3.py", "/app/test_reports/pytest/iter3_results.xml"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py is now ~979 lines — well over the 700-line advisory limit. Recommend splitting into modules (routes/orders.py, routes/coupons.py, routes/banner.py, routes/admin.py, services/paypal.py, services/email.py).",
+    "PayPal LIVE credentials are now committed via backend/.env — confirm secrets are only in env and not source control; consider server-side amount tamper protection (currently amount is recomputed server-side from DB which is correct).",
+    "PayPal LIVE mode preview page throws a benign cross-origin 'zoid destroyed all components' console error on unmount. Not blocking; expected when navigating away from checkout with SDK loaded."
+  ],
+  "updated_files": ["/app/backend/tests/test_iteration3.py"],
+  "success_rate": {"backend": "100% (4/4 new + 15/15 regression)", "frontend": "100% (all iteration-3 testids and flows verified)"},
+  "test_credentials": "admin@buyinstantkeys.com / Admin@123456",
+  "seed_data_creation": "Test orders TEST_i3phone@example.com, TEST_i3nophone@example.com, TEST_i3paypal@example.com created; harmless.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "mocked_apis_note": "PayPal now LIVE — tests only exercise create (no capture) to avoid real transactions. Resend is now sending real emails (not verified in this iteration; not part of scope).",
+  "context_for_next_testing_agent": "iteration_3 all green. If further changes touch Checkout, keep in mind PayPal is LIVE — never click PayPal buttons; use /api/orders/{id}/simulate-payment for e2e paid-order flow. ProductBox SVG text can be read via evaluate(document.querySelectorAll('text')) — Playwright inner_text on the SVG root can be racy immediately after mount."
+}

@@ -111,6 +111,8 @@ class OrderItem(BaseModel):
 class OrderCreate(BaseModel):
     customer_name: str
     customer_email: EmailStr
+    customer_phone: Optional[str] = None
+    customer_address: Optional[str] = None
     items: List[OrderItem]
     coupon_code: Optional[str] = None
 
@@ -120,6 +122,8 @@ class Order(BaseModel):
     order_number: str
     customer_name: str
     customer_email: str
+    customer_phone: Optional[str] = None
+    customer_address: Optional[str] = None
     items: List[OrderItem]
     subtotal: float = 0
     discount_amount: float = 0
@@ -695,7 +699,9 @@ async def create_order(body: OrderCreate):
     order_number = "BIK-" + datetime.now(timezone.utc).strftime("%Y%m%d") + "-" + uuid.uuid4().hex[:6].upper()
     order = Order(
         order_number=order_number, customer_name=body.customer_name,
-        customer_email=body.customer_email, items=validated_items,
+        customer_email=body.customer_email,
+        customer_phone=body.customer_phone, customer_address=body.customer_address,
+        items=validated_items,
         subtotal=subtotal, discount_amount=discount_amount, coupon_code=coupon_code,
         total=total,
     )

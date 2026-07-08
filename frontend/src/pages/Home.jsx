@@ -2,13 +2,19 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "@/lib/api";
 import ProductCard from "@/components/ProductCard";
+import ProductBox from "@/components/ProductBox";
 import { TrustBadges, TrustMarquee, StarRating } from "@/components/Trust";
 import { ShieldCheck, LockKey, Envelope, CreditCard, Lightning, ArrowRight, CheckCircle } from "@phosphor-icons/react";
 
 export default function Home() {
   const [featured, setFeatured] = useState([]);
+  const [heroProduct, setHeroProduct] = useState(null);
   useEffect(() => {
-    api.get("/products", { params: { featured: true } }).then((r) => setFeatured(r.data)).catch(() => {});
+    api.get("/products", { params: { featured: true } }).then((r) => {
+      setFeatured(r.data);
+      const hero = r.data.find((p) => p.slug === "norton-360-deluxe") || r.data[0];
+      setHeroProduct(hero);
+    }).catch(() => {});
   }, []);
 
   return (
@@ -43,13 +49,11 @@ export default function Home() {
           </div>
           <div className="relative">
             <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-br from-neutral-100 to-yellow-50 blur-2xl" />
-            <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-2 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.25)]">
-              <img
-                src="https://images.unsplash.com/photo-1614064548237-096f735f344f?w=900"
-                alt="Norton security"
-                className="h-[420px] w-full rounded-xl object-cover"
-              />
-              <div className="absolute bottom-6 left-6 right-6 rounded-xl border border-neutral-200 bg-white/95 p-4 backdrop-blur">
+            <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-gradient-to-br from-white to-neutral-50 p-6 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.25)]">
+              <div className="mx-auto flex h-[440px] w-full items-center justify-center">
+                {heroProduct && <ProductBox product={heroProduct} size="lg" />}
+              </div>
+              <div className="mt-4 rounded-xl border border-neutral-200 bg-white/95 p-4">
                 <div className="flex items-center gap-3">
                   <div className="grid h-11 w-11 place-items-center rounded-lg bg-neutral-900 text-[#FCE029]"><Envelope size={22} weight="duotone" /></div>
                   <div>

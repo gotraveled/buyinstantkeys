@@ -11,7 +11,7 @@ export default function Checkout() {
   const nav = useNavigate();
   const { items, subtotal, coupon, clearCart } = useCart();
   const [config, setConfig] = useState({ paypal_enabled: false });
-  const [form, setForm] = useState({ customer_name: "", customer_email: "" });
+  const [form, setForm] = useState({ customer_name: "", customer_email: "", customer_phone: "", customer_address: "" });
   const [order, setOrder] = useState(null);
   const [creating, setCreating] = useState(false);
   const [paying, setPaying] = useState(false);
@@ -32,8 +32,8 @@ export default function Checkout() {
   const total = Math.max(0, subtotal - discountAmount);
 
   const createOrder = async () => {
-    if (!form.customer_name.trim() || !form.customer_email.trim()) {
-      toast.error("Please fill in your name and email.");
+    if (!form.customer_name.trim() || !form.customer_email.trim() || !form.customer_phone.trim() || !form.customer_address.trim()) {
+      toast.error("Please fill in name, email, phone and address.");
       return null;
     }
     setCreating(true);
@@ -41,6 +41,8 @@ export default function Checkout() {
       const payload = {
         customer_name: form.customer_name.trim(),
         customer_email: form.customer_email.trim().toLowerCase(),
+        customer_phone: form.customer_phone.trim(),
+        customer_address: form.customer_address.trim(),
         coupon_code: coupon?.code || null,
         items: items.map((i) => ({
           product_id: i.product_id, product_name: i.product_name,
@@ -101,14 +103,40 @@ export default function Checkout() {
                   className="mt-1 w-full rounded-md border border-neutral-300 bg-white px-4 py-3 text-sm focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400 disabled:bg-neutral-100"
                 />
               </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Email address</label>
+                  <input
+                    data-testid="checkout-email-input"
+                    type="email"
+                    value={form.customer_email}
+                    onChange={(e) => setForm({ ...form, customer_email: e.target.value })}
+                    placeholder="you@example.com"
+                    disabled={!!order}
+                    className="mt-1 w-full rounded-md border border-neutral-300 bg-white px-4 py-3 text-sm focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400 disabled:bg-neutral-100"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Phone number</label>
+                  <input
+                    data-testid="checkout-phone-input"
+                    type="tel"
+                    value={form.customer_phone}
+                    onChange={(e) => setForm({ ...form, customer_phone: e.target.value })}
+                    placeholder="+1 (555) 123-4567"
+                    disabled={!!order}
+                    className="mt-1 w-full rounded-md border border-neutral-300 bg-white px-4 py-3 text-sm focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400 disabled:bg-neutral-100"
+                  />
+                </div>
+              </div>
               <div>
-                <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Email address</label>
-                <input
-                  data-testid="checkout-email-input"
-                  type="email"
-                  value={form.customer_email}
-                  onChange={(e) => setForm({ ...form, customer_email: e.target.value })}
-                  placeholder="you@example.com"
+                <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Billing address</label>
+                <textarea
+                  data-testid="checkout-address-input"
+                  rows={2}
+                  value={form.customer_address}
+                  onChange={(e) => setForm({ ...form, customer_address: e.target.value })}
+                  placeholder="123 Main Street, City, State, ZIP, Country"
                   disabled={!!order}
                   className="mt-1 w-full rounded-md border border-neutral-300 bg-white px-4 py-3 text-sm focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400 disabled:bg-neutral-100"
                 />

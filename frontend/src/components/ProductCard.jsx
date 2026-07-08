@@ -8,7 +8,7 @@ export default function ProductCard({ product }) {
   const savings = maxOrig > minPrice ? Math.round(((maxOrig - minPrice) / maxOrig) * 100) : 0;
   return (
     <Link to={`/product/${product.slug}`} data-testid={`product-card-${product.slug}`} className="card-product group block p-6">
-      <ProductBox product={product} size="md" />
+      <div className="h-48"><ProductBox product={product} size="md" /></div>
       <div className="mt-5 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">
         <ShieldCheck size={14} weight="fill" className="text-emerald-600" /> {product.category}
       </div>

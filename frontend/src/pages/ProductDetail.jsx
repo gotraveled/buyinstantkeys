@@ -48,8 +48,8 @@ export default function ProductDetail() {
       </div>
       <div className="grid gap-12 lg:grid-cols-2">
         <div>
-          <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white p-4">
-            <ProductBox product={product} size="lg" />
+          <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+            <div className="h-[440px]"><ProductBox product={product} variant={variant} size="lg" /></div>
           </div>
           <div className="mt-6 grid grid-cols-3 gap-3">
             {[<ShieldCheck size={20} weight="duotone" />, <Envelope size={20} weight="duotone" />, <LockKey size={20} weight="duotone" />].map((icon, i) => (
