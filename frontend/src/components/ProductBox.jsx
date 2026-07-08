@@ -1,12 +1,52 @@
 import { ShieldCheck, WindowsLogo, AppleLogo, AndroidLogo, CheckCircle } from "@phosphor-icons/react";
 
-// Professional light theme palette matching website aesthetic
+// 3D packaging palette matching Norton retail boxes
 const PALETTE = {
-  gold:   { primary: "#FFC220", secondary: "#0A0A0A", accent: "#F5F5F5", tag: "AntiVirus" },
-  amber:  { primary: "#F59E0B", secondary: "#0A0A0A", accent: "#FFFBEB", tag: "Premium" },
-  black:  { primary: "#0A0A0A", secondary: "#FCE029", accent: "#FAFAFA", tag: "LifeLock" },
-  green:  { primary: "#059669", secondary: "#0A0A0A", accent: "#ECFDF5", tag: "Privacy" },
-  purple: { primary: "#6D28D9", secondary: "#FFFFFF", accent: "#F5F3FF", tag: "Gaming" },
+  gold:   { 
+    primary: "#FFC220", 
+    secondary: "#0A0A0A", 
+    body: "#0047AB", 
+    bodyGradient: ["#0047AB", "#003366"],
+    spine: "#002244",
+    accent: "#FFD700",
+    tag: "AntiVirus" 
+  },
+  amber:  { 
+    primary: "#F59E0B", 
+    secondary: "#0A0A0A", 
+    body: "#1E3A5F", 
+    bodyGradient: ["#1E3A5F", "#152A45"],
+    spine: "#0D1F33",
+    accent: "#FFB84D",
+    tag: "Premium" 
+  },
+  black:  { 
+    primary: "#0A0A0A", 
+    secondary: "#FCE029", 
+    body: "#1A1A1A", 
+    bodyGradient: ["#1A1A1A", "#0D0D0D"],
+    spine: "#000000",
+    accent: "#FCE029",
+    tag: "LifeLock" 
+  },
+  green:  { 
+    primary: "#059669", 
+    secondary: "#FFFFFF", 
+    body: "#064E3B", 
+    bodyGradient: ["#064E3B", "#022C22"],
+    spine: "#011912",
+    accent: "#34D399",
+    tag: "Privacy" 
+  },
+  purple: { 
+    primary: "#6D28D9", 
+    secondary: "#FFFFFF", 
+    body: "#4C1D95", 
+    bodyGradient: ["#4C1D95", "#2E1065"],
+    spine: "#1E0A4A",
+    accent: "#A78BFA",
+    tag: "Gaming" 
+  },
 };
 
 function shortName(name) {
@@ -27,134 +67,194 @@ export default function ProductBox({ product, variant, size = "md", showRibbon =
   const features = (product?.features || []).slice(0, 2);
   const showDetails = size !== "sm";
 
+  const boxScale = size === "lg" ? 1 : size === "md" ? 0.9 : 0.75;
+
   return (
     <div
       data-testid={`product-box-${product?.slug}`}
-      className="relative flex h-full w-full flex-col overflow-hidden rounded-xl border shadow-sm transition-shadow hover:shadow-md"
+      className="relative flex h-full w-full flex-col overflow-hidden"
       style={{
-        borderColor: "#E5E7EB",
-        background: "#FFFFFF",
+        transform: `scale(${boxScale})`,
+        transformOrigin: "center center",
       }}
     >
-      {/* Top accent bar */}
+      {/* 3D Box Container */}
       <div
-        className="h-1"
+        className="relative flex h-full w-full"
         style={{
-          background: cfg.primary,
+          perspective: "1200px",
+          transformStyle: "preserve-3d",
         }}
-      />
+      >
+        {/* Main Box Face */}
+        <div
+          className="relative flex flex-1 flex-col overflow-hidden rounded-lg"
+          style={{
+            background: `linear-gradient(135deg, ${cfg.bodyGradient[0]} 0%, ${cfg.bodyGradient[1]} 100%)`,
+            boxShadow: `
+              0 20px 50px rgba(0,0,0,0.5),
+              0 10px 20px rgba(0,0,0,0.3),
+              inset 0 1px 0 rgba(255,255,255,0.1),
+              inset 0 -1px 0 rgba(0,0,0,0.2)
+            `,
+            border: "1px solid rgba(255,255,255,0.1)",
+          }}
+        >
+          {/* Glossy overlay */}
+          <div
+            className="pointer-events-none absolute left-0 top-0 h-full w-1/2"
+            style={{
+              background: "linear-gradient(90deg, rgba(255,255,255,0.15) 0%, transparent 100%)",
+            }}
+          />
 
-      {/* Content */}
-      <div className="flex flex-1 flex-col px-5 pb-5 pt-4">
-        {/* Header with brand and badge */}
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-2">
-            <div
-              className="grid h-8 w-8 place-items-center rounded-lg"
-              style={{ background: cfg.accent }}
-            >
-              <ShieldCheck size={18} weight="fill" style={{ color: cfg.primary }} />
-            </div>
-            <div>
-              <div
-                className="font-display font-bold tracking-tight"
+          {/* Top header band */}
+          <div
+            className="relative flex items-center justify-between px-4 py-3"
+            style={{
+              background: `linear-gradient(180deg, ${cfg.primary} 0%, ${cfg.accent} 100%)`,
+              borderBottom: "2px solid rgba(0,0,0,0.3)",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+            }}
+          >
+            <div className="flex items-center gap-2">
+              <ShieldCheck size={size === "lg" ? 24 : 20} weight="fill" style={{ color: cfg.secondary }} />
+              <span
+                className="font-display font-black tracking-tight"
                 style={{
-                  fontSize: size === "lg" ? 18 : 14,
+                  fontSize: size === "lg" ? 22 : 18,
                   color: cfg.secondary,
+                  textShadow: "0 2px 4px rgba(0,0,0,0.3)",
+                }}
+              >
+                NORTON
+              </span>
+            </div>
+            {showRibbon && product?.badge && (
+              <span
+                className="rounded-sm px-2 py-0.5 font-display text-[9px] font-bold uppercase tracking-[0.14em]"
+                style={{
+                  background: cfg.secondary,
+                  color: cfg.primary,
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+                }}
+              >
+                {product.badge}
+              </span>
+            )}
+          </div>
+
+          {/* Body content */}
+          <div className="flex flex-1 flex-col px-4 pb-4 pt-4" style={{ color: cfg.secondary }}>
+            {/* Category badge */}
+            <div
+              className="inline-flex w-fit items-center gap-1.5 rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em]"
+              style={{
+                borderColor: cfg.primary,
+                color: cfg.secondary,
+                background: `${cfg.primary}33`,
+                backdropFilter: "blur(4px)",
+              }}
+            >
+              <span className="h-1.5 w-1.5 rounded-full" style={{ background: cfg.primary }} />
+              {product?.category || cfg.tag}
+            </div>
+
+            {/* Product name */}
+            <div className="mt-3">
+              <div
+                className="font-display font-black leading-[1.05] tracking-tight"
+                style={{
+                  fontSize: size === "lg" ? 28 : size === "md" ? 22 : 16,
+                  color: cfg.secondary,
+                  textShadow: "0 2px 8px rgba(0,0,0,0.5)",
                 }}
               >
                 NORTON
               </div>
               <div
-                className="font-display font-semibold leading-tight"
+                className="font-display font-extrabold leading-[1.05] tracking-tight"
                 style={{
-                  fontSize: size === "lg" ? 14 : 11,
+                  fontSize: size === "lg" ? 24 : size === "md" ? 18 : 12,
                   color: cfg.primary,
+                  textShadow: "0 2px 8px rgba(0,0,0,0.5)",
                 }}
               >
                 {name}
               </div>
             </div>
-          </div>
-          {showRibbon && product?.badge && (
-            <span
-              className="rounded-full px-2 py-0.5 font-display text-[9px] font-bold uppercase tracking-[0.12em]"
-              style={{
-                background: cfg.primary,
-                color: cfg.secondary,
-              }}
-            >
-              {product.badge}
-            </span>
-          )}
-        </div>
 
-        {/* Category tag */}
-        <div
-          className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-full px-2 py-1 text-[10px] font-medium uppercase tracking-[0.1em]"
-          style={{
-            color: "#6B7280",
-            background: "#F3F4F6",
-          }}
-        >
-          {product?.category || cfg.tag}
-        </div>
+            {/* Features */}
+            {showDetails && features.length > 0 && (
+              <ul className="mt-3 space-y-1.5 text-[11px]" style={{ color: "rgba(255,255,255,0.85)" }}>
+                {features.map((f, i) => (
+                  <li key={i} className="flex items-start gap-1.5">
+                    <CheckCircle size={12} weight="fill" style={{ color: cfg.primary, marginTop: 2 }} />
+                    <span className="line-clamp-1">{f}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
 
-        {/* Features */}
-        {showDetails && features.length > 0 && (
-          <ul className="mt-4 space-y-2">
-            {features.map((f, i) => (
-              <li key={i} className="flex items-start gap-2 text-xs" style={{ color: "#6B7280" }}>
-                <CheckCircle size={14} weight="fill" style={{ color: cfg.primary, marginTop: 1, flexShrink: 0 }} />
-                <span className="line-clamp-1">{f}</span>
-              </li>
-            ))}
-          </ul>
-        )}
+            {/* Spacer */}
+            <div className="flex-1" />
 
-        {/* Spacer */}
-        <div className="flex-1" />
-
-        {/* Tier information */}
-        {showDetails && (
-          <div
-            className="mt-4 flex items-center justify-between rounded-lg border px-3 py-2"
-            style={{
-              borderColor: "#E5E7EB",
-              background: "#F9FAFB",
-            }}
-          >
-            <div className="min-w-0">
+            {/* Tier information */}
+            {showDetails && (
               <div
-                className="font-display text-[9px] font-semibold uppercase tracking-[0.12em]"
-                style={{ color: "#9CA3AF" }}
+                className="mt-4 flex items-center justify-between rounded-lg border px-3 py-2"
+                style={{
+                  borderColor: cfg.primary,
+                  background: `${cfg.primary}22`,
+                  backdropFilter: "blur(4px)",
+                }}
               >
-                Plan
+                <div className="min-w-0">
+                  <div
+                    className="font-display text-[9px] font-semibold uppercase tracking-[0.12em]"
+                    style={{ color: "rgba(255,255,255,0.7)" }}
+                  >
+                    Plan
+                  </div>
+                  <div className="font-display text-xs font-bold" style={{ color: cfg.secondary }}>
+                    {devices} · {years}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2" style={{ color: "rgba(255,255,255,0.7)" }}>
+                  <WindowsLogo size={14} weight="fill" />
+                  <AppleLogo size={14} weight="fill" />
+                  <AndroidLogo size={14} weight="fill" />
+                </div>
               </div>
-              <div
-                className="font-display text-xs font-semibold"
-                style={{ color: cfg.secondary }}
-              >
+            )}
+
+            {/* Small size: minimal tier */}
+            {!showDetails && (
+              <div className="mt-2 text-[9px] font-semibold uppercase tracking-[0.12em]" style={{ color: "rgba(255,255,255,0.7)" }}>
                 {devices} · {years}
               </div>
-            </div>
-            <div className="flex items-center gap-1.5" style={{ color: "#9CA3AF" }}>
-              <WindowsLogo size={12} weight="fill" />
-              <AppleLogo size={12} weight="fill" />
-              <AndroidLogo size={12} weight="fill" />
-            </div>
+            )}
           </div>
-        )}
 
-        {/* Small size: minimal tier */}
-        {!showDetails && (
+          {/* Bottom accent */}
           <div
-            className="mt-3 text-[9px] font-semibold uppercase tracking-[0.12em]"
-            style={{ color: "#9CA3AF" }}
-          >
-            {devices} · {years}
-          </div>
-        )}
+            className="h-1.5"
+            style={{
+              background: `linear-gradient(90deg, ${cfg.primary} 0%, ${cfg.accent} 50%, ${cfg.primary} 100%)`,
+            }}
+          />
+        </div>
+
+        {/* Box Spine (3D effect) */}
+        <div
+          className="absolute left-0 top-0 h-full w-4"
+          style={{
+            background: `linear-gradient(90deg, ${cfg.spine} 0%, ${cfg.bodyGradient[1]} 100%)`,
+            transform: "rotateY(-90deg) translateZ(-2px)",
+            transformOrigin: "left",
+            boxShadow: "inset -2px 0 6px rgba(0,0,0,0.4)",
+          }}
+        />
       </div>
     </div>
   );
