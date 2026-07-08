@@ -1,4 +1,6 @@
 from fastapi import FastAPI, APIRouter, HTTPException, Depends, Header
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -16,6 +18,7 @@ import resend
 import httpx
 
 ROOT_DIR = Path(__file__).parent
+FRONTEND_BUILD = ROOT_DIR.parent / "frontend" / "build"
 load_dotenv(ROOT_DIR / '.env')
 
 mongo_url = os.environ['MONGO_URL']
@@ -1074,6 +1077,21 @@ async def admin_update_activation(req_id: str, body: dict, admin_email: str = De
     return doc
 
 app.include_router(api_router)
+
+# Serve React static files
+if FRONTEND_BUILD.exists():
+    app.mount("/static", StaticFiles(directory=str(FRONTEND_BUILD / "static")), name="static")
+    
+    # Catch-all route for SPA routing (must be after API router to not intercept API calls)
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        index_file = FRONTEND_BUILD / "index.html"
+        if index_file.exists():
+            return FileResponse(str(index_file))
+        raise HTTPException(status_code=404, detail="Frontend not built. Run 'npm run build' in frontend directory.")
+else:
+    logger.warning(f"Frontend build directory not found at {FRONTEND_BUILD}. SPA routing disabled.")
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
