@@ -48,8 +48,7 @@ function Layout({ children, showChrome = true }) {
 function AppShell() {
   const { pathname } = useLocation();
   const isAdmin = pathname.startsWith("/admin");
-  const isActivation = pathname.startsWith("/activation");
-  const hideChrome = isAdmin || isActivation;
+  const hideChrome = isAdmin;
   return (
     <Layout showChrome={!hideChrome}>
       <Routes>

@@ -176,7 +176,7 @@ def verify_admin(authorization: Optional[str] = Header(None)) -> str:
         raise HTTPException(status_code=401, detail="Invalid token")
 
 # ============ SEED DATA ============
-SEED_VERSION = "2026-07-v4"
+SEED_VERSION = "2026-07-v5"
 
 NORTON_PRODUCTS = [
     {
@@ -237,6 +237,7 @@ NORTON_PRODUCTS = [
         "variants": [
             {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 169.99, "original_price": 149.99},
         ],
+        "is_featured": True,
     },
     {
         "slug": "norton-360-with-lifelock-select",
@@ -266,6 +267,7 @@ NORTON_PRODUCTS = [
         "variants": [
             {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 209.99, "original_price": 189.99},
         ],
+        "is_featured": True,
     },
     {
         "slug": "norton-360-with-lifelock-advantage",
@@ -309,6 +311,7 @@ NORTON_PRODUCTS = [
         "variants": [
             {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 119.99, "original_price": 99.99},
         ],
+        "is_featured": True,
     },
     {
         "slug": "norton-vpn",
