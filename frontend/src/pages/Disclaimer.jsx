@@ -35,7 +35,7 @@ export default function Disclaimer() {
           <li>Any of the above entities' parents, subsidiaries, affiliates, or brands</li>
           <li>Any other software publisher, manufacturer, distributor, or brand referenced on this Site</li>
         </ul>
-        <p>Any use of brand names, product names, logos, or trademarks on this Site is solely for the identification of products offered for resale. This does not imply any partnership, endorsement, sponsorship, or affiliation with the trademark owner. BuyInstantKeys is an authorized reseller of digital license keys and is not licensed to represent or make statements on behalf of any brand.</p>
+        <p>Any use of brand names, product names, logos, or trademarks on this Site is solely for the identification of products offered for resale. This does not imply any partnership, endorsement, sponsorship, or affiliation with the trademark owner. BuyInstantKeys is a trusted reseller of digital license keys and is not licensed to represent or make statements on behalf of any brand.</p>
       </Section>
 
       <Section id="trademarks" title="3. Trademarks & intellectual property">
@@ -65,7 +65,7 @@ export default function Disclaimer() {
       </Section>
 
       <Section id="no-warranty" title="6. No warranty for third-party software">
-        <p>The software License keys we sell are for third-party products created and maintained by other companies. BuyInstantKeys does not develop, host, update, patch, or provide direct technical support for the software itself. Any warranties relating to the software — including but not limited to malware detection accuracy, feature performance, uptime, or compatibility — are provided <strong>solely by the software publisher</strong> under its End-User License Agreement (EULA).</p>
+        <p>The software License keys we sell are for third-party products created and maintained by other companies. BuyInstantKeys does not develop, host, update, patch, or provide direct assistance for the software itself. Any warranties relating to the software — including but not limited to malware detection accuracy, feature performance, uptime, or compatibility — are provided <strong>solely by the software publisher</strong> under its End-User License Agreement (EULA).</p>
         <p>You are strongly encouraged to review the publisher's EULA before installation and activation. If the software fails to activate, we will assist you or issue a refund under our <a href="/refund-policy" className="underline">Refund Policy</a>. If the software has bugs, missing features, or fails to protect against a specific threat, that is a matter between you and the publisher.</p>
       </Section>
 

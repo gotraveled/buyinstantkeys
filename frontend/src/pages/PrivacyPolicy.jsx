@@ -57,7 +57,7 @@ export default function PrivacyPolicy() {
           <li>Full name, email address, phone number, and billing address (collected at checkout)</li>
           <li>Order details, product selections, and shopping cart contents</li>
           <li>License activation information (Norton product key, customer name, email) submitted through our Activation Portal</li>
-          <li>Communications you send us (support requests, contact form messages, email correspondence)</li>
+          <li>Communications you send us (inquiries, contact form messages, email correspondence)</li>
           <li>Account credentials if you create an admin account</li>
         </ul>
         <p><strong>Information collected automatically:</strong></p>
@@ -79,7 +79,7 @@ export default function PrivacyPolicy() {
         <p>We use the personal information we collect for the following purposes:</p>
         <ul className="list-disc pl-6">
           <li><strong>Order fulfillment:</strong> to process your purchase, deliver license keys to your email, verify payment, and issue refunds when applicable</li>
-          <li><strong>Customer support:</strong> to respond to your inquiries, provide activation assistance, and resolve issues</li>
+          <li><strong>Customer service:</strong> to respond to your inquiries, provide activation assistance, and resolve issues</li>
           <li><strong>Communication:</strong> to send order confirmations, delivery notifications, activation instructions, and important account or service announcements</li>
           <li><strong>Fraud prevention & security:</strong> to detect, investigate and prevent fraudulent transactions, chargebacks, and abuse of our services</li>
           <li><strong>Service improvement:</strong> to analyze usage patterns, improve website functionality, product offerings, and customer experience</li>
@@ -91,7 +91,7 @@ export default function PrivacyPolicy() {
       <Section id="legal-basis" title="5. Legal basis for processing (EU/UK residents)">
         <p>If you are located in the European Economic Area (EEA), the United Kingdom, or Switzerland, our legal bases for processing your personal information include:</p>
         <ul className="list-disc pl-6">
-          <li><strong>Contract:</strong> processing is necessary to perform our contract with you (order fulfillment, delivery, support)</li>
+          <li><strong>Contract:</strong> processing is necessary to perform our contract with you (order fulfillment, delivery, service)</li>
           <li><strong>Legitimate interests:</strong> improving our services, preventing fraud, and understanding customer needs</li>
           <li><strong>Consent:</strong> for marketing communications and non-essential cookies (you may withdraw consent at any time)</li>
           <li><strong>Legal obligation:</strong> compliance with tax, accounting, anti-money-laundering, and consumer protection laws</li>
@@ -125,7 +125,7 @@ export default function PrivacyPolicy() {
         <p>We retain personal information only as long as necessary to fulfill the purposes described in this Privacy Policy, including:</p>
         <ul className="list-disc pl-6">
           <li><strong>Order records:</strong> retained for at least 7 years to comply with U.S. tax and accounting laws</li>
-          <li><strong>Support communications:</strong> retained for up to 3 years for quality assurance</li>
+          <li><strong>Service communications:</strong> retained for up to 3 years for quality assurance</li>
           <li><strong>Marketing preferences:</strong> retained until you opt out</li>
           <li><strong>Website analytics:</strong> aggregated anonymized data may be retained indefinitely</li>
         </ul>

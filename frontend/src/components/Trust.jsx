@@ -7,7 +7,7 @@ export function TrustMarquee() {
     "5-15 min email delivery",
     "Secure PayPal checkout",
     "30-day money back guarantee",
-    "24/7 customer support",
+    "24/7 customer service",
   ];
   const doubled = [...items, ...items];
   return (

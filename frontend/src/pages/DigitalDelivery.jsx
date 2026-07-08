@@ -57,9 +57,9 @@ export default function DigitalDelivery() {
           <li>Your unique <strong>25-character license key</strong> in the format <code className="font-mono">XXXXX-XXXXX-XXXXX-XXXXX-XXXXX</code></li>
           <li>A direct link to <strong>my.norton.com</strong> for redemption</li>
           <li>Clear <strong>step-by-step activation instructions</strong> for Windows, macOS, iOS, and Android</li>
-          <li>Our support contact for any questions or activation help</li>
+          <li>Our contact for any questions or activation help</li>
         </ul>
-        <p>All keys sold by BuyInstantKeys are <strong>genuine, unused, and legally acquired from authorized channels</strong>. Each key is verified before delivery.</p>
+        <p>All keys sold by BuyInstantKeys are <strong>genuine, unused, and legally acquired from trusted channels</strong>. Each key is verified before delivery.</p>
       </Section>
 
       <Section id="activation" title="5. Activating your license">
@@ -71,7 +71,7 @@ export default function DigitalDelivery() {
           <li>Follow the on-screen prompts to download and install Norton on your first device.</li>
           <li>Repeat the download step on additional devices (up to the number allowed by your plan).</li>
         </ol>
-        <p>Need help? Our free Activation Portal at <a href="/activation" className="underline">buyinstantkeys.com/activation</a> gives you step-by-step guidance, and our support team is available 24/7 at <a href="mailto:info@buyinstantkeys.com" className="underline">info@buyinstantkeys.com</a>.</p>
+        <p>Need help? Our free Activation Portal at <a href="/activation" className="underline">buyinstantkeys.com/activation</a> gives you step-by-step guidance, and our team is available 24/7 at <a href="mailto:info@buyinstantkeys.com" className="underline">info@buyinstantkeys.com</a>.</p>
       </Section>
 
       <Section id="no-shipping" title="6. No physical shipping">
@@ -85,7 +85,7 @@ export default function DigitalDelivery() {
           <li><strong>Search your inbox</strong> for "BuyInstantKeys" or "Norton" or your order number (starts with BIK-).</li>
           <li><strong>Whitelist</strong> our sending domain to prevent future emails from being filtered.</li>
           <li><strong>Track your order</strong> on our <a href="/track" className="underline">Track Order</a> page — you'll see current status and the license key if it has been delivered.</li>
-          <li><strong>Contact support</strong> at <a href="mailto:info@buyinstantkeys.com" className="underline">info@buyinstantkeys.com</a> with your order number — we will resend or issue a full refund if needed.</li>
+          <li><strong>Contact us</strong> at <a href="mailto:info@buyinstantkeys.com" className="underline">info@buyinstantkeys.com</a> with your order number — we will resend or issue a full refund if needed.</li>
         </ol>
         <p>We will never share your license key with anyone other than the email address on your order. This is why entering the correct email at checkout is important.</p>
       </Section>

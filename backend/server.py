@@ -425,7 +425,7 @@ NORTON_PRODUCTS = [
         "category": "Services",
         "box_variant": "amber",
         "image_url": "",
-        "features": ["24/7 remote assistance", "Setup assistance", "Malware removal", "Data recovery assistance", "Software installation"],
+        "features": ["24/7 online assistance", "Setup assistance", "Malware removal", "Data recovery assistance", "Software installation"],
         "variants": [
             {"devices": 999, "years": 1, "label": "Unlimited Assistance / 1 Year", "price": 119.99, "original_price": 199.99},
         ],

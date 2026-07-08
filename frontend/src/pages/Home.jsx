@@ -163,7 +163,7 @@ export default function Home() {
           <div className="mt-14 grid gap-6 md:grid-cols-12">
             {[
               { n: "01", icon: <ShieldCheck size={24} weight="duotone" />, title: "Choose your Norton product", desc: "Pick the plan and device count that fit your needs. Compare prices instantly.", span: "md:col-span-5" },
-              { n: "02", icon: <CreditCard size={24} weight="duotone" />, title: "Checkout securely with PayPal", desc: "Encrypted payment. No account required. Guest checkout supported.", span: "md:col-span-7" },
+              { n: "02", icon: <CreditCard size={24} weight="duotone" />, title: "Checkout securely with PayPal", desc: "Encrypted payment. No account required. Guest checkout available.", span: "md:col-span-7" },
               { n: "03", icon: <Envelope size={24} weight="duotone" />, title: "Get your key by email", desc: "Our team verifies your order and emails your genuine key within 5–15 minutes.", span: "md:col-span-7" },
               { n: "04", icon: <Lightning size={24} weight="duotone" />, title: "Activate on Norton.com", desc: "Sign in to my.norton.com, paste the key, and enjoy full protection.", span: "md:col-span-5" },
             ].map((s) => (

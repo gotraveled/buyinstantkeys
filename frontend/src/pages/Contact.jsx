@@ -42,7 +42,7 @@ export default function Contact() {
       <SEO
         title="Contact Us | BuyInstantKeys"
         description="Get in touch with BuyInstantKeys for Norton license key inquiries, order assistance, and activation help. We respond within 12 hours."
-        keywords="Contact BuyInstantKeys, Norton customer service, Norton key assistance, order inquiry, activation help, Norton support contact"
+        keywords="Contact BuyInstantKeys, Norton customer service, Norton key assistance, order inquiry, activation help, Norton contact"
         schema={[contactSchema]}
       />
       <div className="container-page py-14">

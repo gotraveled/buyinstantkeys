@@ -46,7 +46,7 @@ export default function RefundPolicy() {
       <Section id="eligibility" title="3. Refund eligibility">
         <p>You may be eligible for a full refund if:</p>
         <ul className="list-disc pl-6">
-          <li>The License key cannot be redeemed on the Publisher's activation portal, and our support team confirms the issue</li>
+          <li>The License key cannot be redeemed on the Publisher's activation portal, and our team confirms the issue</li>
           <li>You purchased the wrong product by accident and have <strong>not</strong> yet activated the License</li>
           <li>You did not receive your License key within 24 hours of payment confirmation (subject to our verification)</li>
           <li>You are protected by an applicable statutory right to cancel (see Section 8)</li>
