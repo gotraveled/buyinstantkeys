@@ -34,13 +34,13 @@ function ScrollToTop() {
   return null;
 }
 
-function Layout({ children, showChrome = true }) {
+function Layout({ children, showHeader = true, showFooter = true }) {
   return (
     <div className="App flex min-h-screen flex-col">
-      {showChrome && <OfferBanner />}
-      {showChrome && <Navbar />}
+      {showHeader && <OfferBanner />}
+      {showHeader && <Navbar />}
       <main className="flex-1">{children}</main>
-      {showChrome && <Footer />}
+      {showFooter && <Footer />}
     </div>
   );
 }
@@ -48,9 +48,11 @@ function Layout({ children, showChrome = true }) {
 function AppShell() {
   const { pathname } = useLocation();
   const isAdmin = pathname.startsWith("/admin");
-  const hideChrome = isAdmin;
+  const isActivation = pathname.startsWith("/activation");
+  const showHeader = !isAdmin && !isActivation;
+  const showFooter = !isAdmin;
   return (
-    <Layout showChrome={!hideChrome}>
+    <Layout showHeader={showHeader} showFooter={showFooter}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
