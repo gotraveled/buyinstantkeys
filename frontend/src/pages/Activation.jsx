@@ -131,20 +131,29 @@ export default function Activation() {
 
   return (
     <div className="bg-neutral-50">
-      {/* Norton-brand header strip */}
+      {/* Trust badges header strip */}
       <div className="border-b border-neutral-200 bg-white">
-        <div className="container-page flex items-center justify-between py-4">
-          <div className="flex items-center gap-2">
-            <div className="grid h-8 w-8 place-items-center rounded-full bg-[#FFC220]">
-              <ShieldCheck size={18} weight="fill" className="text-white" />
+        <div className="container-page flex items-center justify-center py-4">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+            <div className="flex items-center gap-2 text-sm">
+              <ShieldCheck size={18} weight="duotone" className="text-emerald-600" />
+              <span className="font-semibold text-neutral-900">100% Genuine</span>
             </div>
-            <div className="font-display text-xl font-black tracking-tight text-neutral-900">norton</div>
-            <span className="ml-3 hidden text-sm text-neutral-600 sm:inline">Product Activation</span>
-          </div>
-          <div className="hidden items-center gap-4 text-sm text-neutral-700 md:flex">
-            <a href="#activation-form" className="hover:text-neutral-900">Activate</a>
-            <Link to="/faq" className="hover:text-neutral-900">Resources</Link>
-            <Link to="/contact" className="hover:text-neutral-900">Contact Us</Link>
+            <div className="hidden sm:block w-px h-5 bg-neutral-200"></div>
+            <div className="flex items-center gap-2 text-sm">
+              <Clock size={18} weight="duotone" className="text-blue-600" />
+              <span className="font-semibold text-neutral-900">Fast Delivery</span>
+            </div>
+            <div className="hidden sm:block w-px h-5 bg-neutral-200"></div>
+            <div className="flex items-center gap-2 text-sm">
+              <Headset size={18} weight="duotone" className="text-purple-600" />
+              <span className="font-semibold text-neutral-900">Expert Help</span>
+            </div>
+            <div className="hidden sm:block w-px h-5 bg-neutral-200"></div>
+            <div className="flex items-center gap-2 text-sm">
+              <LockKey size={18} weight="duotone" className="text-orange-600" />
+              <span className="font-semibold text-neutral-900">Secure Payment</span>
+            </div>
           </div>
         </div>
       </div>
@@ -152,31 +161,6 @@ export default function Activation() {
       {/* Hero band - simplified */}
       <section className="relative overflow-hidden border-b border-neutral-200 bg-gradient-to-b from-white via-yellow-50/40 to-white">
         <div className="container-page py-8 md:py-12">
-          {/* Top bar with trust badges */}
-          <div className="mx-auto max-w-4xl mb-8">
-            <div className="flex flex-wrap items-center justify-center gap-4 rounded-2xl border border-neutral-200 bg-white px-6 py-4 shadow-sm">
-              <div className="flex items-center gap-2 text-sm">
-                <ShieldCheck size={20} weight="duotone" className="text-emerald-600" />
-                <span className="font-semibold text-neutral-900">100% Genuine</span>
-              </div>
-              <div className="hidden sm:block w-px h-5 bg-neutral-200"></div>
-              <div className="flex items-center gap-2 text-sm">
-                <Clock size={20} weight="duotone" className="text-blue-600" />
-                <span className="font-semibold text-neutral-900">Fast Delivery</span>
-              </div>
-              <div className="hidden sm:block w-px h-5 bg-neutral-200"></div>
-              <div className="flex items-center gap-2 text-sm">
-                <Headset size={20} weight="duotone" className="text-purple-600" />
-                <span className="font-semibold text-neutral-900">Expert Help</span>
-              </div>
-              <div className="hidden sm:block w-px h-5 bg-neutral-200"></div>
-              <div className="flex items-center gap-2 text-sm">
-                <LockKey size={20} weight="duotone" className="text-orange-600" />
-                <span className="font-semibold text-neutral-900">Secure Payment</span>
-              </div>
-            </div>
-          </div>
-          
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="font-display text-3xl font-black leading-[1.05] tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
               Need help activating your <span className="relative inline-block"><span className="relative z-10">security subscription</span><span className="absolute inset-x-0 bottom-1 z-0 h-3 bg-[#FFC220]" aria-hidden /></span>?
