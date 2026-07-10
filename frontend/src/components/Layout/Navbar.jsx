@@ -33,6 +33,7 @@ export default function Navbar() {
           <NavLink to="/activation" testId="nav-activation">Activate</NavLink>
           <NavLink to="/track" testId="nav-track">Track Order</NavLink>
           <NavLink to="/faq" testId="nav-faq">FAQ</NavLink>
+          <NavLink to="/about" testId="nav-about">About</NavLink>
           <NavLink to="/contact" testId="nav-contact">Contact</NavLink>
         </nav>
         <div className="flex items-center gap-3">
