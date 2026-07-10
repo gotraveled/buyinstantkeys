@@ -19,13 +19,52 @@ export default function Activation() {
   const nav = useNavigate();
   const [form, setForm] = useState({ customer_name: "", customer_email: "", customer_phone: "", product_key: "" });
   const [submitting, setSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone) => {
+    const phoneRegex = /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,9}$/;
+    return phoneRegex.test(phone);
+  };
+
+  const clearError = (field) => {
+    setErrors((prev) => ({ ...prev, [field]: "" }));
+  };
 
   const submit = async (e) => {
     e.preventDefault();
-    if (!form.customer_name.trim() || !form.customer_email.trim() || !form.product_key.trim()) {
-      toast.error("Please complete all fields.");
+    const newErrors = {};
+
+    if (!form.customer_name.trim()) {
+      newErrors.customer_name = "Name is required";
+    }
+
+    if (!form.customer_email.trim()) {
+      newErrors.customer_email = "Email is required";
+    } else if (!validateEmail(form.customer_email)) {
+      newErrors.customer_email = "Please enter a valid email address";
+    }
+
+    if (!form.customer_phone.trim()) {
+      newErrors.customer_phone = "Phone number is required";
+    } else if (!validatePhone(form.customer_phone)) {
+      newErrors.customer_phone = "Please enter a valid phone number";
+    }
+
+    if (!form.product_key.trim()) {
+      newErrors.product_key = "Product key is required";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      toast.error("Please fix the errors in the form.");
       return;
     }
+
     setSubmitting(true);
     try {
       await api.post("/activations", form);
@@ -57,47 +96,132 @@ export default function Activation() {
         </div>
       </div>
 
-      {/* Hero band */}
+      {/* Hero band - simplified */}
       <section className="relative overflow-hidden border-b border-neutral-200 bg-gradient-to-b from-white via-yellow-50/40 to-white">
-        <div className="container-page grid gap-10 py-14 md:grid-cols-2 md:py-20">
-          <div className="fade-up max-w-xl">
+        <div className="container-page py-10 md:py-14">
+          <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-yellow-300 bg-yellow-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-700">
               <Sparkle size={14} weight="fill" className="text-yellow-500" /> Norton Activation Portal
             </div>
-            <h1 className="mt-5 font-display text-4xl font-black leading-[1.05] tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl">
+            <h1 className="mt-5 font-display text-3xl font-black leading-[1.05] tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
               Activate your <span className="relative inline-block"><span className="relative z-10">Norton subscription</span><span className="absolute inset-x-0 bottom-1 z-0 h-3 bg-[#FFC220]" aria-hidden /></span> in minutes
             </h1>
-            <p className="mt-5 max-w-lg text-lg leading-relaxed text-neutral-700">
+            <p className="mt-4 text-lg leading-relaxed text-neutral-700">
               Enter your details and 25-digit Norton product key below. Our activation team will guide you through setup and confirm your subscription is live — usually within 5–15 minutes.
             </p>
-            <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-neutral-700">
-              <div className="inline-flex items-center gap-1.5"><CheckCircle size={16} weight="fill" className="text-emerald-600" /> 100% genuine keys</div>
-              <div className="inline-flex items-center gap-1.5"><CheckCircle size={16} weight="fill" className="text-emerald-600" /> Free installation help</div>
-              <div className="inline-flex items-center gap-1.5"><CheckCircle size={16} weight="fill" className="text-emerald-600" /> 24/7 customer service</div>
-            </div>
-          </div>
-
-          {/* Right decorative shield */}
-          <div className="relative flex items-center justify-center">
-            <div className="absolute -inset-6 -z-10 rounded-3xl bg-gradient-to-br from-yellow-100 to-white blur-2xl" />
-            <div className="relative grid h-64 w-64 place-items-center rounded-full bg-white shadow-[0_30px_60px_-20px_rgba(0,0,0,0.18)]">
-              <div className="grid h-52 w-52 place-items-center rounded-full bg-[#FFC220]">
-                <ShieldCheck size={110} weight="fill" className="text-white" />
-              </div>
-              <div className="absolute -bottom-4 rounded-full border border-neutral-200 bg-white px-4 py-2 text-xs font-semibold text-neutral-900">Verified & Protected</div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Main split: Instructions | Form */}
+      {/* Main split: Form | Instructions - Form first */}
       <section className="container-page py-14 md:py-20">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* LEFT: Instructions */}
-          <div>
+          {/* LEFT: Activation form */}
+          <div id="activation-form" className="order-2 lg:order-1">
+            <div className="sticky top-24 rounded-2xl border border-neutral-200 bg-white p-6 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.15)] sm:p-8">
+              <div className="flex items-center gap-3">
+                <div className="grid h-11 w-11 place-items-center rounded-lg bg-neutral-900 text-[#FFC220]">
+                  <Key size={22} weight="duotone" />
+                </div>
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">Free activation help</div>
+                  <div className="font-display text-xl font-bold">Get activated in minutes</div>
+                </div>
+              </div>
+
+              <form onSubmit={submit} className="mt-6 space-y-5">
+                <div>
+                  <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Full name *</label>
+                  <div className="relative mt-1">
+                    <User size={18} weight="duotone" className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
+                    <input
+                      data-testid="activation-name-input"
+                      required
+                      value={form.customer_name}
+                      onChange={(e) => { setForm({ ...form, customer_name: e.target.value }); clearError('customer_name'); }}
+                      placeholder="John Smith"
+                      className={`w-full rounded-md border bg-white py-3 pl-10 pr-4 text-sm focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400 ${errors.customer_name ? 'border-red-500' : 'border-neutral-300'}`}
+                    />
+                  </div>
+                  {errors.customer_name && <p className="mt-1 text-xs text-red-600">{errors.customer_name}</p>}
+                </div>
+                <div>
+                  <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Email address *</label>
+                  <div className="relative mt-1">
+                    <Envelope size={18} weight="duotone" className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
+                    <input
+                      data-testid="activation-email-input"
+                      required
+                      type="email"
+                      value={form.customer_email}
+                      onChange={(e) => { setForm({ ...form, customer_email: e.target.value }); clearError('customer_email'); }}
+                      placeholder="you@example.com"
+                      className={`w-full rounded-md border bg-white py-3 pl-10 pr-4 text-sm focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400 ${errors.customer_email ? 'border-red-500' : 'border-neutral-300'}`}
+                    />
+                  </div>
+                  {errors.customer_email && <p className="mt-1 text-xs text-red-600">{errors.customer_email}</p>}
+                </div>
+                <div>
+                  <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Phone number *</label>
+                  <div className="relative mt-1">
+                    <Phone size={18} weight="duotone" className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
+                    <input
+                      data-testid="activation-phone-input"
+                      required
+                      type="tel"
+                      value={form.customer_phone}
+                      onChange={(e) => { setForm({ ...form, customer_phone: e.target.value }); clearError('customer_phone'); }}
+                      placeholder="+1 (555) 123-4567"
+                      className={`w-full rounded-md border bg-white py-3 pl-10 pr-4 text-sm focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400 ${errors.customer_phone ? 'border-red-500' : 'border-neutral-300'}`}
+                    />
+                  </div>
+                  {errors.customer_phone && <p className="mt-1 text-xs text-red-600">{errors.customer_phone}</p>}
+                </div>
+                <div>
+                  <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Norton product key (25 digits) *</label>
+                  <div className="relative mt-1">
+                    <Key size={18} weight="duotone" className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
+                    <input
+                      data-testid="activation-key-input"
+                      required
+                      value={form.product_key}
+                      onChange={(e) => { setForm({ ...form, product_key: e.target.value.toUpperCase() }); clearError('product_key'); }}
+                      placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
+                      maxLength={40}
+                      className={`w-full rounded-md border bg-white py-3 pl-10 pr-4 font-mono text-sm tracking-widest focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400 ${errors.product_key ? 'border-red-500' : 'border-neutral-300'}`}
+                    />
+                  </div>
+                  <div className="mt-1 text-xs text-neutral-500">Format: 25 alphanumeric characters with dashes</div>
+                  {errors.product_key && <p className="mt-1 text-xs text-red-600">{errors.product_key}</p>}
+                </div>
+
+                <button
+                  data-testid="activation-submit-btn"
+                  type="submit"
+                  disabled={submitting}
+                  className="btn-primary w-full"
+                >
+                  {submitting ? "Submitting..." : "Activate my subscription"}
+                  <ArrowRight size={18} weight="bold" />
+                </button>
+
+                <p className="text-center text-xs text-neutral-500">
+                  By submitting, you agree to our <Link to="/faq" className="underline">terms</Link>. Your data is kept secure and never shared.
+                </p>
+              </form>
+
+              <div className="mt-6 flex items-center justify-center gap-4 border-t border-neutral-200 pt-4 text-xs text-neutral-600">
+                <div className="inline-flex items-center gap-1.5"><ShieldCheck size={14} weight="fill" className="text-emerald-600" /> SSL Secured</div>
+                <div className="inline-flex items-center gap-1.5"><CheckCircle size={14} weight="fill" className="text-emerald-600" /> Human assistance</div>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT: Instructions */}
+          <div className="order-1 lg:order-2">
             <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">How to activate</div>
             <h2 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">Four simple steps to activate your Norton subscription</h2>
-            <p className="mt-3 text-neutral-600">Follow the steps below, or submit your details on the right and our activation team will handle everything for you.</p>
+            <p className="mt-3 text-neutral-600">Follow the steps below, or submit your details on the left and our activation team will handle everything for you.</p>
 
             <ol className="mt-10 space-y-6">
               {STEPS.map((s) => (
@@ -128,102 +252,6 @@ export default function Activation() {
               </div>
             </div>
           </div>
-
-          {/* RIGHT: Activation form */}
-          <div id="activation-form">
-            <div className="sticky top-24 rounded-2xl border border-neutral-200 bg-white p-6 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.15)] sm:p-8">
-              <div className="flex items-center gap-3">
-                <div className="grid h-11 w-11 place-items-center rounded-lg bg-neutral-900 text-[#FFC220]">
-                  <Key size={22} weight="duotone" />
-                </div>
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">Free activation help</div>
-                  <div className="font-display text-xl font-bold">Get activated in minutes</div>
-                </div>
-              </div>
-
-              <form onSubmit={submit} className="mt-6 space-y-5">
-                <div>
-                  <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Full name</label>
-                  <div className="relative mt-1">
-                    <User size={18} weight="duotone" className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
-                    <input
-                      data-testid="activation-name-input"
-                      required
-                      value={form.customer_name}
-                      onChange={(e) => setForm({ ...form, customer_name: e.target.value })}
-                      placeholder="John Smith"
-                      className="w-full rounded-md border border-neutral-300 bg-white py-3 pl-10 pr-4 text-sm focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Email address</label>
-                  <div className="relative mt-1">
-                    <Envelope size={18} weight="duotone" className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
-                    <input
-                      data-testid="activation-email-input"
-                      required
-                      type="email"
-                      value={form.customer_email}
-                      onChange={(e) => setForm({ ...form, customer_email: e.target.value })}
-                      placeholder="you@example.com"
-                      className="w-full rounded-md border border-neutral-300 bg-white py-3 pl-10 pr-4 text-sm focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Phone number (optional)</label>
-                  <div className="relative mt-1">
-                    <Phone size={18} weight="duotone" className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
-                    <input
-                      data-testid="activation-phone-input"
-                      type="tel"
-                      value={form.customer_phone}
-                      onChange={(e) => setForm({ ...form, customer_phone: e.target.value })}
-                      placeholder="+1 (555) 123-4567"
-                      className="w-full rounded-md border border-neutral-300 bg-white py-3 pl-10 pr-4 text-sm focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Norton product key (25 digits)</label>
-                  <div className="relative mt-1">
-                    <Key size={18} weight="duotone" className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
-                    <input
-                      data-testid="activation-key-input"
-                      required
-                      value={form.product_key}
-                      onChange={(e) => setForm({ ...form, product_key: e.target.value.toUpperCase() })}
-                      placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
-                      maxLength={40}
-                      className="w-full rounded-md border border-neutral-300 bg-white py-3 pl-10 pr-4 font-mono text-sm tracking-widest focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400"
-                    />
-                  </div>
-                  <div className="mt-1 text-xs text-neutral-500">Format: 25 alphanumeric characters with dashes</div>
-                </div>
-
-                <button
-                  data-testid="activation-submit-btn"
-                  type="submit"
-                  disabled={submitting}
-                  className="btn-primary w-full"
-                >
-                  {submitting ? "Submitting..." : "Activate my subscription"}
-                  <ArrowRight size={18} weight="bold" />
-                </button>
-
-                <p className="text-center text-xs text-neutral-500">
-                  By submitting, you agree to our <Link to="/faq" className="underline">terms</Link>. Your data is kept secure and never shared.
-                </p>
-              </form>
-
-              <div className="mt-6 flex items-center justify-center gap-4 border-t border-neutral-200 pt-4 text-xs text-neutral-600">
-                <div className="inline-flex items-center gap-1.5"><ShieldCheck size={14} weight="fill" className="text-emerald-600" /> SSL Secured</div>
-                <div className="inline-flex items-center gap-1.5"><CheckCircle size={14} weight="fill" className="text-emerald-600" /> Human assistance</div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -246,6 +274,54 @@ export default function Activation() {
                 <p className="mt-1 text-sm text-neutral-700">{f.a}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SEO Content Section */}
+      <section className="border-t border-neutral-200 bg-neutral-50 py-16">
+        <div className="container-page">
+          <div className="mx-auto max-w-4xl">
+            <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Why choose Norton</div>
+            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight">Complete Norton activation and installation support</h2>
+            
+            <div className="mt-8 space-y-6 text-neutral-700">
+              <p>
+                Norton is a leading cybersecurity solution that provides comprehensive protection against viruses, malware, ransomware, and other online threats. When you <strong>activate Norton</strong> through our portal, you're ensuring your devices are protected with industry-leading security technology. Our team specializes in Norton activation, making the process seamless and hassle-free.
+              </p>
+              
+              <h3 className="font-display text-xl font-semibold text-neutral-900">How to install Norton on your device</h3>
+              <p>
+                Installing Norton is straightforward once you have your product key. After you <strong>install Norton</strong>, the software will guide you through the initial setup process. Whether you're using Windows, Mac, iOS, or Android, Norton provides optimized protection for your specific platform. Our activation team can assist you with any installation questions to ensure your Norton subscription is properly configured.
+              </p>
+              
+              <h3 className="font-display text-xl font-semibold text-neutral-900">Norton activation process explained</h3>
+              <p>
+                The Norton activation process begins with your 25-digit product key. This key is essential to <strong>activate Norton</strong> and unlock your subscription benefits. Simply enter your key at my.norton.com or use our activation form above, and our team will verify your subscription. Once activated, you can download and install Norton on all your devices, depending on your plan's device limit.
+              </p>
+              
+              <h3 className="font-display text-xl font-semibold text-neutral-900">Benefits of proper Norton activation</h3>
+              <p>
+                Proper Norton activation ensures you receive all the features included in your subscription, including real-time threat protection, secure VPN, password manager, and cloud backup. When you <strong>activate Norton</strong> correctly, you'll have access to automatic updates and 24/7 customer support. Our activation service guarantees that your Norton subscription is properly registered and ready to protect your digital life.
+              </p>
+              
+              <h3 className="font-display text-xl font-semibold text-neutral-900">Troubleshooting Norton installation issues</h3>
+              <p>
+                If you encounter issues when trying to <strong>install Norton</strong>, our support team is here to help. Common problems during Norton activation include invalid product keys, expired subscriptions, or compatibility issues. We provide comprehensive troubleshooting support to resolve any Norton activation challenges quickly, so you can get back to enjoying full protection without delay.
+              </p>
+              
+              <div className="mt-8 rounded-xl border border-yellow-200 bg-yellow-50 p-6">
+                <div className="flex items-start gap-3">
+                  <ShieldCheck size={22} weight="duotone" className="mt-1 shrink-0 text-neutral-900" />
+                  <div>
+                    <div className="font-display font-semibold">Need help with Norton activation?</div>
+                    <p className="mt-1 text-sm text-neutral-700">
+                      Our dedicated team specializes in Norton activation and installation support. Submit your details above, and we'll guide you through the entire process to ensure your Norton subscription is activated correctly and your devices are fully protected.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
