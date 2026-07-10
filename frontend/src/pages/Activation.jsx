@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import BrandDisclaimer from "@/components/BrandDisclaimer";
+import ProductCard from "@/components/ProductCard";
 import {
   ShieldCheck, ArrowRight, Key, User, Envelope,
   UserCircle, DownloadSimple, CheckCircle, Sparkle, LockKey, MonitorPlay, Phone,
@@ -20,6 +21,15 @@ export default function Activation() {
   const [form, setForm] = useState({ customer_name: "", customer_email: "", customer_phone: "", product_key: "" });
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    api.get("/products")
+      .then((r) => setProducts(r.data.slice(0, 6)))
+      .finally(() => setLoading(false));
+  }, []);
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -55,9 +65,6 @@ export default function Activation() {
       newErrors.customer_phone = "Please enter a valid phone number";
     }
 
-    if (!form.product_key.trim()) {
-      newErrors.product_key = "Product key is required";
-    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -107,8 +114,13 @@ export default function Activation() {
               Activate your <span className="relative inline-block"><span className="relative z-10">Norton subscription</span><span className="absolute inset-x-0 bottom-1 z-0 h-3 bg-[#FFC220]" aria-hidden /></span> in minutes
             </h1>
             <p className="mt-4 text-lg leading-relaxed text-neutral-700">
-              Enter your details and 25-digit Norton product key below. Our activation team will guide you through setup and confirm your subscription is live — usually within 5–15 minutes.
+              Enter your details below. Our activation team will guide you through setup and confirm your subscription is live — usually within 5–15 minutes.
             </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-neutral-700">
+              <div className="inline-flex items-center gap-1.5"><CheckCircle size={16} weight="fill" className="text-emerald-600" /> 100% genuine keys</div>
+              <div className="inline-flex items-center gap-1.5"><CheckCircle size={16} weight="fill" className="text-emerald-600" /> Free installation guidance</div>
+              <div className="inline-flex items-center gap-1.5"><CheckCircle size={16} weight="fill" className="text-emerald-600" /> 24/7 customer service</div>
+            </div>
           </div>
         </div>
       </section>
@@ -124,7 +136,7 @@ export default function Activation() {
                   <Key size={22} weight="duotone" />
                 </div>
                 <div>
-                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">Free activation help</div>
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">Free activation assistance</div>
                   <div className="font-display text-xl font-bold">Get activated in minutes</div>
                 </div>
               </div>
@@ -178,21 +190,19 @@ export default function Activation() {
                   {errors.customer_phone && <p className="mt-1 text-xs text-red-600">{errors.customer_phone}</p>}
                 </div>
                 <div>
-                  <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Norton product key (25 digits) *</label>
+                  <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Norton product key (25 digits)</label>
                   <div className="relative mt-1">
                     <Key size={18} weight="duotone" className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
                     <input
                       data-testid="activation-key-input"
-                      required
                       value={form.product_key}
                       onChange={(e) => { setForm({ ...form, product_key: e.target.value.toUpperCase() }); clearError('product_key'); }}
                       placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
                       maxLength={40}
-                      className={`w-full rounded-md border bg-white py-3 pl-10 pr-4 font-mono text-sm tracking-widest focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400 ${errors.product_key ? 'border-red-500' : 'border-neutral-300'}`}
+                      className="w-full rounded-md border border-neutral-300 bg-white py-3 pl-10 pr-4 font-mono text-sm tracking-widest focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400"
                     />
                   </div>
-                  <div className="mt-1 text-xs text-neutral-500">Format: 25 alphanumeric characters with dashes</div>
-                  {errors.product_key && <p className="mt-1 text-xs text-red-600">{errors.product_key}</p>}
+                  <div className="mt-1 text-xs text-neutral-500">Format: 25 alphanumeric characters with dashes (optional)</div>
                 </div>
 
                 <button
@@ -205,14 +215,21 @@ export default function Activation() {
                   <ArrowRight size={18} weight="bold" />
                 </button>
 
-                <p className="text-center text-xs text-neutral-500">
-                  By submitting, you agree to our <Link to="/faq" className="underline">terms</Link>. Your data is kept secure and never shared.
-                </p>
+                <div className="mt-4 rounded-lg bg-neutral-50 p-3 text-xs text-neutral-600">
+                  <p className="font-semibold mb-1">Terms & Conditions:</p>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>By submitting this form, you agree to receive activation assistance via email and phone</li>
+                    <li>We are an independent service provider and not affiliated with NortonLifeLock Inc.</li>
+                    <li>Norton and the Norton logo are trademarks of NortonLifeLock Inc.</li>
+                    <li>Your information is used solely for activation assistance purposes</li>
+                    <li>We do not sell or share your personal data with third parties</li>
+                  </ul>
+                </div>
               </form>
 
               <div className="mt-6 flex items-center justify-center gap-4 border-t border-neutral-200 pt-4 text-xs text-neutral-600">
                 <div className="inline-flex items-center gap-1.5"><ShieldCheck size={14} weight="fill" className="text-emerald-600" /> SSL Secured</div>
-                <div className="inline-flex items-center gap-1.5"><CheckCircle size={14} weight="fill" className="text-emerald-600" /> Human assistance</div>
+                <div className="inline-flex items-center gap-1.5"><CheckCircle size={14} weight="fill" className="text-emerald-600" /> Expert assistance</div>
               </div>
             </div>
           </div>
@@ -283,7 +300,7 @@ export default function Activation() {
         <div className="container-page">
           <div className="mx-auto max-w-4xl">
             <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Why choose Norton</div>
-            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight">Complete Norton activation and installation support</h2>
+            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight">Complete Norton activation and installation guidance</h2>
             
             <div className="mt-8 space-y-6 text-neutral-700">
               <p>
@@ -302,12 +319,12 @@ export default function Activation() {
               
               <h3 className="font-display text-xl font-semibold text-neutral-900">Benefits of proper Norton activation</h3>
               <p>
-                Proper Norton activation ensures you receive all the features included in your subscription, including real-time threat protection, secure VPN, password manager, and cloud backup. When you <strong>activate Norton</strong> correctly, you'll have access to automatic updates and 24/7 customer support. Our activation service guarantees that your Norton subscription is properly registered and ready to protect your digital life.
+                Proper Norton activation ensures you receive all the features included in your subscription, including real-time threat protection, secure VPN, password manager, and cloud backup. When you <strong>activate Norton</strong> correctly, you'll have access to automatic updates and 24/7 customer service. Our activation service guarantees that your Norton subscription is properly registered and ready to protect your digital life.
               </p>
               
               <h3 className="font-display text-xl font-semibold text-neutral-900">Troubleshooting Norton installation issues</h3>
               <p>
-                If you encounter issues when trying to <strong>install Norton</strong>, our support team is here to help. Common problems during Norton activation include invalid product keys, expired subscriptions, or compatibility issues. We provide comprehensive troubleshooting support to resolve any Norton activation challenges quickly, so you can get back to enjoying full protection without delay.
+                If you encounter issues when trying to <strong>install Norton</strong>, our team is here to help. Common problems during Norton activation include invalid product keys, expired subscriptions, or compatibility issues. We provide comprehensive guidance to resolve any Norton activation challenges quickly, so you can get back to enjoying full protection without delay.
               </p>
               
               <div className="mt-8 rounded-xl border border-yellow-200 bg-yellow-50 p-6">
@@ -316,12 +333,38 @@ export default function Activation() {
                   <div>
                     <div className="font-display font-semibold">Need help with Norton activation?</div>
                     <p className="mt-1 text-sm text-neutral-700">
-                      Our dedicated team specializes in Norton activation and installation support. Submit your details above, and we'll guide you through the entire process to ensure your Norton subscription is activated correctly and your devices are fully protected.
+                      Our dedicated team specializes in Norton activation and installation guidance. Submit your details above, and we'll guide you through the entire process to ensure your Norton subscription is activated correctly and your devices are fully protected.
                     </p>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Products Section */}
+      <section className="border-t border-neutral-200 bg-white py-16">
+        <div className="container-page">
+          <div className="mx-auto max-w-4xl text-center">
+            <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Popular Products</div>
+            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight">Shop Norton Security Products</h2>
+            <p className="mt-3 text-neutral-600">Get genuine Norton software at up to 70% off retail with instant email delivery.</p>
+          </div>
+          <div className="mx-auto mt-10 grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {loading ? (
+              [1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="h-80 animate-pulse rounded-xl bg-neutral-100" />
+              ))
+            ) : (
+              products.map((p) => <ProductCard key={p.id} product={p} />)
+            )}
+          </div>
+          <div className="mt-10 text-center">
+            <Link to="/products" className="inline-flex items-center gap-2 rounded-full border border-neutral-900 bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-800">
+              View All Products
+              <ArrowRight size={16} weight="bold" />
+            </Link>
           </div>
         </div>
       </section>
