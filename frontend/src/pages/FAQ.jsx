@@ -10,6 +10,10 @@ const faqs = [
   { q: "Do you offer refunds?", a: "Yes, we offer a 30-day money-back guarantee if you can't activate your key or aren't satisfied." },
   { q: "Is my payment secure?", a: "All payments are processed through PayPal's secure, encrypted platform. We never see or store your card details." },
   { q: "Do I need to create an account?", a: "No. You can check out as a guest — we only need your email to deliver the key." },
+  { q: "What Norton products do you sell?", a: "We sell Norton 360 Deluxe with LifeLock, Norton 360 Premium, Norton AntiVirus Plus, Norton Secure VPN, and Norton Utilities. All keys are genuine and come with instant email delivery." },
+  { q: "Can I upgrade my Norton subscription later?", a: "Yes, you can upgrade your Norton subscription at any time through your Norton account. Contact us if you need help finding the right upgrade path." },
+  { q: "Do your Norton keys work internationally?", a: "Yes, our Norton license keys work globally. You can activate them from any country, though some features may vary by region." },
+  { q: "What payment methods do you accept?", a: "We accept PayPal, credit cards, and debit cards through PayPal's secure payment platform. All transactions are encrypted and secure." },
 ];
 
 export default function FAQ() {

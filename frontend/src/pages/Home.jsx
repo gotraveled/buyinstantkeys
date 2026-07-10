@@ -191,6 +191,59 @@ export default function Home() {
         <TrustBadges />
       </section>
 
+      {/* SEO CONTENT */}
+      <section className="border-t border-neutral-200 bg-neutral-50 py-20">
+        <div className="container-page">
+          <div className="mx-auto max-w-4xl">
+            <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">About Norton Security</div>
+            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight">Why choose Norton for your digital protection</h2>
+            
+            <div className="mt-8 space-y-6 text-neutral-700">
+              <p>
+                Norton is a globally recognized leader in cybersecurity, providing comprehensive protection against viruses, malware, ransomware, and other online threats. When you <strong>buy Norton license keys</strong> from BuyInstantKeys, you're getting authentic software at up to 70% off retail prices. Our genuine Norton 360 Deluxe with LifeLock, Norton AntiVirus Plus, and Norton 360 Premium plans offer multi-layered protection for your devices, data, and identity.
+              </p>
+              
+              <h3 className="font-display text-xl font-semibold text-neutral-900">Norton 360 Deluxe with LifeLock - Complete Protection</h3>
+              <p>
+                Norton 360 Deluxe with LifeLock combines advanced security with identity theft protection. This comprehensive solution includes real-time threat protection, secure VPN, password manager, cloud backup, and LifeLock identity monitoring. Perfect for families and individuals who want all-around digital security. Our Norton 360 Deluxe deals make it affordable to protect multiple devices.
+              </p>
+              
+              <h3 className="font-display text-xl font-semibold text-neutral-900">Norton AntiVirus Plus - Essential Security</h3>
+              <p>
+                Norton AntiVirus Plus provides essential protection for your PC or Mac. It defends against malware, viruses, ransomware, and other online threats with advanced security technology. Ideal for users who want focused antivirus protection without additional features. Get cheap Norton AntiVirus keys with instant email delivery from BuyInstantKeys.
+              </p>
+              
+              <h3 className="font-display text-xl font-semibold text-neutral-900">Norton 360 Premium - Maximum Coverage</h3>
+              <p>
+                Norton 360 Premium offers the most comprehensive protection with coverage for up to 10 devices. Includes PC, Mac, iOS, and Android protection, plus secure VPN, password manager, cloud backup, and parental controls. Perfect for large families or small businesses. Our Norton 360 Premium license keys provide maximum security at discounted prices.
+              </p>
+              
+              <h3 className="font-display text-xl font-semibold text-neutral-900">Why Buy Norton Keys from BuyInstantKeys?</h3>
+              <p>
+                BuyInstantKeys is your trusted source for genuine Norton license keys. We offer instant email delivery within 5-15 minutes, 100% authentic keys, and a 30-day money-back guarantee. Our Norton 360 Deluxe with LifeLock deals, Norton AntiVirus discounts, and Norton 360 Premium offers help you save up to 70% off retail. All our Norton software keys are verified and guaranteed to work.
+              </p>
+              
+              <h3 className="font-display text-xl font-semibold text-neutral-900">How to Activate Your Norton Subscription</h3>
+              <p>
+                After purchasing your Norton license key from BuyInstantKeys, activation is simple. Sign in to your Norton account at my.norton.com, enter your 25-digit product key, and download your Norton software. Our activation team provides free guidance if you need assistance. Whether you're activating Norton 360 Deluxe, Norton AntiVirus Plus, or Norton 360 Premium, the process takes just minutes.
+              </p>
+              
+              <div className="mt-8 rounded-xl border border-yellow-200 bg-yellow-50 p-6">
+                <div className="flex items-start gap-3">
+                  <ShieldCheck size={22} weight="duotone" className="mt-1 shrink-0 text-neutral-900" />
+                  <div>
+                    <div className="font-display font-semibold">Genuine Norton Keys Guaranteed</div>
+                    <p className="mt-1 text-sm text-neutral-700">
+                      All Norton license keys from BuyInstantKeys are 100% genuine and authentic. We source directly from authorized distributors and verify every key before delivery. Your Norton subscription will activate without any issues.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="border-t border-neutral-200 bg-neutral-900 py-20 text-white">
         <div className="container-page flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">

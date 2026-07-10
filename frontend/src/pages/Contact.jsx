@@ -5,16 +5,56 @@ import SEO from "@/components/SEO";
 import { Envelope, ChatCircle, MapPin, Phone } from "@phosphor-icons/react";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", message: "", honeypot: "" });
   const [submitting, setSubmitting] = useState(false);
+  const [formStartTime] = useState(Date.now());
   
   const submit = async (e) => {
     e.preventDefault();
+    
+    // Honeypot check - if filled, it's a bot
+    if (form.honeypot) {
+      toast.error("Submission failed", { description: "Please try again." });
+      return;
+    }
+    
+    // Time-based check - must take at least 3 seconds to submit
+    const timeElapsed = Date.now() - formStartTime;
+    if (timeElapsed < 3000) {
+      toast.error("Please slow down", { description: "Submit too quickly. Please wait and try again." });
+      return;
+    }
+    
+    // Basic spam pattern detection
+    const spamPatterns = [
+      /http/i,
+      /www\./i,
+      /\.com/i,
+      /\.org/i,
+      /\.net/i,
+      /viagra/i,
+      /casino/i,
+      /bitcoin/i,
+      /crypto/i,
+      /investment/i,
+      /loan/i,
+      /credit/i,
+      /debt/i
+    ];
+    
+    const messageLower = form.message.toLowerCase();
+    const isSpam = spamPatterns.some(pattern => pattern.test(messageLower));
+    
+    if (isSpam) {
+      toast.error("Message blocked", { description: "Your message appears to contain spam content." });
+      return;
+    }
+    
     setSubmitting(true);
     try {
-      await api.post("/contact", form);
+      await api.post("/contact", { name: form.name, email: form.email, message: form.message });
       toast.success("Message sent!", { description: "We'll reply within 12 hours." });
-      setForm({ name: "", email: "", message: "" });
+      setForm({ name: "", email: "", message: "", honeypot: "" });
     } catch (error) {
       toast.error("Failed to send message", { description: "Please try again later." });
     } finally {
@@ -81,6 +121,19 @@ export default function Contact() {
         </div>
 
         <form onSubmit={submit} className="mt-10 space-y-4 rounded-xl border border-neutral-200 bg-white p-6">
+          {/* Honeypot field - hidden from users but visible to bots */}
+          <div style={{ display: 'none' }}>
+            <label htmlFor="honeypot">Leave this field empty</label>
+            <input
+              id="honeypot"
+              type="text"
+              value={form.honeypot}
+              onChange={(e) => setForm({ ...form, honeypot: e.target.value })}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
+          
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Name</label>
@@ -99,6 +152,33 @@ export default function Contact() {
             {submitting ? "Sending..." : "Send message"}
           </button>
         </form>
+        
+        {/* SEO Content */}
+        <div className="mt-16 rounded-xl border border-neutral-200 bg-neutral-50 p-8">
+          <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Why Contact Us?</div>
+          <h2 className="mt-2 font-display text-2xl font-bold tracking-tight">Expert Norton activation assistance</h2>
+          
+          <div className="mt-6 space-y-4 text-neutral-700">
+            <p>
+              Our team specializes in Norton activation and provides expert guidance for all Norton products. Whether you need help with Norton 360 Deluxe with LifeLock, Norton 360 Premium, or Norton AntiVirus Plus, we're here to assist you with activation, installation, and troubleshooting.
+            </p>
+            
+            <h3 className="font-display text-lg font-semibold text-neutral-900">Common reasons to contact us:</h3>
+            <ul className="list-disc list-inside space-y-2 text-sm">
+              <li>Norton product key activation assistance</li>
+              <li>Installation guidance for Norton software</li>
+              <li>Troubleshooting Norton subscription issues</li>
+              <li>Order status and delivery inquiries</li>
+              <li>Refund and replacement requests</li>
+              <li>Product recommendations and upgrades</li>
+              <li>Multi-device activation support</li>
+            </ul>
+            
+            <p>
+              We respond to all inquiries within 12 hours, with most issues resolved on the same day. Our team has extensive experience with Norton products and can help you get your devices protected quickly and efficiently.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
     </>

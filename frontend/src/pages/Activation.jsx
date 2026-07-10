@@ -18,11 +18,12 @@ const STEPS = [
 
 export default function Activation() {
   const nav = useNavigate();
-  const [form, setForm] = useState({ customer_name: "", customer_email: "", customer_phone: "", product_key: "" });
+  const [form, setForm] = useState({ customer_name: "", customer_email: "", customer_phone: "", product_key: "", honeypot: "" });
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [formStartTime] = useState(Date.now());
 
   useEffect(() => {
     setLoading(true);
@@ -47,6 +48,45 @@ export default function Activation() {
 
   const submit = async (e) => {
     e.preventDefault();
+    
+    // Honeypot check - if filled, it's a bot
+    if (form.honeypot) {
+      toast.error("Submission failed", { description: "Please try again." });
+      return;
+    }
+    
+    // Time-based check - must take at least 3 seconds to submit
+    const timeElapsed = Date.now() - formStartTime;
+    if (timeElapsed < 3000) {
+      toast.error("Please slow down", { description: "Submit too quickly. Please wait and try again." });
+      return;
+    }
+    
+    // Basic spam pattern detection
+    const spamPatterns = [
+      /http/i,
+      /www\./i,
+      /\.com/i,
+      /\.org/i,
+      /\.net/i,
+      /viagra/i,
+      /casino/i,
+      /bitcoin/i,
+      /crypto/i,
+      /investment/i,
+      /loan/i,
+      /credit/i,
+      /debt/i
+    ];
+    
+    const nameLower = form.customer_name.toLowerCase();
+    const isSpam = spamPatterns.some(pattern => pattern.test(nameLower));
+    
+    if (isSpam) {
+      toast.error("Submission blocked", { description: "Your submission appears to contain spam content." });
+      return;
+    }
+    
     const newErrors = {};
 
     if (!form.customer_name.trim()) {
@@ -74,7 +114,12 @@ export default function Activation() {
 
     setSubmitting(true);
     try {
-      await api.post("/activations", form);
+      await api.post("/activations", { 
+        customer_name: form.customer_name, 
+        customer_email: form.customer_email, 
+        customer_phone: form.customer_phone, 
+        product_key: form.product_key 
+      });
       nav("/activation/thanks");
     } catch (err) {
       toast.error(err?.response?.data?.detail || "Submission failed. Please try again.");
@@ -142,6 +187,19 @@ export default function Activation() {
               </div>
 
               <form onSubmit={submit} className="mt-6 space-y-5">
+                {/* Honeypot field - hidden from users but visible to bots */}
+                <div style={{ display: 'none' }}>
+                  <label htmlFor="honeypot">Leave this field empty</label>
+                  <input
+                    id="honeypot"
+                    type="text"
+                    value={form.honeypot}
+                    onChange={(e) => setForm({ ...form, honeypot: e.target.value })}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+                
                 <div>
                   <label className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-600">Full name *</label>
                   <div className="relative mt-1">
