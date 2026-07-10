@@ -158,7 +158,8 @@ export default function Activation() {
             <h1 className="mt-5 font-display text-3xl font-black leading-[1.05] tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
               Activate your <span className="relative inline-block"><span className="relative z-10">Norton subscription</span><span className="absolute inset-x-0 bottom-1 z-0 h-3 bg-[#FFC220]" aria-hidden /></span> in minutes
             </h1>
-            <p className="mt-4 text-lg leading-relaxed text-neutral-700">
+            <p className="mt-4 text-lg font-semibold text-neutral-800">Need help activating your Norton subscription?</p>
+            <p className="mt-2 text-lg leading-relaxed text-neutral-700">
               Enter your details below. Our activation team will guide you through setup and confirm your subscription is live — usually within 5–15 minutes.
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-neutral-700">
@@ -181,7 +182,7 @@ export default function Activation() {
                   <Key size={22} weight="duotone" />
                 </div>
                 <div>
-                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">Free activation assistance</div>
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">Activation assistance</div>
                   <div className="font-display text-xl font-bold">Get activated in minutes</div>
                 </div>
               </div>
@@ -288,6 +289,11 @@ export default function Activation() {
               <div className="mt-6 flex items-center justify-center gap-4 border-t border-neutral-200 pt-4 text-xs text-neutral-600">
                 <div className="inline-flex items-center gap-1.5"><ShieldCheck size={14} weight="fill" className="text-emerald-600" /> SSL Secured</div>
                 <div className="inline-flex items-center gap-1.5"><CheckCircle size={14} weight="fill" className="text-emerald-600" /> Expert assistance</div>
+              </div>
+              <div className="mt-4 flex items-center justify-center gap-4 text-xs text-neutral-500">
+                <Link to="/privacy" className="hover:text-neutral-900 underline">Privacy Policy</Link>
+                <span>·</span>
+                <Link to="/terms" className="hover:text-neutral-900 underline">Terms & Conditions</Link>
               </div>
             </div>
           </div>
