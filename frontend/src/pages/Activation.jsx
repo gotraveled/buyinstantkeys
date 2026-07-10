@@ -7,6 +7,7 @@ import ProductCard from "@/components/ProductCard";
 import {
   ShieldCheck, ArrowRight, Key, User, Envelope,
   UserCircle, DownloadSimple, CheckCircle, Sparkle, LockKey, MonitorPlay, Phone,
+  Clock, Headset,
 } from "@phosphor-icons/react";
 
 const STEPS = [
@@ -153,19 +154,35 @@ export default function Activation() {
         <div className="container-page py-10 md:py-14">
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-yellow-300 bg-yellow-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-700">
-              <Sparkle size={14} weight="fill" className="text-yellow-500" /> Norton Activation Portal
+              <Sparkle size={14} weight="fill" className="text-yellow-500" /> Security Activation Portal
             </div>
             <h1 className="mt-5 font-display text-3xl font-black leading-[1.05] tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
-              Activate your <span className="relative inline-block"><span className="relative z-10">Norton subscription</span><span className="absolute inset-x-0 bottom-1 z-0 h-3 bg-[#FFC220]" aria-hidden /></span> in minutes
+              Need help activating your <span className="relative inline-block"><span className="relative z-10">security subscription</span><span className="absolute inset-x-0 bottom-1 z-0 h-3 bg-[#FFC220]" aria-hidden /></span>?
             </h1>
-            <p className="mt-4 text-lg font-semibold text-neutral-800">Need help activating your Norton subscription?</p>
-            <p className="mt-2 text-lg leading-relaxed text-neutral-700">
+            <p className="mt-4 text-lg leading-relaxed text-neutral-700">
               Enter your details below. Our activation team will guide you through setup and confirm your subscription is live — usually within 5–15 minutes.
             </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-neutral-700">
-              <div className="inline-flex items-center gap-1.5"><CheckCircle size={16} weight="fill" className="text-emerald-600" /> 100% genuine keys</div>
-              <div className="inline-flex items-center gap-1.5"><CheckCircle size={16} weight="fill" className="text-emerald-600" /> Free installation guidance</div>
-              <div className="inline-flex items-center gap-1.5"><CheckCircle size={16} weight="fill" className="text-emerald-600" /> 24/7 customer service</div>
+            
+            {/* Enhanced Trust Badges */}
+            <div className="mt-8 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
+              <div className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500 mb-4">Why choose us</div>
+              <div className="grid gap-4 sm:grid-cols-3">
+                <div className="flex flex-col items-center gap-2 rounded-xl bg-neutral-50 p-4">
+                  <ShieldCheck size={28} weight="duotone" className="text-emerald-600" />
+                  <div className="text-sm font-semibold text-neutral-900">100% Genuine</div>
+                  <div className="text-xs text-neutral-600">Authentic keys guaranteed</div>
+                </div>
+                <div className="flex flex-col items-center gap-2 rounded-xl bg-neutral-50 p-4">
+                  <Clock size={28} weight="duotone" className="text-blue-600" />
+                  <div className="text-sm font-semibold text-neutral-900">Fast Delivery</div>
+                  <div className="text-xs text-neutral-600">5-15 minute response</div>
+                </div>
+                <div className="flex flex-col items-center gap-2 rounded-xl bg-neutral-50 p-4">
+                  <Headset size={28} weight="duotone" className="text-purple-600" />
+                  <div className="text-sm font-semibold text-neutral-900">Expert Help</div>
+                  <div className="text-xs text-neutral-600">24/7 assistance</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
