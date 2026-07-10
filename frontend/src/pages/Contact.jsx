@@ -96,13 +96,13 @@ export default function Contact() {
         keywords="Contact BuyInstantKeys, Norton customer service, Norton key assistance, order inquiry, activation help, Norton contact"
         schema={[contactSchema]}
       />
-      <div className="container-page py-14">
+      <div className="container-page py-10 md:py-14">
       <div className="mx-auto max-w-4xl">
         <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Contact</div>
         <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">We're here to help</h1>
         <p className="mt-3 text-neutral-600">Have a question about your order or Norton products? Send us a message — we usually reply within 12 hours.</p>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:gap-6 md:grid-cols-3">
           <div className="rounded-xl border border-neutral-200 bg-white p-6">
             <Envelope size={22} weight="duotone" />
             <div className="mt-3 font-display font-semibold">Email us</div>

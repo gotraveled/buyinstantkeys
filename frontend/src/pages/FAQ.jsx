@@ -38,7 +38,7 @@ export default function FAQ() {
         keywords="Norton FAQ, Norton license key questions, Norton activation help, Norton refund policy, Norton 360 questions, how to activate Norton, Norton key not working"
         schema={[faqSchema]}
       />
-      <div className="container-page py-14">
+      <div className="container-page py-10 md:py-14">
       <div className="mx-auto max-w-3xl">
         <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Resources</div>
         <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">Frequently asked questions</h1>
@@ -46,11 +46,11 @@ export default function FAQ() {
 
         <Accordion type="single" collapsible className="mt-8 divide-y divide-neutral-200 rounded-xl border border-neutral-200 bg-white">
           {faqs.map((f, i) => (
-            <AccordionItem key={i} value={`item-${i}`} className="border-0 px-6">
-              <AccordionTrigger data-testid={`faq-trigger-${i}`} className="text-left font-display text-base font-semibold hover:no-underline">
+            <AccordionItem key={i} value={`item-${i}`} className="border-0 px-4 sm:px-6">
+              <AccordionTrigger data-testid={`faq-trigger-${i}`} className="text-left font-display text-sm font-semibold sm:text-base hover:no-underline">
                 {f.q}
               </AccordionTrigger>
-              <AccordionContent className="text-neutral-600">{f.a}</AccordionContent>
+              <AccordionContent className="text-sm sm:text-base text-neutral-600">{f.a}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

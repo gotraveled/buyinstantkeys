@@ -172,8 +172,8 @@ export default function Activation() {
       </section>
 
       {/* Main split: Form | Instructions - Form first */}
-      <section className="container-page py-14 md:py-20">
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+      <section className="container-page py-10 md:py-14 lg:py-20">
+        <div className="grid gap-8 md:gap-10 lg:grid-cols-2 lg:gap-16">
           {/* LEFT: Activation form */}
           <div id="activation-form" className="order-2 lg:order-1">
             <div className="sticky top-24 rounded-2xl border border-neutral-200 bg-white p-6 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.15)] sm:p-8">
@@ -362,7 +362,7 @@ export default function Activation() {
       {/* SEO Content Section */}
       <section className="border-t border-neutral-200 bg-neutral-50 py-16">
         <div className="container-page">
-          <div className="mx-auto max-w-4xl">
+          <div className="mx-auto max-w-6xl">
             <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Why choose Norton</div>
             <h2 className="mt-2 font-display text-3xl font-bold tracking-tight">Complete Norton activation and installation guidance</h2>
             

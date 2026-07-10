@@ -57,13 +57,13 @@ export default function Products() {
         keywords={`${category || 'Norton products'}, Norton 360 Deluxe with LifeLock, Norton license keys, ${category || 'Norton antivirus, Norton VPN, LifeLock'}, genuine Norton software, cheap Norton keys`}
         schema={[breadcrumbSchema]}
       />
-      <div className="container-page py-14">
-      <div className="mb-8">
+      <div className="container-page py-10 md:py-14">
+      <div className="mb-6 md:mb-8">
         <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Catalog</div>
         <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">All Norton products</h1>
         <p className="mt-3 max-w-2xl text-neutral-600">Choose from our full range of Norton security software with instant email delivery.</p>
       </div>
-      <div className="mb-8 flex flex-wrap gap-2">
+      <div className="mb-6 md:mb-8 flex flex-wrap gap-2">
         {allCategories.map((c) => {
           const active = (c === "All" && !category) || c === category;
           return (

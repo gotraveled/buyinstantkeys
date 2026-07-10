@@ -96,27 +96,27 @@ export default function Home() {
             <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-br from-yellow-50 via-white to-neutral-50 blur-2xl" />
 
             {/* Hero composition: layered product cards + floating trust badges */}
-            <div className="relative mx-auto flex h-[480px] w-full max-w-[520px] items-center justify-center">
+            <div className="relative mx-auto flex h-[300px] w-full max-w-[520px] items-center justify-center sm:h-[400px] md:h-[480px]">
               {/* Background soft grid */}
               <div className="absolute inset-0 rounded-3xl border border-neutral-200 bg-white/80 backdrop-blur"
                    style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(0,0,0,0.06) 1px, transparent 0)", backgroundSize: "20px 20px" }} />
 
               {/* Big central shield */}
-              <div className="relative z-10 grid h-56 w-56 place-items-center rounded-full bg-white shadow-[0_30px_60px_-20px_rgba(252,194,32,0.55)]">
-                <div className="grid h-44 w-44 place-items-center rounded-full bg-[#FFC220]">
-                  <ShieldCheck size={90} weight="fill" className="text-white" />
+              <div className="relative z-10 grid h-40 w-40 place-items-center rounded-full bg-white shadow-[0_30px_60px_-20px_rgba(252,194,32,0.55)] sm:h-48 sm:w-48 md:h-56 md:w-56">
+                <div className="grid h-32 w-32 place-items-center rounded-full bg-[#FFC220] sm:h-36 sm:w-36 md:h-44 md:w-44">
+                  <ShieldCheck size={60} weight="fill" className="text-white sm:size={75} md:size={90}" />
                 </div>
               </div>
 
               {/* Left floating product card */}
               {heroProduct && (
-                <div className="absolute left-2 top-8 z-20 w-44 -rotate-[8deg] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.25)]" style={{ height: 220 }}>
+                <div className="absolute left-1 top-6 z-20 h-40 w-32 -rotate-[8deg] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.25)] sm:left-2 sm:top-8 sm:h-48 sm:w-40 md:h-52 md:w-44">
                   <ProductBox product={heroProduct} size="sm" />
                 </div>
               )}
               {/* Right floating product card */}
               {featured[1] && (
-                <div className="absolute right-2 bottom-8 z-20 w-44 rotate-[8deg] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.25)]" style={{ height: 220 }}>
+                <div className="absolute right-1 bottom-6 z-20 h-40 w-32 rotate-[8deg] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.25)] sm:right-2 sm:bottom-8 sm:h-48 sm:w-40 md:h-52 md:w-44">
                   <ProductBox product={featured[1]} size="sm" />
                 </div>
               )}
@@ -153,14 +153,14 @@ export default function Home() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="border-y border-neutral-200 bg-neutral-50 py-20 md:py-28">
+      <section className="border-y border-neutral-200 bg-neutral-50 py-12 md:py-16 lg:py-20">
         <div className="container-page">
           <div className="mx-auto max-w-2xl text-center">
             <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Simple, Fast, Secure</div>
             <h2 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">How it works</h2>
             <p className="mt-4 text-neutral-600">Buy your Norton license and get activated in minutes.</p>
           </div>
-          <div className="mt-14 grid gap-6 md:grid-cols-12">
+          <div className="mt-10 md:mt-14 grid gap-4 md:gap-6 md:grid-cols-12">
             {[
               { n: "01", icon: <ShieldCheck size={24} weight="duotone" />, title: "Choose your Norton product", desc: "Pick the plan and device count that fit your needs. Compare prices instantly.", span: "md:col-span-5" },
               { n: "02", icon: <CreditCard size={24} weight="duotone" />, title: "Checkout securely with PayPal", desc: "Encrypted payment. No account required. Guest checkout available.", span: "md:col-span-7" },
