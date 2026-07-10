@@ -85,7 +85,7 @@ export default function Home() {
               <Link to="/products" data-testid="hero-shop-btn" className="btn-primary">
                 Shop Norton products <ArrowRight size={18} weight="bold" />
               </Link>
-              <Link to="/track" data-testid="hero-track-btn" className="btn-outline">Track my order</Link>
+              <Link to="/activation" data-testid="hero-activate-btn" className="btn-outline">Activate Your Subscription</Link>
             </div>
             <div className="mt-8 flex items-center gap-6">
               <StarRating rating={4.9} reviews={2340} />
