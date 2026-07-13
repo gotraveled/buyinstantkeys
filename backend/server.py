@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter, HTTPException, Depends, Header, Request
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
@@ -18,6 +18,7 @@ import bcrypt
 import jwt as pyjwt
 import resend
 import httpx
+from xml.etree.ElementTree import Element, SubElement, tostring
 
 ROOT_DIR = Path(__file__).parent
 FRONTEND_BUILD = ROOT_DIR.parent / "frontend" / "build"
@@ -1150,6 +1151,73 @@ async def admin_update_activation(req_id: str, body: dict, admin_email: str = De
     if not doc:
         raise HTTPException(status_code=404, detail="Not found")
     return doc
+
+@api_router.get("/google-merchant-feed")
+async def google_merchant_feed():
+    """Generate Google Merchant Center XML feed for all active products"""
+    products = await db.products.find({"is_active": True}, {"_id": 0}).to_list(200)
+    
+    # Create XML structure
+    rss = Element("rss", {
+        "version": "2.0",
+        "xmlns:g": "http://base.google.com/ns/1.0"
+    })
+    channel = SubElement(rss, "channel")
+    
+    # Channel elements
+    SubElement(channel, "title").text = STORE_NAME
+    SubElement(channel, "link").text = STORE_URL
+    SubElement(channel, "description").text = f"Genuine Norton license keys at up to 70% off retail. Instant email delivery from {STORE_NAME}."
+    
+    for product in products:
+        # Get the lowest price variant as the main product
+        if product.get("variants"):
+            lowest_variant = min(product["variants"], key=lambda x: x["price"])
+        else:
+            continue
+            
+        item = SubElement(channel, "item")
+        
+        # Required fields
+        SubElement(item, "g:id").text = product["id"]
+        SubElement(item, "g:title").text = product["name"]
+        SubElement(item, "g:description").text = product["description"]
+        SubElement(item, "g:link").text = f"{STORE_URL}/products/{product['slug']}"
+        SubElement(item, "g:image_link").text = f"{STORE_URL}/images/products/{product['slug']}.jpg" if product.get("image_url") else f"{STORE_URL}/images/norton-default.jpg"
+        SubElement(item, "g:price").text = f"{lowest_variant['price']} USD"
+        SubElement(item, "g:availability").text = "in stock"
+        SubElement(item, "g:condition").text = "new"
+        SubElement(item, "g:brand").text = "Norton"
+        
+        # Optional but recommended fields
+        SubElement(item, "g:product_type").text = f"Software > Antivirus & Security > {product['category']}"
+        SubElement(item, "g:mpn").text = product["id"]
+        
+        # Add all variants as separate items with different prices
+        for variant in product["variants"]:
+            variant_item = SubElement(channel, "item")
+            SubElement(variant_item, "g:id").text = f"{product['id']}-{variant['id']}"
+            SubElement(variant_item, "g:title").text = f"{product['name']} - {variant['label']}"
+            SubElement(variant_item, "g:description").text = product["description"]
+            SubElement(variant_item, "g:link").text = f"{STORE_URL}/products/{product['slug']}"
+            SubElement(variant_item, "g:image_link").text = f"{STORE_URL}/images/products/{product['slug']}.jpg" if product.get("image_url") else f"{STORE_URL}/images/norton-default.jpg"
+            SubElement(variant_item, "g:price").text = f"{variant['price']} USD"
+            if variant.get("original_price"):
+                SubElement(variant_item, "g:sale_price").text = f"{variant['price']} USD"
+            SubElement(variant_item, "g:availability").text = "in stock"
+            SubElement(variant_item, "g:condition").text = "new"
+            SubElement(variant_item, "g:brand").text = "Norton"
+            SubElement(variant_item, "g:product_type").text = f"Software > Antivirus & Security > {product['category']}"
+            SubElement(variant_item, "g:mpn").text = f"{product['id']}-{variant['id']}"
+    
+    # Generate XML string
+    xml_str = tostring(rss, encoding="unicode")
+    
+    return Response(
+        content=xml_str,
+        media_type="application/xml",
+        headers={"Content-Disposition": "attachment; filename=google_merchant_feed.xml"}
+    )
 
 app.include_router(api_router)
 
