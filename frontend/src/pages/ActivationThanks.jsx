@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { CheckCircle, ChatCircleDots, Envelope, ShieldCheck, ArrowRight, Clock } from "@phosphor-icons/react";
+import { CheckCircle, ChatCircleDots, Envelope, ShieldCheck, ArrowRight, Clock, Headset, LockKey } from "@phosphor-icons/react";
 import BrandDisclaimer from "@/components/BrandDisclaimer";
 
 export default function ActivationThanks() {
@@ -14,15 +14,29 @@ export default function ActivationThanks() {
 
   return (
     <div className="bg-neutral-50">
-      {/* Norton header */}
+      {/* Trust badges header strip */}
       <div className="border-b border-neutral-200 bg-white">
-        <div className="container-page flex items-center justify-between py-4">
-          <div className="flex items-center gap-2">
-            <div className="grid h-8 w-8 place-items-center rounded-full bg-[#FFC220]">
-              <ShieldCheck size={18} weight="fill" className="text-white" />
+        <div className="container-page flex items-center justify-center py-4">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+            <div className="flex items-center gap-2 text-sm">
+              <ShieldCheck size={18} weight="duotone" className="text-emerald-600" />
+              <span className="font-semibold text-neutral-900">100% Genuine</span>
             </div>
-            <div className="font-display text-xl font-black tracking-tight text-neutral-900">norton</div>
-            <span className="ml-3 hidden text-sm text-neutral-600 sm:inline">Product Activation</span>
+            <div className="hidden sm:block w-px h-5 bg-neutral-200"></div>
+            <div className="flex items-center gap-2 text-sm">
+              <Clock size={18} weight="duotone" className="text-blue-600" />
+              <span className="font-semibold text-neutral-900">Fast Delivery</span>
+            </div>
+            <div className="hidden sm:block w-px h-5 bg-neutral-200"></div>
+            <div className="flex items-center gap-2 text-sm">
+              <Headset size={18} weight="duotone" className="text-purple-600" />
+              <span className="font-semibold text-neutral-900">Expert Help</span>
+            </div>
+            <div className="hidden sm:block w-px h-5 bg-neutral-200"></div>
+            <div className="flex items-center gap-2 text-sm">
+              <LockKey size={18} weight="duotone" className="text-orange-600" />
+              <span className="font-semibold text-neutral-900">Secure Payment</span>
+            </div>
           </div>
         </div>
       </div>
