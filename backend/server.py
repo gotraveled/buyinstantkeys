@@ -623,8 +623,8 @@ DEFAULT_BANNER = {
     "title": "Genuine license keys",
     "message": "Genuine antivirus license keys delivered by email - secure checkout and a 30-day money-back guarantee",
     "coupon_code": "",
-    "expires_at": (datetime.now(timezone.utc) + timedelta(days=2)).isoformat(),
-    "is_active": False,
+    "expires_at": (datetime.now(timezone.utc) + timedelta(days=365)).isoformat(),
+    "is_active": True,
 }
 
 async def seed_data():
@@ -652,6 +652,8 @@ async def seed_data():
                 await db.products.update_one({"slug": product["slug"]}, {"$set": product})
             else:
                 await db.products.insert_one(product)
+        # Refresh the site banner to the clean default on reseed.
+        await db.banner.update_one({"id": "site-banner"}, {"$set": DEFAULT_BANNER}, upsert=True)
         await db.meta.update_one({"key": "seed_version"}, {"$set": {"value": SEED_VERSION}}, upsert=True)
         logger.info(f"Reseeded {len(PRODUCTS)} products (version={SEED_VERSION})")
 

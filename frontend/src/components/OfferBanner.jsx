@@ -25,7 +25,7 @@ function computeRemaining(expiresAt) {
 
 export default function OfferBanner() {
   const [banner, setBanner] = useState(null);
-  const [dismissed, setDismissed] = useState(() => sessionStorage.getItem("bik_banner_dismissed") === "1");
+  const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
     api.get("/banner").then((r) => setBanner(r.data)).catch(() => {});
@@ -33,7 +33,7 @@ export default function OfferBanner() {
 
   const remaining = useCountdown(banner?.expires_at);
 
-  if (!banner || dismissed || remaining?.expired) return null;
+  if (!banner || dismissed) return null;
 
   const digit = (n) => String(n).padStart(2, "0");
 
@@ -65,7 +65,7 @@ export default function OfferBanner() {
           )}
           <button
             data-testid="offer-banner-close"
-            onClick={() => { setDismissed(true); sessionStorage.setItem("bik_banner_dismissed", "1"); }}
+            onClick={() => setDismissed(true)}
             className="rounded p-1 text-neutral-400 hover:bg-white/10 hover:text-white"
             aria-label="Dismiss banner"
           >
