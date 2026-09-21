@@ -1,10 +1,11 @@
 import axios from "axios";
 
-// Default to same-origin ("") so the built app calls "/api" on whatever host
-// serves it. The FastAPI backend serves the frontend build itself, so no
-// separate backend URL is required in production. Set REACT_APP_BACKEND_URL
-// only when the API is hosted on a different origin.
-const BACKEND_URL = (process.env.REACT_APP_BACKEND_URL || "").replace(/\/$/, "");
+// The frontend is a static site on Render (buyinstantkeys-frontend.onrender.com)
+// and the FastAPI backend is a separate Render service. Default to the deployed
+// backend so the built app reaches it with no env config. Override with
+// REACT_APP_BACKEND_URL if the backend URL ever changes.
+const DEFAULT_BACKEND = "https://buyinstantkeys-backend.onrender.com";
+const BACKEND_URL = (process.env.REACT_APP_BACKEND_URL || DEFAULT_BACKEND).replace(/\/$/, "");
 export const API = `${BACKEND_URL}/api`;
 
 export const api = axios.create({ baseURL: API });

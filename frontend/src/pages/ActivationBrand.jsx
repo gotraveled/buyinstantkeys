@@ -224,7 +224,7 @@ export default function ActivationBrand() {
                 </div>
 
                 <button data-testid="activation-submit-btn" type="submit" disabled={submitting} className="btn-brand w-full">
-                  {submitting ? "Submitting..." : "Request activation assistance"}
+                  {submitting ? "Submitting..." : "Submit"}
                   <ArrowRight size={18} weight="bold" />
                 </button>
 

@@ -1,8 +1,4 @@
-# Proxy API calls to the FastAPI backend (Netlify).
-# Replace the URL below with your deployed backend URL, e.g.
-#   /api/*  https://your-backend.onrender.com/api/:splat  200
-# If the backend serves the frontend itself (same origin), this line is ignored.
-/api/*  https://YOUR_BACKEND_URL/api/:splat  200
-
-# SPA fallback
+# Frontend is a static site on Render; the API base is set in src/lib/api.js
+# (https://buyinstantkeys-backend.onrender.com). This file only applies on
+# Netlify-style hosts — kept for SPA fallback compatibility.
 /*    /index.html   200
