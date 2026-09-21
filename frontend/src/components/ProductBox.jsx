@@ -169,7 +169,7 @@ export default function ProductBox({ product, variant, size = "md", showRibbon =
               }}
             >
               <Lightning size={8} weight="fill" />
-              Instant
+              Fast
             </div>
             <div
               className="flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[8px] font-semibold uppercase tracking-[0.06em]"

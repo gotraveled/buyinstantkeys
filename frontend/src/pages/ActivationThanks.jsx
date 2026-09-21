@@ -9,7 +9,7 @@ export default function ActivationThanks() {
       if (window.Tawk_API && window.Tawk_API.maximize) { window.Tawk_API.maximize(); return; }
       if (window.Intercom) { window.Intercom("show"); return; }
     } catch (e) { /* ignore */ }
-    window.location.href = "mailto:info@buyinstantkeys.com?subject=Activation%20help&body=Hi%20BuyInstantKeys%20team%2C%0A%0AI%20need%20help%20activating%20my%20subscription.";
+    window.location.href = "mailto:info@buyinstantkeys.com?subject=Activation%20service&body=Hi%20BuyInstantKeys%20team%2C%0A%0AI%20need%20assistance%20activating%20my%20subscription.";
   };
 
   return (
@@ -30,7 +30,7 @@ export default function ActivationThanks() {
             <div className="hidden sm:block w-px h-5 bg-neutral-200"></div>
             <div className="flex items-center gap-2 text-sm">
               <Headset size={18} weight="duotone" className="text-purple-600" />
-              <span className="font-semibold text-neutral-900">Expert Help</span>
+              <span className="font-semibold text-neutral-900">Activation Service</span>
             </div>
             <div className="hidden sm:block w-px h-5 bg-neutral-200"></div>
             <div className="flex items-center gap-2 text-sm">
@@ -76,8 +76,8 @@ export default function ActivationThanks() {
               <div className="flex items-start gap-3">
                 <ChatCircleDots size={28} weight="duotone" className="mt-1 shrink-0 text-neutral-900" />
                 <div>
-                  <div className="font-display text-lg font-semibold">Need help right now?</div>
-                  <p className="text-sm text-neutral-700">Chat with our activation team for instant assistance — we're online 24/7.</p>
+                  <div className="font-display text-lg font-semibold">Questions about your activation?</div>
+                  <p className="text-sm text-neutral-700">Reach our activation team for assistance with your order.</p>
                 </div>
               </div>
               <button

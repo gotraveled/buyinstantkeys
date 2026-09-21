@@ -117,7 +117,7 @@ export default function CategoryPage() {
               { icon: <ShieldCheck size={16} weight="duotone" className="brand-text" />, t: "100% genuine keys" },
               { icon: <Envelope size={16} weight="duotone" className="brand-text" />, t: "Email delivery in 5–15 min" },
               { icon: <LockKey size={16} weight="duotone" className="brand-text" />, t: "Secure checkout" },
-              { icon: <Headset size={16} weight="duotone" className="brand-text" />, t: "Free activation help" },
+              { icon: <Headset size={16} weight="duotone" className="brand-text" />, t: "Activation service included" },
             ].map((b, i) => (
               <div key={i} className="flex items-center gap-2 font-medium text-neutral-800">{b.icon}{b.t}</div>
             ))}
@@ -179,7 +179,7 @@ export default function CategoryPage() {
                 { icon: <Certificate size={24} weight="duotone" className="brand-text" />, t: "Genuine & verified", d: "Every key is sourced from authorized channels and checked before it's sent to you." },
                 { icon: <Lightning size={24} weight="duotone" className="brand-text" />, t: "5–15 min delivery", d: "Your license key is emailed to you within minutes of a successful checkout." },
                 { icon: <CreditCard size={24} weight="duotone" className="brand-text" />, t: "Secure checkout", d: "Pay safely with PayPal. We never see or store your card details." },
-                { icon: <Headset size={24} weight="duotone" className="brand-text" />, t: "Real support", d: "Free activation assistance and a 30-day money-back guarantee on every order." },
+                { icon: <Headset size={24} weight="duotone" className="brand-text" />, t: "Activation service", d: "Step-by-step activation service and a 30-day money-back guarantee on every order." },
               ].map((c, i) => (
                 <div key={i} className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
                   <div className="grid h-11 w-11 place-items-center rounded-lg border bg-white brand-border">{c.icon}</div>
@@ -235,9 +235,9 @@ export default function CategoryPage() {
                     "A genuine, unused license key",
                     "Delivery to your email in 5–15 min",
                     "Activation on the official brand site",
-                    "Free step-by-step activation help",
+                    "Step-by-step activation service",
                     "30-day money-back guarantee",
-                    "Support if your key doesn't work",
+                    "Replacement if your key doesn't work",
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-neutral-700">
                       <CheckCircle size={16} weight="fill" className="mt-0.5 shrink-0 text-emerald-600" /> {item}
@@ -262,11 +262,11 @@ export default function CategoryPage() {
                 <div className="flex items-start gap-3">
                   <CheckCircle size={22} weight="duotone" className="mt-0.5 shrink-0 brand-text" />
                   <div>
-                    <div className="font-display font-semibold">Need help activating {brand.name}?</div>
+                    <div className="font-display font-semibold">Activation service for {brand.name}</div>
                     <p className="mt-1 text-sm text-neutral-700">
-                      Our team provides free activation assistance for keys purchased from us.{" "}
+                      Every order includes our activation service for keys purchased from us.{" "}
                       <Link to={`/activation/${brand.slug}`} className="font-semibold underline brand-text">
-                        Get {brand.name} activation help
+                        Go to {brand.name} activation
                       </Link>
                     </p>
                   </div>

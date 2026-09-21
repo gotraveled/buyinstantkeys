@@ -27,8 +27,8 @@ export default function Products() {
   const activeBrand = BRAND_LIST.find((b) => b.name === brand);
   const pageTitle = activeBrand ? `${activeBrand.name} Products` : "All Antivirus Products";
   const pageDesc = activeBrand
-    ? `Browse genuine ${activeBrand.name} security software at up to 60% off retail with instant email delivery.`
-    : "Browse our full catalog of genuine antivirus license keys — Norton, Webroot and McAfee — at up to 60% off retail with instant email delivery.";
+    ? `Browse genuine ${activeBrand.name} security software with fast email delivery and a 30-day money-back guarantee.`
+    : "Browse our full catalog of genuine antivirus license keys — Norton, Webroot and McAfee — with fast email delivery and a 30-day money-back guarantee.";
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -44,7 +44,7 @@ export default function Products() {
       <SEO
         title={pageTitle}
         description={pageDesc}
-        keywords={`${brand || "antivirus"}, Norton key, Webroot keycode, McAfee activation code, antivirus license key, genuine software keys, instant delivery`}
+        keywords={`${brand || "antivirus"}, Norton key, Webroot keycode, McAfee activation code, antivirus license key, genuine software keys, email delivery`}
         schema={[breadcrumbSchema]}
       />
       <div className="container-page py-10 md:py-14">

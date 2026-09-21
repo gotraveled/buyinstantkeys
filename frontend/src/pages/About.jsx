@@ -19,7 +19,7 @@ export default function About() {
       "@type": "Organization",
       "name": "BuyInstantKeys",
       "url": "https://buyinstantkeys.com",
-      "description": "An independent digital software reseller helping customers protect their devices with genuine Norton, Webroot and McAfee license keys — delivered fast, priced fairly, backed by real human assistance.",
+      "description": "An independent digital software reseller providing genuine Norton, Webroot and McAfee license keys — delivered fast, priced fairly, backed by responsive customer service.",
       "foundingDate": "2024",
       "address": {
         "@type": "PostalAddress",
@@ -36,24 +36,24 @@ export default function About() {
     <>
       <SEO
         title="About Us | BuyInstantKeys - Independent Antivirus Reseller"
-        description="Learn about BuyInstantKeys - your trusted source for genuine Norton, Webroot and McAfee license keys. Independent reseller with instant delivery, fair prices, and real human assistance."
+        description="Learn about BuyInstantKeys - your trusted source for genuine Norton, Webroot and McAfee license keys. Independent reseller with fast delivery, fair prices, and responsive customer service."
         keywords="About BuyInstantKeys, antivirus reseller, license keys company, genuine software seller, Norton Webroot McAfee keys"
         schema={[aboutSchema]}
       />
       <PolicyLayout
         title="About BuyInstantKeys"
-        subtitle="An independent digital software reseller helping customers protect their devices with genuine Norton, Webroot and McAfee license keys — delivered fast, priced fairly, backed by real human assistance."
+        subtitle="An independent digital software reseller providing genuine Norton, Webroot and McAfee license keys — delivered fast, priced fairly, backed by responsive customer service."
         lastUpdated="February 1, 2026"
         sections={SECTIONS}
       >
       <Section id="mission" title="Our mission">
         <p>BuyInstantKeys was founded on a simple idea: <strong>cybersecurity should be affordable and easy to access for everyone.</strong></p>
-        <p>Retail-priced antivirus subscriptions have become expensive, and the checkout experience on many publisher sites is designed to upsell — not to help. We built BuyInstantKeys to give consumers a straightforward alternative: legitimate license keys for leading antivirus brands, at fair prices, delivered by email within minutes, backed by responsive human assistance if anything goes wrong.</p>
+        <p>Retail-priced antivirus subscriptions have become expensive, and the checkout experience on many publisher sites is designed to upsell — not to serve. We built BuyInstantKeys to give consumers a straightforward alternative: legitimate license keys for leading antivirus brands, at fair prices, delivered by email within minutes, backed by responsive customer service if anything goes wrong.</p>
       </Section>
 
       <Section id="story" title="Our story">
         <p>BuyInstantKeys was founded in Hayward, California by a small team of software resellers and customer-experience professionals who had spent years watching friends and family struggle with confusing renewal notices, surprise price increases, and overwhelming installer flows for major security products.</p>
-        <p>We sourced our first inventory of genuine keys from trusted digital channels and started small — one product, one delivery flow, one email contact inbox. Today, we carry three of the most trusted names in consumer security — Norton, Webroot and McAfee — spanning antivirus, internet security suites, VPN, identity protection and more, and we have served thousands of customers worldwide.</p>
+        <p>We sourced our first inventory of genuine keys from trusted digital channels and started small — one product, one delivery flow, one email contact inbox. Today, we carry three of the most trusted names in consumer security — Norton, Webroot and McAfee — spanning antivirus, internet security suites, VPN, identity protection and more, and we serve customers worldwide.</p>
       </Section>
 
       <Section id="values" title="Our values">
@@ -65,8 +65,8 @@ export default function About() {
           </div>
           <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-5">
             <Users size={22} weight="duotone" className="text-neutral-900" />
-            <div className="mt-3 font-display font-semibold">Real assistance</div>
-            <p className="mt-1 text-sm text-neutral-700">A real human answers every inquiry. We reply within 12 hours and stay with you until your key is activated.</p>
+            <div className="mt-3 font-display font-semibold">Real service</div>
+            <p className="mt-1 text-sm text-neutral-700">A real person answers every inquiry. We reply within 12 hours and stay with you until your key is activated.</p>
           </div>
           <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-5">
             <Handshake size={22} weight="duotone" className="text-neutral-900" />
@@ -88,13 +88,12 @@ export default function About() {
 
       <Section id="why-us" title="Why choose BuyInstantKeys">
         <ul className="list-disc pl-6">
-          <li>Save up to 60% off the manufacturer suggested retail price</li>
           <li>Genuine license keys sourced from trusted digital channels</li>
           <li>Digital delivery by email within 5–15 minutes of payment confirmation</li>
           <li>Secure PayPal checkout — we never see or store your card details</li>
-          <li>Free activation help through our <a href="/activation" className="underline">Activation Portal</a></li>
+          <li>Activation service through our <a href="/activation" className="underline">Activation Portal</a></li>
           <li>30-day money-back guarantee</li>
-          <li>Responsive human assistance (info@buyinstantkeys.com)</li>
+          <li>Responsive customer service (info@buyinstantkeys.com)</li>
           <li>Three trusted brands — Norton, Webroot and McAfee — covering antivirus, internet security, VPN and identity protection</li>
         </ul>
       </Section>
@@ -107,7 +106,7 @@ export default function About() {
           <Envelope size={16} weight="duotone" className="mr-1 inline align-text-bottom" />
           <a href="mailto:info@buyinstantkeys.com" className="underline">info@buyinstantkeys.com</a>
         </p>
-        <p>For product questions, order inquiries, activation help, refund requests, media & press, or legal notices, please email us at the address above. We aim to respond to every message within 12 hours.</p>
+        <p>For product questions, order inquiries, activation service, refund requests, media & press, or legal notices, please email us at the address above. We aim to respond to every message within 12 hours.</p>
       </Section>
     </PolicyLayout>
     </>

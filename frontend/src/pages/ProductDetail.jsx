@@ -4,7 +4,6 @@ import { api } from "@/lib/api";
 import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
 import SEO from "@/components/SEO";
-import { StarRating } from "@/components/Trust";
 import ProductCard from "@/components/ProductCard";
 import ProductBox from "@/components/ProductBox";
 import { getBrand } from "@/lib/brands";
@@ -39,9 +38,6 @@ export default function ProductDetail() {
   }
 
   const variant = product.variants.find((v) => v.id === variantId) || product.variants[0];
-  const savings = variant.original_price && variant.original_price > variant.price
-    ? Math.round(((variant.original_price - variant.price) / variant.original_price) * 100)
-    : 0;
   const brand = getBrand((product.brand || "").toLowerCase());
   const brandName = product.brand || "Antivirus";
   const portal = brand?.portalName || "the official site";
@@ -74,11 +70,6 @@ export default function ProductDetail() {
         "name": "BuyInstantKeys",
         "url": "https://buyinstantkeys.com"
       }
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "340"
     }
   };
 
@@ -150,7 +141,7 @@ export default function ProductDetail() {
     <>
       <SEO
         title={`${product.name} - ${variant.label} | BuyInstantKeys`}
-        description={`${product.description} Get ${product.name} at ${savings > 0 ? savings + '% off' : 'best price'}. Instant email delivery, 100% genuine ${brandName} license key, 30-day money-back guarantee.`}
+        description={`${product.description} Buy ${product.name} with fast email delivery, a genuine ${brandName} license key, and a 30-day money-back guarantee.`}
         keywords={`${product.name}, ${product.category}, ${brandName} license key, ${product.tagline}, genuine ${brandName} software, buy ${product.name} online`}
         ogType="product"
         schema={[productSchema, breadcrumbSchema, faqSchema]}
@@ -168,7 +159,7 @@ export default function ProductDetail() {
             {[<ShieldCheck size={20} weight="duotone" />, <Envelope size={20} weight="duotone" />, <LockKey size={20} weight="duotone" />].map((icon, i) => (
               <div key={i} className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white p-3 text-xs font-medium text-neutral-700">
                 <div className="text-neutral-900">{icon}</div>
-                {["Genuine key", "Instant delivery", "Secure checkout"][i]}
+                {["Genuine key", "Fast delivery", "Secure checkout"][i]}
               </div>
             ))}
           </div>
@@ -179,14 +170,12 @@ export default function ProductDetail() {
           <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">{product.category}</div>
           <h1 data-testid="product-name" className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">{product.name}</h1>
           <p className="mt-3 text-lg text-neutral-600">{product.tagline}</p>
-          <div className="mt-3"><StarRating rating={4.9} reviews={340} /></div>
 
           <div className="mt-8">
             <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Select plan</div>
             <div className="mt-3 space-y-2">
               {product.variants.map((v) => {
                 const active = v.id === variantId;
-                const orig = v.original_price;
                 return (
                   <button
                     key={v.id}
@@ -202,7 +191,6 @@ export default function ProductDetail() {
                       </div>
                       <div>
                         <div className="font-semibold">{v.label}</div>
-                        {orig && orig > v.price && <div className="text-xs text-neutral-500 line-through">${orig.toFixed(2)}</div>}
                       </div>
                     </div>
                     <div className="font-display text-lg font-bold">${v.price.toFixed(2)}</div>
@@ -214,12 +202,7 @@ export default function ProductDetail() {
 
           <div className="mt-8 flex items-baseline gap-3">
             <span data-testid="product-price" className="font-display text-4xl font-bold">${variant.price.toFixed(2)}</span>
-            {variant.original_price && variant.original_price > variant.price && (
-              <>
-                <span className="text-lg text-neutral-500 line-through">${variant.original_price.toFixed(2)}</span>
-                <span className="badge-trust">Save {savings}%</span>
-              </>
-            )}
+            <span className="text-sm text-neutral-500">one-time · {variant.years} yr{variant.years > 1 ? 's' : ''}</span>
           </div>
 
           <div className="mt-6 flex flex-wrap gap-3">
@@ -296,7 +279,7 @@ export default function ProductDetail() {
           {[
             { n: "01", icon: <ShoppingCart size={24} weight="duotone" />, title: "Choose Your Plan", desc: "Select the perfect plan for your needs and device count." },
             { n: "02", icon: <CreditCard size={24} weight="duotone" />, title: "Secure Checkout", desc: "Complete your purchase with our secure PayPal checkout." },
-            { n: "03", icon: <Envelope size={24} weight="duotone" />, title: "Instant Delivery", desc: "Receive your license key via email within 5-15 minutes." },
+            { n: "03", icon: <Envelope size={24} weight="duotone" />, title: "Fast Delivery", desc: "Receive your license key via email within 5-15 minutes." },
             { n: "04", icon: <Lightning size={24} weight="duotone" />, title: "Activate & Protect", desc: `Activate your key at ${portal} and enjoy full protection.` },
           ].map((step, i) => (
             <div key={i} className="text-center">
@@ -344,7 +327,7 @@ export default function ProductDetail() {
             { q: `Is this a genuine ${brandName} license?`, a: `Yes, all our ${brandName} license keys are 100% genuine and legally acquired from trusted channels. Each key is verified before delivery to ensure validity and proper activation.` },
             { q: "What is your refund policy?", a: "We offer a 30-day money-back guarantee. If your license key cannot be activated or you received the wrong product, we'll issue a full refund or replacement within 30 days of purchase." },
             { q: "Can I use this on multiple devices?", a: `Yes, this plan covers ${variant.devices === 999 ? 'unlimited' : variant.devices} device(s) for ${variant.years} year(s). You can install and activate on all supported devices including Windows, Mac, iOS, and Android.` },
-            { q: "How long does delivery take?", a: "License keys are delivered instantly via email within 5-15 minutes after payment confirmation. In rare cases, it may take up to 24 hours for manual verification." },
+            { q: "How long does delivery take?", a: "License keys are delivered by email within 5-15 minutes after payment confirmation. In rare cases, it may take up to 24 hours for manual verification." },
           ].map((faq, i) => (
             <div key={i} className="rounded-xl border border-neutral-200 bg-white">
               <details className="group">
@@ -370,13 +353,13 @@ export default function ProductDetail() {
       <section className="mt-16">
         <div className="rounded-2xl bg-neutral-900 p-8 md:p-12 text-center">
           <h2 className="font-display text-2xl font-bold text-white">Why Buy From BuyInstantKeys?</h2>
-          <p className="mt-3 text-neutral-300">Trusted by thousands of customers worldwide</p>
+          <p className="mt-3 text-neutral-300">Genuine keys, fast delivery, real service</p>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: <ShieldCheck size={32} weight="duotone" />, title: "100% Genuine Keys", desc: "All keys are verified and authentic" },
-              { icon: <Envelope size={32} weight="duotone" />, title: "Instant Delivery", desc: "Email delivery within 5-15 minutes" },
+              { icon: <ShieldCheck size={32} weight="duotone" />, title: "Genuine Keys", desc: "All keys are verified and authentic" },
+              { icon: <Envelope size={32} weight="duotone" />, title: "Fast Delivery", desc: "Email delivery within 5-15 minutes" },
               { icon: <LockKey size={32} weight="duotone" />, title: "Secure Payment", desc: "Protected by PayPal encryption" },
-              { icon: <Users size={32} weight="duotone" />, title: "24/7 Service", desc: "Customer service always available" },
+              { icon: <Users size={32} weight="duotone" />, title: "Customer Service", desc: "Responsive service on every order" },
             ].map((badge, i) => (
               <div key={i} className="text-white">
                 <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-neutral-800 text-[#FCE029]">{badge.icon}</div>

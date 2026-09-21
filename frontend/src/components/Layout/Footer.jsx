@@ -13,7 +13,7 @@ export default function Footer() {
             <span className="font-display text-lg font-bold">BuyInstantKeys</span>
           </div>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-neutral-600">
-            An independent digital software reseller. Genuine Norton, Webroot and McAfee license keys with instant email delivery and a 30-day money-back guarantee.
+            An independent digital software reseller. Genuine Norton, Webroot and McAfee license keys with fast email delivery and a 30-day money-back guarantee.
           </p>
           <div className="mt-5 space-y-1.5 text-sm text-neutral-700">
             <div className="flex items-start gap-2">

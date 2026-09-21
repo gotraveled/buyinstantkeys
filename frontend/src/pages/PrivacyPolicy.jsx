@@ -79,7 +79,7 @@ export default function PrivacyPolicy() {
         <p>We use the personal information we collect for the following purposes:</p>
         <ul className="list-disc pl-6">
           <li><strong>Order fulfillment:</strong> to process your purchase, deliver license keys to your email, verify payment, and issue refunds when applicable</li>
-          <li><strong>Customer service:</strong> to respond to your inquiries, provide activation assistance, and resolve issues</li>
+          <li><strong>Customer service:</strong> to respond to your inquiries, provide activation service, and resolve issues</li>
           <li><strong>Communication:</strong> to send order confirmations, delivery notifications, activation instructions, and important account or service announcements</li>
           <li><strong>Fraud prevention & security:</strong> to detect, investigate and prevent fraudulent transactions, chargebacks, and abuse of our services</li>
           <li><strong>Service improvement:</strong> to analyze usage patterns, improve website functionality, product offerings, and customer experience</li>

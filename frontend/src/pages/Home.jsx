@@ -4,7 +4,7 @@ import { api } from "@/lib/api";
 import ProductCard from "@/components/ProductCard";
 import LoadError from "@/components/LoadError";
 import SEO from "@/components/SEO";
-import { TrustBadges, TrustMarquee, StarRating } from "@/components/Trust";
+import { TrustBadges, TrustMarquee } from "@/components/Trust";
 import { BRAND_LIST } from "@/lib/brands";
 import { ShieldCheck, LockKey, Envelope, CreditCard, Lightning, ArrowRight, CheckCircle, Key } from "@phosphor-icons/react";
 
@@ -28,7 +28,7 @@ export default function Home() {
     "@type": "WebSite",
     "name": "BuyInstantKeys",
     "url": "https://buyinstantkeys.com",
-    "description": "Buy genuine antivirus license keys — Norton, Webroot & McAfee — at up to 60% off retail. Instant email delivery, 100% authentic keys, 30-day money-back guarantee.",
+    "description": "Buy genuine antivirus license keys — Norton, Webroot & McAfee. Fast email delivery, secure checkout, 30-day money-back guarantee.",
     "potentialAction": {
       "@type": "SearchAction",
       "target": "https://buyinstantkeys.com/products?q={search_term_string}",
@@ -42,7 +42,7 @@ export default function Home() {
     "name": "BuyInstantKeys",
     "url": "https://buyinstantkeys.com",
     "logo": "https://buyinstantkeys.com/logo.png",
-    "description": "Independent digital software reseller specializing in genuine antivirus license keys — Norton, Webroot and McAfee — with instant email delivery.",
+    "description": "Independent digital software reseller specializing in genuine antivirus license keys — Norton, Webroot and McAfee — with fast email delivery.",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Westwood Street",
@@ -62,9 +62,9 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Buy Antivirus License Keys — Norton, Webroot & McAfee | Instant Delivery"
-        description="Buy genuine antivirus license keys at up to 60% off retail. Norton 360, Webroot Internet Security & McAfee Total Protection with instant email delivery and a 30-day money-back guarantee."
-        keywords="antivirus license key, Norton key, Webroot keycode, McAfee activation code, buy antivirus online, genuine license keys, cheap antivirus keys, instant email delivery"
+        title="Buy Antivirus License Keys — Norton, Webroot & McAfee | BuyInstantKeys"
+        description="Buy genuine antivirus license keys for Norton, Webroot & McAfee. Norton 360, Webroot Internet Security & McAfee Total Protection with fast email delivery and a 30-day money-back guarantee."
+        keywords="antivirus license key, Norton key, Webroot keycode, McAfee activation code, buy antivirus online, genuine license keys, email delivery"
         schema={[homeSchema, organizationSchema]}
       />
       <div>
@@ -83,7 +83,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-neutral-700">
-              Norton, Webroot and McAfee license keys at up to 60% off retail — emailed to your inbox within 5–15 minutes of payment.
+              Genuine Norton, Webroot and McAfee license keys, emailed to your inbox within 5–15 minutes of payment.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link to="/products" data-testid="hero-shop-btn" className="btn-dark">
@@ -91,9 +91,9 @@ export default function Home() {
               </Link>
               <Link to="/activation" data-testid="hero-activate-btn" className="btn-outline">Activate a key</Link>
             </div>
-            <div className="mt-8 flex items-center gap-6">
-              <StarRating rating={4.9} reviews={2340} />
-              <div className="flex items-center gap-1.5 text-sm text-neutral-700"><CheckCircle size={16} weight="fill" className="text-emerald-600" /> 30-day money back</div>
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2">
+              <div className="flex items-center gap-1.5 text-sm text-neutral-700"><CheckCircle size={16} weight="fill" className="text-emerald-600" /> 30-day money-back guarantee</div>
+              <div className="flex items-center gap-1.5 text-sm text-neutral-700"><LockKey size={16} weight="fill" className="text-emerald-600" /> Secure PayPal checkout</div>
             </div>
           </div>
 
@@ -111,7 +111,7 @@ export default function Home() {
                     <ShieldCheck size={26} weight="fill" />
                   </div>
                   <div className="mt-3 font-display text-lg font-bold">{b.name}</div>
-                  <div className="mt-1 text-xs text-neutral-500">Up to 60% off</div>
+                  <div className="mt-1 text-xs text-neutral-500">Genuine keys</div>
                   <div className="mt-3 inline-flex items-center gap-1 text-xs font-semibold" style={{ color: b.color }}>
                     Shop now <ArrowRight size={12} weight="bold" />
                   </div>
@@ -120,7 +120,7 @@ export default function Home() {
             </div>
             <div className="absolute -bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full border border-neutral-200 bg-white px-4 py-2 shadow-lg">
               <LockKey size={16} weight="duotone" />
-              <span className="text-xs font-semibold">Instant email delivery · 5–15 min</span>
+              <span className="text-xs font-semibold">Email delivery · 5–15 min</span>
             </div>
           </div>
         </div>
@@ -133,7 +133,7 @@ export default function Home() {
         <div className="mx-auto max-w-2xl text-center">
           <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Shop by brand</div>
           <h2 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">Three trusted names in security</h2>
-          <p className="mt-4 text-neutral-600">Choose your preferred antivirus brand — all genuine keys, all delivered instantly.</p>
+          <p className="mt-4 text-neutral-600">Choose your preferred antivirus brand — all genuine keys, delivered by email.</p>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {BRAND_LIST.map((b) => (
@@ -194,7 +194,7 @@ export default function Home() {
         <div className="mx-auto max-w-2xl text-center">
           <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Simple, Fast, Secure</div>
           <h2 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">How it works</h2>
-          <p className="mt-4 text-neutral-600">Buy your license and get activated in minutes.</p>
+          <p className="mt-4 text-neutral-600">Buy your license and activate in minutes.</p>
         </div>
         <div className="mt-10 md:mt-14 grid gap-4 md:gap-6 md:grid-cols-12">
           {[
@@ -237,7 +237,7 @@ export default function Home() {
 
             <div className="mt-8 space-y-6 text-neutral-700">
               <p>
-                BuyInstantKeys is an independent digital software reseller. We sell genuine activation keys for leading antivirus brands — <strong>Norton</strong>, <strong>Webroot</strong> and <strong>McAfee</strong> — at up to 60% off retail prices. Every key is sourced from authorized channels, verified before delivery, and emailed to you within minutes of checkout.
+                BuyInstantKeys is an independent digital software reseller. We sell genuine activation keys for leading antivirus brands — <strong>Norton</strong>, <strong>Webroot</strong> and <strong>McAfee</strong>. Every key is sourced from trusted channels, verified before delivery, and emailed to you within minutes of checkout.
               </p>
 
               <h3 className="font-display text-xl font-semibold text-neutral-900">Norton — layered device & identity protection</h3>
@@ -257,7 +257,7 @@ export default function Home() {
 
               <h3 className="font-display text-xl font-semibold text-neutral-900">Why buy from BuyInstantKeys?</h3>
               <p>
-                We keep it simple: genuine keys, instant email delivery, secure PayPal checkout, and a 30-day money-back guarantee. If a key ever fails to activate, we'll replace it or refund you — no hassle. We also provide free activation assistance to help you get set up quickly.
+                We keep it simple: genuine keys, fast email delivery, secure PayPal checkout, and a 30-day money-back guarantee. If a key ever fails to activate, we'll replace it or refund you. Every order also includes our activation service to get you set up quickly.
               </p>
 
               <div className="mt-8 rounded-xl border border-neutral-200 bg-neutral-50 p-6">
@@ -281,7 +281,7 @@ export default function Home() {
         <div className="container-page flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
           <div>
             <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">Protect your devices today</h2>
-            <p className="mt-2 max-w-xl text-neutral-300">Genuine Norton, Webroot & McAfee keys, delivered fast, backed by a 30-day money-back guarantee.</p>
+            <p className="mt-2 max-w-xl text-neutral-300">Genuine Norton, Webroot & McAfee keys, delivered by email, backed by a 30-day money-back guarantee.</p>
           </div>
           <Link to="/products" data-testid="cta-shop-btn" className="btn-primary">Browse all products <ArrowRight size={18} weight="bold" /></Link>
         </div>

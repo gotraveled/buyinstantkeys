@@ -125,7 +125,7 @@ export default function Cart() {
             {coupon && (
               <div className="flex justify-between text-emerald-700"><span>Discount ({coupon.code})</span><span data-testid="cart-discount">-${discountAmount.toFixed(2)}</span></div>
             )}
-            <div className="flex justify-between"><span className="text-neutral-600">Delivery</span><span>Email · Free</span></div>
+            <div className="flex justify-between"><span className="text-neutral-600">Delivery</span><span>Email · Included</span></div>
           </div>
           <div className="my-4 h-px bg-neutral-200" />
           <div className="flex items-baseline justify-between">

@@ -17,7 +17,7 @@ export default function DigitalDelivery() {
   return (
     <PolicyLayout
       title="How Digital Delivery Works"
-      subtitle="Everything you need to know about how BuyInstantKeys delivers license keys electronically — instantly and safely."
+      subtitle="Everything you need to know about how BuyInstantKeys delivers license keys electronically — quickly and safely."
       lastUpdated="February 1, 2026"
       sections={SECTIONS}
     >
@@ -57,7 +57,7 @@ export default function DigitalDelivery() {
           <li>Your unique <strong>license key / activation code</strong> (format varies by brand)</li>
           <li>A direct link to the brand's <strong>official activation portal</strong> for redemption</li>
           <li>Clear <strong>step-by-step activation instructions</strong> for Windows, macOS, iOS, and Android</li>
-          <li>Our contact for any questions or activation help</li>
+          <li>Our contact for any questions or activation service</li>
         </ul>
         <p>All keys sold by BuyInstantKeys are <strong>genuine, unused, and legally acquired from trusted channels</strong>. Each key is verified before delivery.</p>
       </Section>
@@ -69,8 +69,8 @@ export default function DigitalDelivery() {
           <li><strong>Webroot</strong> — go to <a href="https://www.webroot.com/safe" target="_blank" rel="noopener noreferrer" className="underline">webroot.com/safe</a> and enter your keycode.</li>
           <li><strong>McAfee</strong> — go to <a href="https://www.mcafee.com/activate" target="_blank" rel="noopener noreferrer" className="underline">mcafee.com/activate</a> and enter your activation code.</li>
         </ul>
-        <p>In every case you'll sign in (or create a free account), enter your key, and follow the on-screen prompts to download and install on your devices.</p>
-        <p>Need help? Our free Activation Portal at <a href="/activation" className="underline">buyinstantkeys.com/activation</a> gives you step-by-step guidance, and our team is available 24/7 at <a href="mailto:info@buyinstantkeys.com" className="underline">info@buyinstantkeys.com</a>.</p>
+        <p>In every case you'll sign in (or create an account), enter your key, and follow the on-screen prompts to download and install on your devices.</p>
+        <p>Questions? Our Activation Portal at <a href="/activation" className="underline">buyinstantkeys.com/activation</a> gives you step-by-step guidance, and our team is available at <a href="mailto:info@buyinstantkeys.com" className="underline">info@buyinstantkeys.com</a>.</p>
       </Section>
 
       <Section id="no-shipping" title="6. No physical shipping">

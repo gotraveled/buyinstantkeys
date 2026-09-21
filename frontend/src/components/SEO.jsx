@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 const SITE_URL = 'https://buyinstantkeys.com';
 const SITE_NAME = 'BuyInstantKeys';
-const DEFAULT_DESCRIPTION = 'Buy genuine antivirus license keys — Norton, Webroot & McAfee — at up to 60% off retail. Instant email delivery, 100% authentic keys, 30-day money-back guarantee.';
+const DEFAULT_DESCRIPTION = 'Buy genuine antivirus license keys — Norton, Webroot & McAfee. Fast email delivery, secure checkout, 30-day money-back guarantee.';
 
 const SEO = ({ 
   title, 

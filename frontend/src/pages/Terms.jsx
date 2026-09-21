@@ -73,7 +73,7 @@ export default function Terms() {
       </Section>
 
       <Section id="activation" title="7. License activation & use">
-        <p>To activate your License, you must sign in to the Publisher's activation portal (e.g., my.norton.com, webroot.com/safe, or mcafee.com/activate) and enter the product key we deliver. Free activation assistance is available through our Activation Portal at <a href="/activation" className="underline">buyinstantkeys.com/activation</a>.</p>
+        <p>To activate your License, you must sign in to the Publisher's activation portal (e.g., my.norton.com, webroot.com/safe, or mcafee.com/activate) and enter the product key we deliver. Activation service is available through our Activation Portal at <a href="/activation" className="underline">buyinstantkeys.com/activation</a>.</p>
         <p>You are responsible for complying with the Publisher's EULA, including all restrictions on the number of devices, geographic use, personal vs. commercial use, and prohibitions on transfer or resale of the License.</p>
       </Section>
 

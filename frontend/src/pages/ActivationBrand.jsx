@@ -114,9 +114,9 @@ export default function ActivationBrand() {
   return (
     <div style={theme} className="bg-neutral-50">
       <SEO
-        title={`${brand.name} Activation Assistance — Independent Help | BuyInstantKeys`}
-        description={`Free ${brand.name} activation assistance from BuyInstantKeys, an independent reseller. We help you activate the ${brand.name} key you bought from us on the official ${brand.portalName} portal.`}
-        keywords={`${brand.name} activation help, ${brand.name} setup assistance, ${brand.name} product key help, independent reseller activation, ${brand.name} install support`}
+        title={`${brand.name} Activation Service — Independent Reseller | BuyInstantKeys`}
+        description={`${brand.name} activation service from BuyInstantKeys, an independent reseller. We walk you through activating the ${brand.name} key you bought from us on the official ${brand.portalName} portal.`}
+        keywords={`${brand.name} activation, ${brand.name} activation service, ${brand.name} product key, independent reseller activation, ${brand.name} install`}
       />
 
       {/* Trust badges header strip */}
@@ -127,7 +127,7 @@ export default function ActivationBrand() {
             <div className="hidden sm:block w-px h-5 bg-neutral-200"></div>
             <div className="flex items-center gap-2 text-sm"><Clock size={18} weight="duotone" className="brand-text" /><span className="font-semibold text-neutral-900">Fast Delivery</span></div>
             <div className="hidden sm:block w-px h-5 bg-neutral-200"></div>
-            <div className="flex items-center gap-2 text-sm"><Headset size={18} weight="duotone" className="brand-text" /><span className="font-semibold text-neutral-900">Expert Help</span></div>
+            <div className="flex items-center gap-2 text-sm"><Headset size={18} weight="duotone" className="brand-text" /><span className="font-semibold text-neutral-900">Activation Service</span></div>
             <div className="hidden sm:block w-px h-5 bg-neutral-200"></div>
             <div className="flex items-center gap-2 text-sm"><LockKey size={18} weight="duotone" className="brand-text" /><span className="font-semibold text-neutral-900">Secure</span></div>
           </div>
@@ -139,13 +139,13 @@ export default function ActivationBrand() {
         <div className="container-page py-8 md:py-12">
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center gap-2 rounded-full border bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-700 brand-border">
-              <Headset size={14} weight="fill" className="brand-text" /> BuyInstantKeys activation assistance
+              <Headset size={14} weight="fill" className="brand-text" /> BuyInstantKeys activation service
             </div>
             <h1 className="mt-5 font-display text-3xl font-black leading-[1.05] tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
-              Need help activating your <span className="relative inline-block"><span className="relative z-10">{brand.name}</span><span className="absolute inset-x-0 bottom-1 z-0 h-3 brand-underline opacity-40" aria-hidden /></span> key?
+              Activate your <span className="relative inline-block"><span className="relative z-10">{brand.name}</span><span className="absolute inset-x-0 bottom-1 z-0 h-3 brand-underline opacity-40" aria-hidden /></span> key
             </h1>
             <p className="mt-4 text-lg leading-relaxed text-neutral-700">
-              We're an independent reseller. Send us your details and our support team will walk you through activating the {brand.name} key you purchased — usually within 5–15 minutes.
+              We're an independent reseller. Send us your details and our team will walk you through activating the {brand.name} key you purchased — usually within 5–15 minutes.
             </p>
           </div>
         </div>
@@ -161,7 +161,7 @@ export default function ActivationBrand() {
               BuyInstantKeys is an independent reseller and is not affiliated with or endorsed by {brand.entity}.
               Activation itself is always completed on the official {brand.name} portal at{" "}
               <a href={brand.portalUrl} target="_blank" rel="noopener noreferrer" className="font-semibold underline">{brand.portalName}</a>.
-              This page simply offers free, optional help with that process.
+              This page simply offers an optional activation service for that process.
             </p>
           </div>
         </div>
@@ -178,8 +178,8 @@ export default function ActivationBrand() {
                   <Key size={22} weight="duotone" />
                 </div>
                 <div>
-                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">Free activation assistance</div>
-                  <div className="font-display text-xl font-bold">Request help with your {brand.name} key</div>
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">Activation service</div>
+                  <div className="font-display text-xl font-bold">Activate your {brand.name} key</div>
                 </div>
               </div>
 
@@ -231,10 +231,10 @@ export default function ActivationBrand() {
                 <div className="mt-4 rounded-lg bg-neutral-50 p-3 text-xs text-neutral-600">
                   <p className="font-semibold mb-1">Terms &amp; Conditions:</p>
                   <ul className="list-disc list-inside space-y-1">
-                    <li>By submitting, you agree to receive activation assistance via email and phone</li>
+                    <li>By submitting, you agree to receive activation service via email and phone</li>
                     <li>We are an independent reseller and not affiliated with {brand.entity}</li>
                     <li>{brand.name} is a trademark of {brand.entity}</li>
-                    <li>Your information is used solely for activation assistance</li>
+                    <li>Your information is used solely for activation service</li>
                     <li>We do not sell or share your personal data with third parties</li>
                   </ul>
                 </div>
@@ -242,7 +242,7 @@ export default function ActivationBrand() {
 
               <div className="mt-6 flex items-center justify-center gap-4 border-t border-neutral-200 pt-4 text-xs text-neutral-600">
                 <div className="inline-flex items-center gap-1.5"><ShieldCheck size={14} weight="fill" className="text-emerald-600" /> SSL Secured</div>
-                <div className="inline-flex items-center gap-1.5"><CheckCircle size={14} weight="fill" className="text-emerald-600" /> Expert assistance</div>
+                <div className="inline-flex items-center gap-1.5"><CheckCircle size={14} weight="fill" className="text-emerald-600" /> Activation service</div>
               </div>
               <div className="mt-4 flex items-center justify-center gap-4 text-xs text-neutral-500">
                 <Link to="/privacy-policy" className="hover:text-neutral-900 underline">Privacy Policy</Link>
@@ -295,7 +295,7 @@ export default function ActivationBrand() {
         <div className="container-page">
           <div className="mx-auto max-w-2xl text-center">
             <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Common questions</div>
-            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight">{brand.name} activation help, made easy</h2>
+            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight">{brand.name} activation, made easy</h2>
           </div>
           <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-2">
             {brand.faqs.map((f, i) => (
@@ -314,7 +314,7 @@ export default function ActivationBrand() {
           <div className="mx-auto max-w-4xl text-center">
             <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Shop {brand.name}</div>
             <h2 className="mt-2 font-display text-3xl font-bold tracking-tight">Genuine {brand.name} products</h2>
-            <p className="mt-3 text-neutral-600">Get genuine {brand.name} software at a discount with instant email delivery.</p>
+            <p className="mt-3 text-neutral-600">Genuine {brand.name} software with fast email delivery.</p>
           </div>
           <div className="mx-auto mt-10 grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-3">
             {loading ? (

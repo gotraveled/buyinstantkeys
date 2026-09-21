@@ -75,9 +75,9 @@ export default function Disclaimer() {
         <p>In accordance with the U.S. Federal Trade Commission's 16 CFR § 255 "Guides Concerning the Use of Endorsements and Testimonials in Advertising", we disclose the following:</p>
         <ul className="list-disc pl-6">
           <li>BuyInstantKeys receives revenue from the sale of digital license keys featured on this Site. Every product page therefore represents a potential financial interest in your purchase decision.</li>
-          <li>Star ratings and review counts shown on product cards are aggregated indicators and do not represent verified purchase reviews of the reseller. Feature comparisons are based on the publisher's published information.</li>
-          <li>Discount claims (e.g., "Save 70%") are calculated against the manufacturer's suggested retail price (MSRP) at the time of listing.</li>
-          <li>We may offer promotional codes and limited-time offers. The savings are real for eligible customers but may not stack with other offers.</li>
+          <li>Product features and comparisons are based on the publisher's published information and are provided for identification and comparison only.</li>
+          <li>Prices shown are our actual selling prices. We do not display inflated "compare-at" or percentage-off claims.</li>
+          <li>We may offer promotional codes from time to time. Any savings apply to eligible orders and may not stack with other offers.</li>
         </ul>
       </Section>
 

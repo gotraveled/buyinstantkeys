@@ -11,7 +11,7 @@ const faqs = [
   { q: "Is my payment secure?", a: "All payments are processed through PayPal's secure, encrypted platform. We never see or store your card details." },
   { q: "Do I need to create an account?", a: "No. You can check out as a guest — we only need your email to deliver the key." },
   { q: "Which brands do you sell?", a: "We sell genuine license keys for Norton, Webroot and McAfee — covering antivirus, internet security suites, VPN and identity protection. All keys are genuine and come with instant email delivery." },
-  { q: "Can I upgrade my subscription later?", a: "Yes, you can upgrade your subscription at any time through your account on the brand's official site. Contact us if you need help finding the right upgrade path." },
+  { q: "Can I upgrade my subscription later?", a: "Yes, you can upgrade your subscription at any time through your account on the brand's official site. Contact us if you need guidance on the right upgrade path." },
   { q: "Do your keys work internationally?", a: "Yes, our license keys work globally. You can activate them from any country, though some features may vary by region." },
   { q: "What payment methods do you accept?", a: "We accept PayPal, credit cards, and debit cards through PayPal's secure payment platform. All transactions are encrypted and secure." },
 ];
@@ -35,7 +35,7 @@ export default function FAQ() {
       <SEO
         title="Frequently Asked Questions | BuyInstantKeys"
         description="Find answers to common questions about buying antivirus license keys — Norton, Webroot & McAfee — activation, refunds, and more."
-        keywords="antivirus FAQ, license key questions, activation help, refund policy, Norton Webroot McAfee, how to activate antivirus, key not working"
+        keywords="antivirus FAQ, license key questions, activation service, refund policy, Norton Webroot McAfee, how to activate antivirus, key not working"
         schema={[faqSchema]}
       />
       <div className="container-page py-10 md:py-14">
