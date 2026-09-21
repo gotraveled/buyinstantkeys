@@ -3,24 +3,29 @@ import { useParams, Link } from "react-router-dom";
 import { api } from "@/lib/api";
 import SEO from "@/components/SEO";
 import ProductCard from "@/components/ProductCard";
+import LoadError from "@/components/LoadError";
 import BrandDisclaimer from "@/components/BrandDisclaimer";
 import { getBrand, BRAND_LIST } from "@/lib/brands";
-import { ShieldCheck, ArrowRight, CheckCircle, Envelope, LockKey, Headset } from "@phosphor-icons/react";
+import { ShieldCheck, ArrowRight, CheckCircle, Envelope, LockKey, Headset, CreditCard, Lightning, DownloadSimple, Info, Certificate, Package } from "@phosphor-icons/react";
 
 export default function CategoryPage() {
   const { category } = useParams();
   const brand = getBrand(category);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  useEffect(() => {
+  const load = () => {
     if (!brand) { setLoading(false); return; }
     setLoading(true);
+    setError(false);
     api.get("/products", { params: { brand: brand.name } })
       .then((r) => setProducts(r.data))
-      .catch(() => setProducts([]))
+      .catch(() => { setProducts([]); setError(true); })
       .finally(() => setLoading(false));
-  }, [category, brand]);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(load, [category]);
 
   // Unknown brand -> friendly fallback
   if (!brand) {
@@ -119,6 +124,21 @@ export default function CategoryPage() {
           </div>
         </section>
 
+        {/* Independence notice — compliance */}
+        <section className="border-b border-neutral-200 bg-white">
+          <div className="container-page py-4">
+            <div className="mx-auto flex max-w-3xl items-start gap-3 rounded-xl border border-neutral-200 bg-neutral-50 p-4">
+              <Info size={20} weight="duotone" className="mt-0.5 shrink-0 brand-text" />
+              <p className="text-sm text-neutral-700">
+                <strong className="font-semibold text-neutral-900">Independent reseller.</strong>{" "}
+                BuyInstantKeys is not affiliated with or endorsed by {brand.entity}. {brand.name} is a trademark of its respective owner,
+                used here only to identify the genuine product being sold. Your license is activated on the official {brand.name} portal at{" "}
+                <a href={brand.portalUrl} target="_blank" rel="noopener noreferrer" className="font-semibold underline">{brand.portalName}</a>.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Products */}
         <section className="container-page py-14 md:py-20">
           <div className="mb-8 flex items-end justify-between">
@@ -133,6 +153,8 @@ export default function CategoryPage() {
                 <div key={i} className="h-80 animate-pulse rounded-xl bg-neutral-100" />
               ))}
             </div>
+          ) : error ? (
+            <LoadError label={`${brand.name} products`} onRetry={load} />
           ) : products.length > 0 ? (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {products.map((p) => <ProductCard key={p.id} product={p} />)}
@@ -144,6 +166,58 @@ export default function CategoryPage() {
           )}
         </section>
 
+        {/* Why buy from us — value cards */}
+        <section className="border-t border-neutral-200 bg-white py-16">
+          <div className="container-page">
+            <div className="mx-auto max-w-2xl text-center">
+              <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Why BuyInstantKeys</div>
+              <h2 className="mt-2 font-display text-3xl font-bold tracking-tight">Why buy your {brand.name} key from us</h2>
+              <p className="mt-3 text-neutral-600">We're an independent reseller focused on one thing: genuine keys, delivered fast, at a fair price.</p>
+            </div>
+            <div className="mx-auto mt-10 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { icon: <Certificate size={24} weight="duotone" className="brand-text" />, t: "Genuine & verified", d: "Every key is sourced from authorized channels and checked before it's sent to you." },
+                { icon: <Lightning size={24} weight="duotone" className="brand-text" />, t: "5–15 min delivery", d: "Your license key is emailed to you within minutes of a successful checkout." },
+                { icon: <CreditCard size={24} weight="duotone" className="brand-text" />, t: "Secure checkout", d: "Pay safely with PayPal. We never see or store your card details." },
+                { icon: <Headset size={24} weight="duotone" className="brand-text" />, t: "Real support", d: "Free activation assistance and a 30-day money-back guarantee on every order." },
+              ].map((c, i) => (
+                <div key={i} className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+                  <div className="grid h-11 w-11 place-items-center rounded-lg border bg-white brand-border">{c.icon}</div>
+                  <div className="mt-4 font-display font-semibold text-neutral-900">{c.t}</div>
+                  <p className="mt-1.5 text-sm leading-relaxed text-neutral-600">{c.d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* How buying works */}
+        <section className="border-t border-neutral-200 brand-bg-softer py-16">
+          <div className="container-page">
+            <div className="mx-auto max-w-2xl text-center">
+              <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Simple process</div>
+              <h2 className="mt-2 font-display text-3xl font-bold tracking-tight">How buying works</h2>
+              <p className="mt-3 text-neutral-600">From checkout to protection in three steps.</p>
+            </div>
+            <div className="mx-auto mt-10 grid max-w-5xl gap-5 md:grid-cols-3">
+              {[
+                { n: "1", icon: <Package size={22} weight="duotone" style={{ color: brand.textOn }} />, t: "Pick your plan", d: `Choose the ${brand.name} product and device count that fits your needs, then check out securely with PayPal.` },
+                { n: "2", icon: <Envelope size={22} weight="duotone" style={{ color: brand.textOn }} />, t: "Get your key by email", d: "We verify your order and email your genuine license key — usually within 5–15 minutes." },
+                { n: "3", icon: <DownloadSimple size={22} weight="duotone" style={{ color: brand.textOn }} />, t: "Activate on the official site", d: `Enter your key at ${brand.portalName} to register the subscription to your own account and download the software.` },
+              ].map((s, i) => (
+                <div key={i} className="relative rounded-2xl border bg-white p-6 brand-border">
+                  <div className="flex items-center justify-between">
+                    <div className="grid h-11 w-11 place-items-center rounded-lg brand-bg">{s.icon}</div>
+                    <span className="font-mono text-sm text-neutral-400">0{s.n}</span>
+                  </div>
+                  <div className="mt-4 font-display font-semibold text-neutral-900">{s.t}</div>
+                  <p className="mt-1.5 text-sm leading-relaxed text-neutral-600">{s.d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* About + FAQ (compliant, informative content) */}
         <section className="border-t border-neutral-200 brand-bg-softer py-16">
           <div className="container-page">
@@ -151,6 +225,25 @@ export default function CategoryPage() {
               <h2 className="font-display text-3xl font-bold tracking-tight">About {brand.name} security</h2>
               <div className="mt-5 space-y-4 text-neutral-700">
                 {brand.about.map((para, i) => <p key={i}>{para}</p>)}
+              </div>
+
+              {/* What you get */}
+              <div className="mt-8 rounded-xl border bg-white p-6 brand-border">
+                <div className="font-display font-semibold text-neutral-900">What you get with every order</div>
+                <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+                  {[
+                    "A genuine, unused license key",
+                    "Delivery to your email in 5–15 min",
+                    "Activation on the official brand site",
+                    "Free step-by-step activation help",
+                    "30-day money-back guarantee",
+                    "Support if your key doesn't work",
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-neutral-700">
+                      <CheckCircle size={16} weight="fill" className="mt-0.5 shrink-0 text-emerald-600" /> {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               <div className="mt-10">

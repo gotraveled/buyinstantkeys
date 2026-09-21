@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "@/lib/api";
 import ProductCard from "@/components/ProductCard";
+import LoadError from "@/components/LoadError";
 import SEO from "@/components/SEO";
 import { TrustBadges, TrustMarquee, StarRating } from "@/components/Trust";
 import { BRAND_LIST } from "@/lib/brands";
@@ -9,9 +10,18 @@ import { ShieldCheck, LockKey, Envelope, CreditCard, Lightning, ArrowRight, Chec
 
 export default function Home() {
   const [featured, setFeatured] = useState([]);
-  useEffect(() => {
-    api.get("/products", { params: { featured: true } }).then((r) => setFeatured(r.data)).catch(() => {});
-  }, []);
+  const [featuredError, setFeaturedError] = useState(false);
+  const [featuredLoading, setFeaturedLoading] = useState(true);
+
+  const loadFeatured = () => {
+    setFeaturedLoading(true);
+    setFeaturedError(false);
+    api.get("/products", { params: { featured: true } })
+      .then((r) => setFeatured(r.data))
+      .catch(() => setFeaturedError(true))
+      .finally(() => setFeaturedLoading(false));
+  };
+  useEffect(loadFeatured, []);
 
   const homeSchema = {
     "@context": "https://schema.org",
@@ -161,9 +171,21 @@ export default function Home() {
             </div>
             <Link to="/products" className="hidden text-sm font-semibold text-neutral-700 hover:text-neutral-900 md:inline-flex md:items-center md:gap-1">View all <ArrowRight size={16} /></Link>
           </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {featured.slice(0, 8).map((p) => (<ProductCard key={p.id} product={p} />))}
-          </div>
+          {featuredLoading ? (
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+              {[1, 2, 3, 4].map((i) => <div key={i} className="h-80 animate-pulse rounded-xl bg-neutral-100" />)}
+            </div>
+          ) : featuredError ? (
+            <LoadError label="featured products" onRetry={loadFeatured} />
+          ) : featured.length > 0 ? (
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+              {featured.slice(0, 8).map((p) => (<ProductCard key={p.id} product={p} />))}
+            </div>
+          ) : (
+            <div className="rounded-xl border border-dashed border-neutral-300 bg-white p-12 text-center text-neutral-600">
+              No featured products right now. <Link to="/products" className="font-semibold underline">Browse all products</Link>
+            </div>
+          )}
         </div>
       </section>
 

@@ -3,21 +3,26 @@ import { useSearchParams, Link } from "react-router-dom";
 import { api } from "@/lib/api";
 import SEO from "@/components/SEO";
 import ProductCard from "@/components/ProductCard";
+import LoadError from "@/components/LoadError";
 import { BRAND_LIST } from "@/lib/brands";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [params, setParams] = useSearchParams();
   const brand = params.get("brand");
 
-  useEffect(() => {
+  const load = () => {
     setLoading(true);
+    setError(false);
     api.get("/products", { params: brand ? { brand } : {} })
       .then((r) => setProducts(r.data))
-      .catch(() => setProducts([]))
+      .catch(() => { setProducts([]); setError(true); })
       .finally(() => setLoading(false));
-  }, [brand]);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(load, [brand]);
 
   const activeBrand = BRAND_LIST.find((b) => b.name === brand);
   const pageTitle = activeBrand ? `${activeBrand.name} Products` : "All Antivirus Products";
@@ -84,6 +89,8 @@ export default function Products() {
               <div key={i} className="h-80 animate-pulse rounded-xl bg-neutral-100" />
             ))}
           </div>
+        ) : error ? (
+          <LoadError label="products" onRetry={load} />
         ) : products.length > 0 ? (
           <div data-testid="products-grid" className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {products.map((p) => (<ProductCard key={p.id} product={p} />))}

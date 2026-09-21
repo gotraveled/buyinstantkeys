@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import SEO from "@/components/SEO";
 import BrandDisclaimer from "@/components/BrandDisclaimer";
 import ProductCard from "@/components/ProductCard";
+import LoadError from "@/components/LoadError";
 import { getBrand, BRAND_LIST } from "@/lib/brands";
 import {
   ShieldCheck, ArrowRight, Key, User, Envelope,
@@ -28,16 +29,20 @@ export default function ActivationBrand() {
   const [errors, setErrors] = useState({});
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [formStartTime] = useState(Date.now());
 
-  useEffect(() => {
+  const loadProducts = () => {
     if (!brand) { setLoading(false); return; }
     setLoading(true);
+    setLoadError(false);
     api.get("/products", { params: { brand: brand.name } })
       .then((r) => setProducts(r.data.slice(0, 3)))
-      .catch(() => setProducts([]))
+      .catch(() => { setProducts([]); setLoadError(true); })
       .finally(() => setLoading(false));
-  }, [brand]);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(loadProducts, [brand]);
 
   if (!brand) {
     return (
@@ -314,6 +319,8 @@ export default function ActivationBrand() {
           <div className="mx-auto mt-10 grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-3">
             {loading ? (
               [1, 2, 3].map((i) => <div key={i} className="h-80 animate-pulse rounded-xl bg-neutral-100" />)
+            ) : loadError ? (
+              <div className="md:col-span-2 lg:col-span-3"><LoadError label={`${brand.name} products`} onRetry={loadProducts} /></div>
             ) : (
               products.map((p) => <ProductCard key={p.id} product={p} />)
             )}
