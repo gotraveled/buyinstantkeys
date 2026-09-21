@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ShieldCheck, MapPin, Envelope } from "@phosphor-icons/react";
 import BrandDisclaimer from "@/components/BrandDisclaimer";
+import { BRAND_LIST } from "@/lib/brands";
 
 export default function Footer() {
   return (
@@ -12,7 +13,7 @@ export default function Footer() {
             <span className="font-display text-lg font-bold">BuyInstantKeys</span>
           </div>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-neutral-600">
-            An independent digital software reseller. Authentic Norton license keys with instant email delivery and 24/7 customer service.
+            An independent digital software reseller. Genuine Norton, Webroot and McAfee license keys with instant email delivery and a 30-day money-back guarantee.
           </p>
           <div className="mt-5 space-y-1.5 text-sm text-neutral-700">
             <div className="flex items-start gap-2">
@@ -27,13 +28,17 @@ export default function Footer() {
         </div>
 
         <div>
-          <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Shop</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Shop by brand</div>
           <ul className="mt-4 space-y-2 text-sm">
+            {BRAND_LIST.map((b) => (
+              <li key={b.slug}>
+                <Link to={`/category/${b.slug}`} className="flex items-center gap-2 text-neutral-700 hover:text-neutral-900">
+                  <span className="h-2 w-2 rounded-full" style={{ backgroundColor: b.color }} />
+                  {b.name}
+                </Link>
+              </li>
+            ))}
             <li><Link to="/products" className="text-neutral-700 hover:text-neutral-900">All Products</Link></li>
-            <li><Link to="/products?category=Norton%20360" className="text-neutral-700 hover:text-neutral-900">Norton 360</Link></li>
-            <li><Link to="/products?category=LifeLock" className="text-neutral-700 hover:text-neutral-900">LifeLock</Link></li>
-            <li><Link to="/products?category=Privacy" className="text-neutral-700 hover:text-neutral-900">VPN & Privacy</Link></li>
-            <li><Link to="/products?category=Business" className="text-neutral-700 hover:text-neutral-900">Small Business</Link></li>
             <li><Link to="/activation" className="text-neutral-700 hover:text-neutral-900">Activate a Key</Link></li>
           </ul>
         </div>

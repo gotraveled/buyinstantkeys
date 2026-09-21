@@ -19,7 +19,7 @@ export default function About() {
       "@type": "Organization",
       "name": "BuyInstantKeys",
       "url": "https://buyinstantkeys.com",
-      "description": "An independent digital software reseller helping customers protect their devices with genuine Norton license keys — delivered fast, priced fairly, backed by real human assistance.",
+      "description": "An independent digital software reseller helping customers protect their devices with genuine Norton, Webroot and McAfee license keys — delivered fast, priced fairly, backed by real human assistance.",
       "foundingDate": "2024",
       "address": {
         "@type": "PostalAddress",
@@ -35,25 +35,25 @@ export default function About() {
   return (
     <>
       <SEO
-        title="About Us | BuyInstantKeys - Trusted Norton Reseller"
-        description="Learn about BuyInstantKeys - your trusted source for genuine Norton license keys. Independent reseller with instant delivery, fair prices, and real human assistance."
-        keywords="About BuyInstantKeys, Norton reseller, Norton license keys company, genuine Norton software seller, Norton key delivery service"
+        title="About Us | BuyInstantKeys - Independent Antivirus Reseller"
+        description="Learn about BuyInstantKeys - your trusted source for genuine Norton, Webroot and McAfee license keys. Independent reseller with instant delivery, fair prices, and real human assistance."
+        keywords="About BuyInstantKeys, antivirus reseller, license keys company, genuine software seller, Norton Webroot McAfee keys"
         schema={[aboutSchema]}
       />
       <PolicyLayout
         title="About BuyInstantKeys"
-        subtitle="An independent digital software reseller helping customers protect their devices with genuine Norton license keys — delivered fast, priced fairly, backed by real human assistance."
+        subtitle="An independent digital software reseller helping customers protect their devices with genuine Norton, Webroot and McAfee license keys — delivered fast, priced fairly, backed by real human assistance."
         lastUpdated="February 1, 2026"
         sections={SECTIONS}
       >
       <Section id="mission" title="Our mission">
         <p>BuyInstantKeys was founded on a simple idea: <strong>cybersecurity should be affordable and easy to access for everyone.</strong></p>
-        <p>Retail-priced antivirus subscriptions have become expensive, and the checkout experience on many publisher sites is designed to upsell — not to help. We built BuyInstantKeys to give consumers a straightforward alternative: legitimate Norton license keys, at fair prices, delivered by email within minutes, backed by responsive human assistance if anything goes wrong.</p>
+        <p>Retail-priced antivirus subscriptions have become expensive, and the checkout experience on many publisher sites is designed to upsell — not to help. We built BuyInstantKeys to give consumers a straightforward alternative: legitimate license keys for leading antivirus brands, at fair prices, delivered by email within minutes, backed by responsive human assistance if anything goes wrong.</p>
       </Section>
 
       <Section id="story" title="Our story">
-        <p>BuyInstantKeys was founded in Hayward, California by a small team of software resellers and customer-experience professionals who had spent years watching friends and family struggle with confusing renewal notices, surprise price increases, and overwhelming installer flows for Norton and other security products.</p>
-        <p>We sourced our first inventory of genuine keys from trusted digital channels and started small — one product, one delivery flow, one email contact inbox. Today, we carry the full Norton catalog including Norton 360 (Standard, Deluxe, Premium, Advanced), Norton with LifeLock (Select, Select Plus, Advantage, Ultimate Plus), Norton VPN, Norton AntiTrack, Norton Utilities Ultimate, Norton Family, Norton Small Business, Norton Mobile Security, Norton Password Manager and more — and we have served thousands of customers worldwide.</p>
+        <p>BuyInstantKeys was founded in Hayward, California by a small team of software resellers and customer-experience professionals who had spent years watching friends and family struggle with confusing renewal notices, surprise price increases, and overwhelming installer flows for major security products.</p>
+        <p>We sourced our first inventory of genuine keys from trusted digital channels and started small — one product, one delivery flow, one email contact inbox. Today, we carry three of the most trusted names in consumer security — Norton, Webroot and McAfee — spanning antivirus, internet security suites, VPN, identity protection and more, and we have served thousands of customers worldwide.</p>
       </Section>
 
       <Section id="values" title="Our values">
@@ -88,14 +88,14 @@ export default function About() {
 
       <Section id="why-us" title="Why choose BuyInstantKeys">
         <ul className="list-disc pl-6">
-          <li>Save up to 70% off Norton's manufacturer suggested retail price</li>
+          <li>Save up to 60% off the manufacturer suggested retail price</li>
           <li>Genuine license keys sourced from trusted digital channels</li>
           <li>Digital delivery by email within 5–15 minutes of payment confirmation</li>
           <li>Secure PayPal checkout — we never see or store your card details</li>
           <li>Free activation help through our <a href="/activation" className="underline">Activation Portal</a></li>
           <li>30-day money-back guarantee</li>
           <li>Responsive human assistance (info@buyinstantkeys.com)</li>
-          <li>Full range of Norton products — Norton 360, LifeLock, VPN, AntiTrack, Family, Small Business and more</li>
+          <li>Three trusted brands — Norton, Webroot and McAfee — covering antivirus, internet security, VPN and identity protection</li>
         </ul>
       </Section>
 

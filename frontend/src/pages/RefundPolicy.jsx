@@ -19,12 +19,12 @@ export default function RefundPolicy() {
     <>
       <SEO
         title="Refund Policy | BuyInstantKeys - 30 Day Money Back Guarantee"
-        description="Read BuyInstantKeys refund policy. 30-day money-back guarantee for Norton license keys. Easy refund process if your key doesn't work."
-        keywords="BuyInstantKeys refund policy, Norton key refund, 30 day money back guarantee, Norton license refund, money back guarantee, refund process"
+        description="Read BuyInstantKeys refund policy. 30-day money-back guarantee for license keys. Easy refund process if your key doesn't work."
+        keywords="BuyInstantKeys refund policy, license key refund, 30 day money back guarantee, money back guarantee, refund process"
       />
       <PolicyLayout
         title="Refund Policy"
-        subtitle="We stand behind every Norton license we sell. If something goes wrong, we make it right."
+        subtitle="We stand behind every license we sell. If something goes wrong, we make it right."
         lastUpdated="February 1, 2026"
         sections={SECTIONS}
       >
@@ -36,7 +36,7 @@ export default function RefundPolicy() {
       <Section id="guarantee" title="2. 30-day money-back guarantee">
         <p>We offer a <strong>30-day money-back guarantee</strong> from the date of purchase for License keys that:</p>
         <ul className="list-disc pl-6">
-          <li>Fail to activate on the Publisher's official activation portal (e.g., my.norton.com) through no fault of the customer</li>
+          <li>Fail to activate on the Publisher's official activation portal (e.g., my.norton.com, webroot.com/safe, mcafee.com/activate) through no fault of the customer</li>
           <li>Are found to have been previously redeemed by another user</li>
           <li>Do not match the product or plan you ordered (e.g., wrong tier delivered)</li>
         </ul>
@@ -70,7 +70,7 @@ export default function RefundPolicy() {
         <ol className="list-decimal pl-6">
           <li>Email us at <a href="mailto:info@buyinstantkeys.com" className="underline">info@buyinstantkeys.com</a> with the subject line "Refund Request — [Order Number]"</li>
           <li>Include your full name, the email used at checkout, and the Order number</li>
-          <li>Describe the issue in detail. Attach screenshots if available (e.g., the error message from Norton's activation page)</li>
+          <li>Describe the issue in detail. Attach screenshots if available (e.g., the error message from the activation page)</li>
           <li>Do NOT initiate a chargeback with your bank before contacting us — chargebacks make refund resolution slower and may result in account suspension</li>
         </ol>
         <p>We will acknowledge your request within 24 hours (business days) and provide a resolution within 3–5 business days.</p>

@@ -23,6 +23,7 @@ import Disclaimer from "@/pages/Disclaimer";
 import DigitalDelivery from "@/pages/DigitalDelivery";
 import About from "@/pages/About";
 import Activation from "@/pages/Activation";
+import ActivationBrand from "@/pages/ActivationBrand";
 import ActivationThanks from "@/pages/ActivationThanks";
 import CategoryPage from "@/pages/CategoryPage";
 import AdminLogin from "@/pages/AdminLogin";
@@ -74,6 +75,7 @@ function AppShell() {
         <Route path="/about-us" element={<About />} />
         <Route path="/activation" element={<Activation />} />
         <Route path="/activation/thanks" element={<ActivationThanks />} />
+        <Route path="/activation/:brand" element={<ActivationBrand />} />
         <Route path="/category/:category" element={<CategoryPage />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminDashboard />} />

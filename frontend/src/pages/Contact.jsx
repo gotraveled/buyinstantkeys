@@ -92,15 +92,15 @@ export default function Contact() {
     <>
       <SEO
         title="Contact Us | BuyInstantKeys"
-        description="Get in touch with BuyInstantKeys for Norton license key inquiries, order assistance, and activation help. We respond within 12 hours."
-        keywords="Contact BuyInstantKeys, Norton customer service, Norton key assistance, order inquiry, activation help, Norton contact"
+        description="Get in touch with BuyInstantKeys for license key inquiries, order assistance, and activation help for Norton, Webroot and McAfee. We respond within 12 hours."
+        keywords="Contact BuyInstantKeys, customer service, license key assistance, order inquiry, activation help, contact"
         schema={[contactSchema]}
       />
       <div className="container-page py-10 md:py-14">
       <div className="mx-auto max-w-4xl">
         <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Contact</div>
         <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">We're here to help</h1>
-        <p className="mt-3 text-neutral-600">Have a question about your order or Norton products? Send us a message — we usually reply within 12 hours.</p>
+        <p className="mt-3 text-neutral-600">Have a question about your order or our products? Send us a message — we usually reply within 12 hours.</p>
 
         <div className="mt-8 grid gap-4 sm:gap-6 md:grid-cols-3">
           <div className="rounded-xl border border-neutral-200 bg-white p-6">
@@ -156,18 +156,18 @@ export default function Contact() {
         {/* SEO Content */}
         <div className="mt-16 rounded-xl border border-neutral-200 bg-neutral-50 p-8">
           <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Why Contact Us?</div>
-          <h2 className="mt-2 font-display text-2xl font-bold tracking-tight">Expert Norton activation assistance</h2>
+          <h2 className="mt-2 font-display text-2xl font-bold tracking-tight">Expert activation assistance</h2>
           
           <div className="mt-6 space-y-4 text-neutral-700">
             <p>
-              Our team specializes in Norton activation and provides expert guidance for all Norton products. Whether you need help with Norton 360 Deluxe with LifeLock, Norton 360 Premium, or Norton AntiVirus Plus, we're here to assist you with activation, installation, and troubleshooting.
+              Our team specializes in antivirus activation and provides expert guidance for Norton, Webroot and McAfee products. Whether you need help activating a key, installing the software, or troubleshooting a subscription, we're here to assist you.
             </p>
             
             <h3 className="font-display text-lg font-semibold text-neutral-900">Common reasons to contact us:</h3>
             <ul className="list-disc list-inside space-y-2 text-sm">
-              <li>Norton product key activation assistance</li>
-              <li>Installation guidance for Norton software</li>
-              <li>Troubleshooting Norton subscription issues</li>
+              <li>Product key activation assistance</li>
+              <li>Installation guidance for your security software</li>
+              <li>Troubleshooting subscription issues</li>
               <li>Order status and delivery inquiries</li>
               <li>Refund and replacement requests</li>
               <li>Product recommendations and upgrades</li>
@@ -175,7 +175,7 @@ export default function Contact() {
             </ul>
             
             <p>
-              We respond to all inquiries within 12 hours, with most issues resolved on the same day. Our team has extensive experience with Norton products and can help you get your devices protected quickly and efficiently.
+              We respond to all inquiries within 12 hours, with most issues resolved on the same day. Our team has extensive experience with Norton, Webroot and McAfee products and can help you get your devices protected quickly and efficiently.
             </p>
           </div>
         </div>

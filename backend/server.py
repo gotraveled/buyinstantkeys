@@ -72,8 +72,9 @@ class Product(BaseModel):
     tagline: str
     description: str
     category: str
+    brand: str = "Norton"  # Norton | Webroot | McAfee
     image_url: str = ""
-    box_variant: str = "gold"  # gold | amber | black | green | purple
+    box_variant: str = "gold"  # gold | amber | black | green | red | purple
     badge: Optional[str] = None
     features: List[str] = []
     variants: List[Variant] = []
@@ -87,6 +88,7 @@ class ProductCreate(BaseModel):
     tagline: str
     description: str
     category: str
+    brand: str = "Norton"
     image_url: str
     badge: Optional[str] = None
     features: List[str] = []
@@ -97,6 +99,8 @@ class ProductUpdate(BaseModel):
     name: Optional[str] = None
     tagline: Optional[str] = None
     description: Optional[str] = None
+    category: Optional[str] = None
+    brand: Optional[str] = None
     image_url: Optional[str] = None
     badge: Optional[str] = None
     features: Optional[List[str]] = None
@@ -177,66 +181,71 @@ def verify_admin(authorization: Optional[str] = Header(None)) -> str:
         raise HTTPException(status_code=401, detail="Invalid token")
 
 # ============ SEED DATA ============
-SEED_VERSION = "2026-07-v5"
+SEED_VERSION = "2026-09-v6-3brand"
 
-NORTON_PRODUCTS = [
+PRODUCTS = [
+    # ===================== NORTON (yellow) =====================
     {
         "slug": "norton-antivirus-plus",
         "name": "Norton AntiVirus Plus",
         "tagline": "Essential virus and malware protection for 1 PC",
-        "description": "Powerful protection against viruses, malware, ransomware and hacking, with password manager, smart firewall and cloud backup.",
+        "description": "Real-time protection against viruses, malware, ransomware and hacking, with a smart firewall, password manager and 2GB cloud backup.",
         "category": "AntiVirus",
+        "brand": "Norton",
         "box_variant": "gold",
         "image_url": "",
-        "features": ["Real-time threat protection", "Smart Firewall", "Password Manager", "2GB Cloud Backup", "Genie AI Assistant"],
+        "features": ["Real-time threat protection", "Smart Firewall", "Password Manager", "2GB Cloud Backup", "100% Virus Protection Promise"],
         "variants": [
-            {"devices": 1, "years": 1, "label": "1 PC / 1 Year", "price": 34.99, "original_price": 59.99},
-            {"devices": 1, "years": 2, "label": "1 PC / 2 Years", "price": 54.99, "original_price": 119.99},
+            {"devices": 1, "years": 1, "label": "1 PC / 1 Year", "price": 24.99, "original_price": 59.99},
+            {"devices": 1, "years": 2, "label": "1 PC / 2 Years", "price": 44.99, "original_price": 119.99},
         ],
     },
     {
         "slug": "norton-360-standard",
         "name": "Norton 360 Standard",
         "tagline": "Complete protection for up to 3 devices",
-        "description": "Real-time protection against viruses, ransomware and other online threats. Includes VPN, Password Manager, Dark Web Monitoring and Privacy Monitor.",
+        "description": "Real-time protection against viruses, ransomware and online threats. Includes Secure VPN, Password Manager, Dark Web Monitoring and 10GB cloud backup.",
         "category": "Norton 360",
+        "brand": "Norton",
         "box_variant": "gold",
         "image_url": "",
         "features": ["Real-time threat protection", "Secure VPN", "Password Manager", "10GB Cloud Backup", "Dark Web Monitoring", "SafeCam for PC"],
         "variants": [
-            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 114.99, "original_price": 94.99},
-            {"devices": 3, "years": 2, "label": "3 Devices / 2 Years", "price": 229.99, "original_price": 189.99},
+            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 39.99, "original_price": 94.99},
+            {"devices": 3, "years": 2, "label": "3 Devices / 2 Years", "price": 74.99, "original_price": 189.99},
         ],
-        "is_featured": True,
     },
     {
         "slug": "norton-360-deluxe",
         "name": "Norton 360 Deluxe",
         "tagline": "Award-winning protection for up to 5 devices",
-        "description": "Multi-layered security with VPN, password manager, dark web monitoring, 50GB PC cloud backup and parental controls. Trusted by millions worldwide.",
+        "description": "Multi-layered security with Secure VPN, Password Manager, Dark Web Monitoring, 50GB PC cloud backup and parental controls.",
         "category": "Norton 360",
+        "brand": "Norton",
         "box_variant": "gold",
         "image_url": "",
         "badge": "Best Seller",
-        "features": ["Real-time threat protection", "Secure VPN", "Password Manager", "50GB Cloud Backup", "Parental Controls", "SafeCam for PC", "Privacy Monitor Assistant"],
+        "features": ["Real-time threat protection", "Secure VPN", "Password Manager", "50GB Cloud Backup", "Parental Controls", "SafeCam for PC", "Privacy Monitor"],
         "variants": [
-            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 139.99, "original_price": 119.99},
-            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 139.99, "original_price": 119.99},
-            {"devices": 5, "years": 2, "label": "5 Devices / 2 Years", "price": 249.99, "original_price": 239.99},
+            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 44.99, "original_price": 104.99},
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 49.99, "original_price": 119.99},
+            {"devices": 5, "years": 2, "label": "5 Devices / 2 Years", "price": 89.99, "original_price": 239.99},
         ],
         "is_featured": True,
     },
     {
-        "slug": "norton-360-deluxe-advantage",
-        "name": "Norton 360 Deluxe Advantage",
-        "tagline": "Deluxe protection with identity advisor",
-        "description": "Everything in Norton 360 Deluxe plus Norton Identity Advisor Plus — providing identity monitoring, restoration assistance and stolen wallet protection.",
+        "slug": "norton-360-premium",
+        "name": "Norton 360 Premium",
+        "tagline": "Advanced protection for up to 10 devices",
+        "description": "Comprehensive security suite covering up to 10 devices with Secure VPN, Password Manager, parental controls and 75GB cloud backup.",
         "category": "Norton 360",
+        "brand": "Norton",
         "box_variant": "amber",
         "image_url": "",
-        "features": ["All Norton 360 Deluxe features", "Identity Advisor Plus", "Restoration specialist", "Stolen wallet protection", "Dark Web Monitoring"],
+        "features": ["Real-time threat protection", "Secure VPN", "Password Manager", "75GB Cloud Backup", "Parental Controls", "SafeCam", "Dark Web Monitoring"],
         "variants": [
-            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 169.99, "original_price": 149.99},
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 64.99, "original_price": 149.99},
+            {"devices": 10, "years": 2, "label": "10 Devices / 2 Years", "price": 119.99, "original_price": 299.99},
         ],
         "is_featured": True,
     },
@@ -244,224 +253,220 @@ NORTON_PRODUCTS = [
         "slug": "norton-360-with-lifelock-select",
         "name": "Norton 360 with LifeLock Select",
         "tagline": "Device security + identity theft protection",
-        "description": "Combines Norton 360 device security with LifeLock identity theft protection. Includes Credit Monitoring (1 bureau) and up to $25K reimbursement for stolen funds.",
+        "description": "Combines Norton 360 device security with LifeLock identity theft protection, credit monitoring and stolen-funds reimbursement.",
         "category": "LifeLock",
+        "brand": "Norton",
         "box_variant": "black",
         "image_url": "",
         "badge": "Popular",
-        "features": ["Everything in Norton 360 Deluxe", "LifeLock Identity Alert System", "Credit Monitoring (1 bureau)", "$25K stolen funds reimbursement", "Million Dollar Protection Package"],
+        "features": ["Everything in Norton 360 Deluxe", "LifeLock Identity Alert System", "Credit Monitoring (1 bureau)", "Stolen funds reimbursement", "Million Dollar Protection Package"],
         "variants": [
-            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 209.99, "original_price": 189.99},
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 209.99, "original_price": 189.99},
-        ],
-        "is_featured": True,
-    },
-    {
-        "slug": "norton-360-with-lifelock-select-plus",
-        "name": "Norton 360 with LifeLock Select Plus",
-        "tagline": "Enhanced identity protection with credit reporting",
-        "description": "Upgrade to enhanced identity monitoring, annual credit report, credit lock and higher reimbursement limits.",
-        "category": "LifeLock",
-        "box_variant": "black",
-        "image_url": "",
-        "features": ["All Select features", "Annual credit report + score", "Credit lock (1 bureau)", "$50K stolen funds reimbursement", "Enhanced Dark Web Monitoring"],
-        "variants": [
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 209.99, "original_price": 189.99},
-        ],
-        "is_featured": True,
-    },
-    {
-        "slug": "norton-360-with-lifelock-advantage",
-        "name": "Norton 360 with LifeLock Advantage",
-        "tagline": "Advanced identity protection with credit alerts",
-        "description": "Everything in Select plus enhanced credit monitoring, bank & credit card activity alerts, and up to $100K reimbursement for stolen funds.",
-        "category": "LifeLock",
-        "box_variant": "black",
-        "image_url": "",
-        "features": ["All Select Plus features", "Bank & credit card activity alerts", "Credit Monitoring (1 bureau)", "$100K stolen funds reimbursement", "Court records scanning"],
-        "variants": [
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 279.99, "original_price": 259.99},
-        ],
-        "is_featured": True,
-    },
-    {
-        "slug": "norton-360-with-lifelock-ultimate-plus",
-        "name": "Norton 360 with LifeLock Ultimate Plus",
-        "tagline": "Top-tier protection with 3-bureau monitoring",
-        "description": "Our most comprehensive plan: unlimited device coverage, 3-bureau credit monitoring, $1M reimbursement for stolen funds and 500GB cloud backup.",
-        "category": "LifeLock",
-        "box_variant": "black",
-        "image_url": "",
-        "badge": "Ultimate",
-        "features": ["Unlimited devices", "3-bureau credit monitoring", "$1M stolen funds reimbursement", "500GB Cloud Backup", "24/7 live assistance"],
-        "variants": [
-            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 384.99, "original_price": 364.99},
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 99.99, "original_price": 189.99},
         ],
         "is_featured": True,
     },
     {
         "slug": "norton-360-for-gamers",
         "name": "Norton 360 for Gamers",
-        "tagline": "Multi-layered protection for PC gamers",
-        "description": "Game-optimized security with Game Optimizer, notification blocker and Secure VPN — no interruptions to your gameplay.",
+        "tagline": "Multi-layered protection built for PC gamers",
+        "description": "Game-optimized security with Game Optimizer, notification blocker and Secure VPN — protection that won't interrupt your gameplay.",
         "category": "Gaming",
+        "brand": "Norton",
         "box_variant": "purple",
         "image_url": "",
-        "badge": "Gamer's Choice",
         "features": ["Game Optimizer", "Notification blocker", "Secure VPN", "Dark Web Monitoring", "Webcam protection"],
         "variants": [
-            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 119.99, "original_price": 99.99},
+            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 44.99, "original_price": 99.99},
+        ],
+    },
+
+    # ===================== WEBROOT (green) =====================
+    {
+        "slug": "webroot-antivirus",
+        "name": "Webroot AntiVirus",
+        "tagline": "Lightning-fast cloud antivirus for PC & Mac",
+        "description": "Cloud-based antivirus that scans in seconds and uses minimal system resources. Protects against viruses, malware, phishing and ransomware.",
+        "category": "AntiVirus",
+        "brand": "Webroot",
+        "box_variant": "green",
+        "image_url": "",
+        "features": ["Cloud-based scanning", "Real-time protection", "Identity theft protection", "Anti-phishing", "Lightweight — no slowdown"],
+        "variants": [
+            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 19.99, "original_price": 39.99},
+            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 29.99, "original_price": 59.99},
+        ],
+    },
+    {
+        "slug": "webroot-internet-security-plus",
+        "name": "Webroot Internet Security Plus",
+        "tagline": "Antivirus + password manager for 3 devices",
+        "description": "Complete internet security with antivirus, anti-phishing, password manager and mobile protection for PCs, Macs and smartphones.",
+        "category": "Internet Security",
+        "brand": "Webroot",
+        "box_variant": "green",
+        "image_url": "",
+        "features": ["All AntiVirus features", "Password Manager (LastPass)", "Mobile security", "Anti-phishing", "Webcam protection"],
+        "variants": [
+            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 34.99, "original_price": 69.99},
+            {"devices": 3, "years": 2, "label": "3 Devices / 2 Years", "price": 64.99, "original_price": 139.99},
         ],
         "is_featured": True,
     },
     {
-        "slug": "norton-vpn",
-        "name": "Norton VPN",
-        "tagline": "Private, encrypted browsing anywhere",
-        "description": "Bank-grade encryption to keep your online activity private on public Wi-Fi and unsecured networks. Access global content without borders.",
-        "category": "Privacy",
+        "slug": "webroot-internet-security-complete",
+        "name": "Webroot Internet Security Complete",
+        "tagline": "Total protection + backup for 5 devices",
+        "description": "Webroot's most complete suite — antivirus, password manager, 25GB secure cloud backup, and system optimizer for up to 5 devices.",
+        "category": "Internet Security",
+        "brand": "Webroot",
         "box_variant": "green",
         "image_url": "",
-        "features": ["Bank-grade encryption", "No-log VPN", "Ad tracker blocking", "Wi-Fi security", "Kill switch"],
+        "badge": "Best Value",
+        "features": ["All Internet Security Plus features", "25GB Cloud Backup", "System optimizer", "File & browsing privacy", "5 devices"],
         "variants": [
-            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 69.99, "original_price": 49.99},
-            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 89.99, "original_price": 69.99},
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 109.99, "original_price": 89.99},
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 44.99, "original_price": 89.99},
+            {"devices": 5, "years": 2, "label": "5 Devices / 2 Years", "price": 79.99, "original_price": 179.99},
         ],
+        "is_featured": True,
     },
     {
-        "slug": "norton-antitrack",
-        "name": "Norton AntiTrack",
-        "tagline": "Stop trackers from following you online",
-        "description": "Prevents data collection companies from tracking your online activity, browser fingerprinting and behavior profiling.",
-        "category": "Privacy",
+        "slug": "webroot-premium",
+        "name": "Webroot Premium",
+        "tagline": "Premium security + privacy for the whole family",
+        "description": "Top-tier Webroot protection with antivirus, unlimited VPN, password manager, dark web monitoring and identity protection.",
+        "category": "Premium",
+        "brand": "Webroot",
         "box_variant": "green",
         "image_url": "",
-        "features": ["Anti-fingerprinting", "Anonymizes searches", "Cookie blocking", "Privacy dashboard", "Ad tracker prevention"],
+        "features": ["All Complete features", "Unlimited VPN", "Dark web monitoring", "Identity protection", "Priority service"],
         "variants": [
-            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 69.99, "original_price": 49.99},
-            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 89.99, "original_price": 59.99},
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 59.99, "original_price": 119.99},
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 79.99, "original_price": 159.99},
         ],
+        "is_featured": True,
     },
     {
-        "slug": "norton-identity-advisor-plus",
-        "name": "Norton Identity Advisor Plus",
-        "tagline": "Identity monitoring with restoration assistance",
-        "description": "24/7 identity monitoring with Dark Web scanning, restoration specialists on standby and stolen wallet assistance.",
-        "category": "Identity",
-        "box_variant": "amber",
-        "image_url": "",
-        "features": ["Identity theft monitoring", "Dark Web scanning", "Restoration specialist", "Stolen wallet protection", "Social media monitoring"],
-        "variants": [
-            {"devices": 1, "years": 1, "label": "1 Adult / 1 Year", "price": 209.99, "original_price": 189.99},
-        ],
-    },
-    {
-        "slug": "norton-utilities-ultimate",
-        "name": "Norton Utilities Ultimate",
-        "tagline": "Speed up and clean your PC",
-        "description": "Powerful tools to optimize PC performance, clean up junk files, fix registry issues and extend your device's life.",
-        "category": "Utilities",
-        "box_variant": "gold",
-        "image_url": "",
-        "features": ["PC cleaner", "Speed optimizer", "Privacy cleaner", "Disk defragmenter", "App uninstaller"],
-        "variants": [
-            {"devices": 10, "years": 1, "label": "10 PCs / 1 Year", "price": 99.99, "original_price": 79.99},
-        ],
-    },
-    {
-        "slug": "norton-family",
-        "name": "Norton Family",
-        "tagline": "Parental controls for kids online",
-        "description": "Keep your kids safer online with screen time limits, content filtering, location supervision and school time features.",
-        "category": "Family",
-        "box_variant": "amber",
-        "image_url": "",
-        "features": ["Web supervision", "Screen time management", "Location tracking", "School time", "Video supervision"],
-        "variants": [
-            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 99.99, "original_price": 79.99},
-        ],
-    },
-    {
-        "slug": "norton-small-business",
-        "name": "Norton Small Business",
-        "tagline": "Protection built for small businesses",
-        "description": "Easy-to-deploy protection for PCs, Macs, iOS and Android devices in your small business. Cloud console for centralized management.",
-        "category": "Business",
-        "box_variant": "black",
-        "image_url": "",
-        "features": ["Multi-device deployment", "Cloud console", "24/7 customer service", "Reputation-based protection"],
-        "variants": [
-            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 149.99, "original_price": 129.99},
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 199.99, "original_price": 179.99},
-            {"devices": 20, "years": 1, "label": "20 Devices / 1 Year", "price": 299.99, "original_price": 279.99},
-        ],
-    },
-    {
-        "slug": "norton-mobile-security",
-        "name": "Norton Mobile Security",
-        "tagline": "Powerful protection for iOS & Android",
-        "description": "Safeguard your smartphone from cyber threats, malicious apps, phishing links, unsafe Wi-Fi and web attacks.",
+        "slug": "webroot-mobile-security",
+        "name": "Webroot Mobile Security",
+        "tagline": "Security for Android & iOS devices",
+        "description": "Protect your smartphone and tablet from malicious apps, phishing links and unsafe websites with Webroot's mobile security.",
         "category": "Mobile",
+        "brand": "Webroot",
         "box_variant": "green",
         "image_url": "",
-        "features": ["App advisor", "Wi-Fi security", "Web protection", "SMS filtering", "Anti-theft"],
+        "features": ["Malicious app blocking", "Web protection", "Anti-phishing", "Secure browsing", "Lightweight app"],
         "variants": [
-            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 49.99, "original_price": 29.99},
+            {"devices": 1, "years": 1, "label": "1 Device / 1 Year", "price": 14.99, "original_price": 29.99},
+            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 24.99, "original_price": 49.99},
         ],
     },
     {
-        "slug": "norton-password-manager",
-        "name": "Norton Password Manager",
-        "tagline": "Secure, generate and remember passwords",
-        "description": "Store, generate, and autofill strong passwords in a secure encrypted vault across all your devices.",
+        "slug": "webroot-wifi-security-vpn",
+        "name": "Webroot WiFi Security VPN",
+        "tagline": "Private, encrypted browsing on any network",
+        "description": "Webroot's VPN keeps your connection private on public Wi-Fi with bank-grade encryption and a no-log policy.",
         "category": "Privacy",
+        "brand": "Webroot",
         "box_variant": "green",
         "image_url": "",
-        "features": ["Encrypted vault", "Password generator", "Auto-fill", "Cross-device sync", "Security dashboard"],
+        "features": ["Bank-grade encryption", "No-log policy", "Public Wi-Fi protection", "Ad & tracker blocking", "Global servers"],
         "variants": [
-            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 59.99, "original_price": 39.99},
+            {"devices": 3, "years": 1, "label": "3 Devices / 1 Year", "price": 29.99, "original_price": 59.99},
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 39.99, "original_price": 79.99},
         ],
     },
+
+    # ===================== MCAFEE (red) =====================
     {
-        "slug": "norton-ultimate-help-desk",
-        "name": "Norton Ultimate Help Desk",
-        "tagline": "24/7 expert assistance for any device",
-        "description": "Expert assistance for setup, troubleshooting, malware removal and optimization — anytime, any device.",
-        "category": "Services",
-        "box_variant": "amber",
-        "image_url": "",
-        "features": ["24/7 online assistance", "Setup assistance", "Malware removal", "Data recovery assistance", "Software installation"],
-        "variants": [
-            {"devices": 999, "years": 1, "label": "Unlimited Assistance / 1 Year", "price": 219.99, "original_price": 199.99},
-        ],
-    },
-    {
-        "slug": "norton-genie-scam-detector",
-        "name": "Norton Genie Scam Detector",
-        "tagline": "AI-powered scam detection",
-        "description": "Norton's AI-powered scam detection tool that analyzes messages, emails and URLs to warn you before you fall for a scam.",
+        "slug": "mcafee-antivirus",
+        "name": "McAfee AntiVirus",
+        "tagline": "Essential virus protection for 1 PC",
+        "description": "Award-winning antivirus that protects your PC from viruses, malware, ransomware and online threats with real-time scanning.",
         "category": "AntiVirus",
-        "box_variant": "purple",
+        "brand": "McAfee",
+        "box_variant": "red",
         "image_url": "",
-        "badge": "AI-Powered",
-        "features": ["AI scam analysis", "Message & email scanning", "URL safety check", "Real-time alerts"],
+        "features": ["Real-time antivirus", "Ransomware protection", "Web protection", "Firewall", "PC optimization"],
         "variants": [
-            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 89.99, "original_price": 69.99},
+            {"devices": 1, "years": 1, "label": "1 PC / 1 Year", "price": 19.99, "original_price": 49.99},
+            {"devices": 1, "years": 2, "label": "1 PC / 2 Years", "price": 34.99, "original_price": 99.99},
         ],
     },
     {
-        "slug": "norton-360-premium",
-        "name": "Norton 360 Premium",
-        "tagline": "Advanced protection for up to 10 devices",
-        "description": "Comprehensive security suite covering up to 10 devices with all premium features and 75GB cloud backup.",
-        "category": "Norton 360",
-        "box_variant": "amber",
+        "slug": "mcafee-plus-essential",
+        "name": "McAfee+ Essential",
+        "tagline": "Antivirus + identity protection for 5 devices",
+        "description": "All-in-one protection with antivirus, Secure VPN, identity monitoring and password manager for up to 5 devices.",
+        "category": "McAfee+",
+        "brand": "McAfee",
+        "box_variant": "red",
         "image_url": "",
-        "features": ["Real-time threat protection", "Secure VPN", "Password Manager", "75GB Cloud Backup", "Parental Controls", "SafeCam"],
+        "features": ["Antivirus for 5 devices", "Secure VPN", "Identity monitoring", "Password Manager", "Web protection"],
         "variants": [
-            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 169.99, "original_price": 149.99},
-            {"devices": 10, "years": 2, "label": "10 Devices / 2 Years", "price": 299.99, "original_price": 279.99},
+            {"devices": 5, "years": 1, "label": "5 Devices / 1 Year", "price": 39.99, "original_price": 89.99},
+            {"devices": 5, "years": 2, "label": "5 Devices / 2 Years", "price": 74.99, "original_price": 179.99},
+        ],
+        "is_featured": True,
+    },
+    {
+        "slug": "mcafee-total-protection",
+        "name": "McAfee Total Protection",
+        "tagline": "Complete security for up to 10 devices",
+        "description": "Comprehensive protection for the whole family — antivirus, VPN, identity monitoring, password manager and parental controls.",
+        "category": "Total Protection",
+        "brand": "McAfee",
+        "box_variant": "red",
+        "image_url": "",
+        "badge": "Best Seller",
+        "features": ["Antivirus for 10 devices", "Secure VPN", "Identity monitoring", "Password Manager", "Parental controls", "File shredder"],
+        "variants": [
+            {"devices": 10, "years": 1, "label": "10 Devices / 1 Year", "price": 54.99, "original_price": 119.99},
+            {"devices": 10, "years": 2, "label": "10 Devices / 2 Years", "price": 99.99, "original_price": 239.99},
+        ],
+        "is_featured": True,
+    },
+    {
+        "slug": "mcafee-plus-premium",
+        "name": "McAfee+ Premium",
+        "tagline": "Unlimited devices + full identity protection",
+        "description": "Protect unlimited devices with antivirus, unlimited VPN, comprehensive identity monitoring, and credit & transaction alerts.",
+        "category": "McAfee+",
+        "brand": "McAfee",
+        "box_variant": "red",
+        "image_url": "",
+        "badge": "Popular",
+        "features": ["Unlimited devices", "Unlimited Secure VPN", "Identity monitoring & alerts", "Credit monitoring", "Password Manager", "Personal data cleanup"],
+        "variants": [
+            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 69.99, "original_price": 149.99},
+        ],
+        "is_featured": True,
+    },
+    {
+        "slug": "mcafee-plus-advanced",
+        "name": "McAfee+ Advanced",
+        "tagline": "Advanced security + identity & privacy",
+        "description": "McAfee's advanced tier — unlimited devices, full identity theft protection, credit lock, and $1M identity theft coverage.",
+        "category": "McAfee+",
+        "brand": "McAfee",
+        "box_variant": "red",
+        "image_url": "",
+        "features": ["All Premium features", "Credit lock & freeze", "$1M identity theft coverage", "Lost wallet assistance", "Social media monitoring"],
+        "variants": [
+            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 99.99, "original_price": 199.99},
+        ],
+    },
+    {
+        "slug": "mcafee-livesafe",
+        "name": "McAfee LiveSafe",
+        "tagline": "Cross-device protection for unlimited devices",
+        "description": "McAfee LiveSafe protects all your PCs, Macs, smartphones and tablets with antivirus, VPN, password manager and secure cloud storage.",
+        "category": "LiveSafe",
+        "brand": "McAfee",
+        "box_variant": "red",
+        "image_url": "",
+        "features": ["Unlimited devices", "Secure VPN", "Password Manager", "Secure cloud storage", "Identity monitoring", "Web protection"],
+        "variants": [
+            {"devices": 999, "years": 1, "label": "Unlimited Devices / 1 Year", "price": 49.99, "original_price": 109.99},
         ],
     },
 ]
@@ -491,12 +496,12 @@ async def seed_data():
     meta = await db.meta.find_one({"key": "seed_version"})
     if not meta or meta.get("value") != SEED_VERSION:
         await db.products.delete_many({})
-        for p in NORTON_PRODUCTS:
+        for p in PRODUCTS:
             variants = [Variant(**v).model_dump() for v in p["variants"]]
             product = Product(**{**p, "variants": variants})
             await db.products.insert_one(product.model_dump())
         await db.meta.update_one({"key": "seed_version"}, {"$set": {"value": SEED_VERSION}}, upsert=True)
-        logger.info(f"Reseeded {len(NORTON_PRODUCTS)} products (version={SEED_VERSION})")
+        logger.info(f"Reseeded {len(PRODUCTS)} products (version={SEED_VERSION})")
 
     # Coupons
     for c in DEFAULT_COUPONS:
@@ -666,10 +671,12 @@ async def config():
     return {"paypal_enabled": PAYPAL_ENABLED, "paypal_client_id": PAYPAL_CLIENT_ID if PAYPAL_ENABLED else "", "paypal_mode": PAYPAL_MODE}
 
 @api_router.get("/products", response_model=List[Product])
-async def list_products(category: Optional[str] = None, featured: Optional[bool] = None):
+async def list_products(category: Optional[str] = None, brand: Optional[str] = None, featured: Optional[bool] = None):
     q = {"is_active": True}
     if category:
         q["category"] = category
+    if brand:
+        q["brand"] = brand
     if featured is not None:
         q["is_featured"] = featured
     docs = await db.products.find(q, {"_id": 0}).sort("created_at", 1).to_list(200)
@@ -993,6 +1000,7 @@ class ActivationCreate(BaseModel):
     customer_email: EmailStr
     customer_phone: Optional[str] = None
     product_key: str
+    brand: Optional[str] = "Norton"
 
 class ActivationRequest(BaseModel):
     model_config = ConfigDict(extra="ignore")
@@ -1001,6 +1009,7 @@ class ActivationRequest(BaseModel):
     customer_email: str
     customer_phone: Optional[str] = None
     product_key: str
+    brand: str = "Norton"
     status: str = "pending"  # pending, activated, contacted
     admin_notes: Optional[str] = None
     created_at: str = Field(default_factory=now_iso)
@@ -1027,9 +1036,10 @@ def activation_admin_html(req: dict) -> str:
       <p><strong>Name:</strong> {req['customer_name']}</p>
       <p><strong>Email:</strong> {req['customer_email']}</p>
       {phone_html}
+      <p><strong>Brand:</strong> {req.get('brand', 'Norton')}</p>
       <p><strong>Product Key:</strong> <code style="background:#f3f4f6;padding:6px 8px;border-radius:4px;font-family:monospace">{req['product_key']}</code></p>
       <p><strong>Received:</strong> {req['created_at']}</p>
-      <p>Please contact this customer to help complete their Norton activation.</p>
+      <p>Please contact this customer to help complete their {req.get('brand', 'Norton')} activation.</p>
     </div>
     """
 
@@ -1038,7 +1048,7 @@ def activation_customer_html(req: dict) -> str:
     <div style="font-family:Arial,sans-serif;max-width:600px;padding:20px">
       <h2>Activation request received</h2>
       <p>Hi {req['customer_name']},</p>
-      <p>We've received your Norton activation request. Our team will contact you within 12 hours to help complete the activation process.</p>
+      <p>We've received your {req.get('brand', 'Norton')} activation request. Our team will contact you within 12 hours to help complete the activation process.</p>
       <p><strong>Your product key:</strong> <code style="background:#f3f4f6;padding:6px 8px;border-radius:4px;font-family:monospace">{req['product_key']}</code></p>
       <p>If you have any questions, please reply to this email.</p>
       <p>Best regards,<br/>{STORE_NAME} Team</p>
@@ -1084,6 +1094,7 @@ async def create_activation(body: ActivationCreate):
         customer_email=body.customer_email.lower(),
         customer_phone=body.customer_phone.strip() if body.customer_phone else None,
         product_key=body.product_key.strip(),
+        brand=(body.brand or "Norton").strip(),
     )
     await db.activations.insert_one(req.model_dump())
     doc = req.model_dump()

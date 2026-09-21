@@ -3,16 +3,16 @@ import SEO from "@/components/SEO";
 
 const faqs = [
   { q: "How long until I receive my license key?", a: "Most orders are delivered within 5–15 minutes after payment. Our team manually verifies each payment to prevent fraud. You'll get an email once your key is ready." },
-  { q: "Are these Norton keys genuine?", a: "Yes. Every license key we sell is 100% genuine and sourced from trusted partners. You activate on Norton's official site." },
-  { q: "How do I activate my Norton key?", a: "Sign in to my.norton.com (or create an account), click 'Enter a new product key', paste your key, and download Norton for your device." },
+  { q: "Are these license keys genuine?", a: "Yes. Every license key we sell is 100% genuine and sourced from trusted partners. You activate on the official site of the brand you purchased." },
+  { q: "How do I activate my key?", a: "Each brand has its own portal — Norton at my.norton.com, Webroot at webroot.com/safe, and McAfee at mcafee.com/activate. Sign in, enter your key, and download the software. Our Activation page walks you through it." },
   { q: "What if my key doesn't work?", a: "Contact us right away — we'll replace the key or provide a full refund within 30 days of purchase." },
-  { q: "Can I use one key on multiple devices?", a: "Yes, depending on the plan you purchase. For example, Norton 360 Deluxe covers up to 5 devices, Norton 360 Premium covers up to 10." },
+  { q: "Can I use one key on multiple devices?", a: "Yes, depending on the plan you purchase. For example, Norton 360 Deluxe covers up to 5 devices, McAfee+ Premium covers unlimited devices, and Webroot Internet Security Complete covers 5." },
   { q: "Do you offer refunds?", a: "Yes, we offer a 30-day money-back guarantee if you can't activate your key or aren't satisfied." },
   { q: "Is my payment secure?", a: "All payments are processed through PayPal's secure, encrypted platform. We never see or store your card details." },
   { q: "Do I need to create an account?", a: "No. You can check out as a guest — we only need your email to deliver the key." },
-  { q: "What Norton products do you sell?", a: "We sell Norton 360 Deluxe with LifeLock, Norton 360 Premium, Norton AntiVirus Plus, Norton Secure VPN, and Norton Utilities. All keys are genuine and come with instant email delivery." },
-  { q: "Can I upgrade my Norton subscription later?", a: "Yes, you can upgrade your Norton subscription at any time through your Norton account. Contact us if you need help finding the right upgrade path." },
-  { q: "Do your Norton keys work internationally?", a: "Yes, our Norton license keys work globally. You can activate them from any country, though some features may vary by region." },
+  { q: "Which brands do you sell?", a: "We sell genuine license keys for Norton, Webroot and McAfee — covering antivirus, internet security suites, VPN and identity protection. All keys are genuine and come with instant email delivery." },
+  { q: "Can I upgrade my subscription later?", a: "Yes, you can upgrade your subscription at any time through your account on the brand's official site. Contact us if you need help finding the right upgrade path." },
+  { q: "Do your keys work internationally?", a: "Yes, our license keys work globally. You can activate them from any country, though some features may vary by region." },
   { q: "What payment methods do you accept?", a: "We accept PayPal, credit cards, and debit cards through PayPal's secure payment platform. All transactions are encrypted and secure." },
 ];
 
@@ -34,15 +34,15 @@ export default function FAQ() {
     <>
       <SEO
         title="Frequently Asked Questions | BuyInstantKeys"
-        description="Find answers to common questions about buying Norton license keys, activation, refunds, and more. Get instant help with your Norton software purchase."
-        keywords="Norton FAQ, Norton license key questions, Norton activation help, Norton refund policy, Norton 360 questions, how to activate Norton, Norton key not working"
+        description="Find answers to common questions about buying antivirus license keys — Norton, Webroot & McAfee — activation, refunds, and more."
+        keywords="antivirus FAQ, license key questions, activation help, refund policy, Norton Webroot McAfee, how to activate antivirus, key not working"
         schema={[faqSchema]}
       />
       <div className="container-page py-10 md:py-14">
       <div className="mx-auto max-w-3xl">
         <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Resources</div>
         <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">Frequently asked questions</h1>
-        <p className="mt-3 text-neutral-600">Everything you need to know about buying Norton keys from us.</p>
+        <p className="mt-3 text-neutral-600">Everything you need to know about buying license keys from us.</p>
 
         <Accordion type="single" collapsible className="mt-8 divide-y divide-neutral-200 rounded-xl border border-neutral-200 bg-white">
           {faqs.map((f, i) => (

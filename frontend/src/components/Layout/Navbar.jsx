@@ -1,6 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
-import { ShieldCheck, ShoppingCart, Package } from "@phosphor-icons/react";
+import { ShieldCheck, ShoppingCart, Package, CaretDown } from "@phosphor-icons/react";
 import { useCart } from "@/lib/cart";
+import { BRAND_LIST } from "@/lib/brands";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Navbar() {
   const { count } = useCart();
@@ -24,16 +31,33 @@ export default function Navbar() {
           <ShieldCheck size={26} weight="duotone" className="text-neutral-900" />
           <span className="font-display text-lg font-bold tracking-tight">
             Buy<span className="text-neutral-900">Instant</span>
-            <span className="rounded bg-[#FCE029] px-1">Keys</span>
+            <span className="rounded bg-neutral-900 px-1 text-white">Keys</span>
           </span>
         </Link>
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-7 md:flex">
           <NavLink to="/" testId="nav-home">Home</NavLink>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium tracking-tight text-neutral-600 outline-none transition-colors hover:text-neutral-900" data-testid="nav-brands">
+              Brands <CaretDown size={14} weight="bold" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-48">
+              {BRAND_LIST.map((b) => (
+                <DropdownMenuItem key={b.slug} asChild>
+                  <Link to={`/category/${b.slug}`} className="flex items-center gap-2.5">
+                    <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: b.color }} />
+                    {b.name}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+              <DropdownMenuItem asChild>
+                <Link to="/products" className="font-semibold">All Products</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <NavLink to="/products" testId="nav-products">All Products</NavLink>
           <NavLink to="/activation" testId="nav-activation">Activate</NavLink>
           <NavLink to="/track" testId="nav-track">Track Order</NavLink>
           <NavLink to="/faq" testId="nav-faq">FAQ</NavLink>
-          <NavLink to="/about" testId="nav-about">About</NavLink>
           <NavLink to="/contact" testId="nav-contact">Contact</NavLink>
         </nav>
         <div className="flex items-center gap-3">
@@ -48,7 +72,7 @@ export default function Navbar() {
             <ShoppingCart size={18} weight="duotone" />
             <span>Cart</span>
             {count > 0 && (
-              <span data-testid="nav-cart-count" className="ml-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-[#FCE029] px-1.5 text-xs font-bold text-neutral-900">
+              <span data-testid="nav-cart-count" className="ml-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-neutral-900 px-1.5 text-xs font-bold text-white">
                 {count}
               </span>
             )}

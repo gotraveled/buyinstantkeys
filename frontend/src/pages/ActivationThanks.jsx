@@ -9,7 +9,7 @@ export default function ActivationThanks() {
       if (window.Tawk_API && window.Tawk_API.maximize) { window.Tawk_API.maximize(); return; }
       if (window.Intercom) { window.Intercom("show"); return; }
     } catch (e) { /* ignore */ }
-    window.location.href = "mailto:info@buyinstantkeys.com?subject=Norton%20activation%20help&body=Hi%20BuyInstantKeys%20team%2C%0A%0AI%20need%20help%20activating%20my%20Norton%20subscription.";
+    window.location.href = "mailto:info@buyinstantkeys.com?subject=Activation%20help&body=Hi%20BuyInstantKeys%20team%2C%0A%0AI%20need%20help%20activating%20my%20subscription.";
   };
 
   return (
@@ -50,7 +50,7 @@ export default function ActivationThanks() {
             Thanks for the details!
           </h1>
           <p className="mt-4 text-lg text-neutral-700">
-            We've received your Norton activation request. Our team is verifying your product key and will email you the activation details shortly.
+            We've received your activation request. Our team is verifying your product key and will email you the activation details shortly.
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-3">

@@ -25,12 +25,12 @@ export default function PrivacyPolicy() {
     <>
       <SEO
         title="Privacy Policy | BuyInstantKeys"
-        description="Read BuyInstantKeys privacy policy. Learn how we collect, use, and protect your personal information when purchasing Norton license keys."
-        keywords="BuyInstantKeys privacy policy, data protection, personal information security, Norton key purchase privacy, customer data protection"
+        description="Read BuyInstantKeys privacy policy. Learn how we collect, use, and protect your personal information when purchasing license keys."
+        keywords="BuyInstantKeys privacy policy, data protection, personal information security, customer data protection"
       />
       <PolicyLayout
         title="Privacy Policy"
-        subtitle="How we collect, use, and protect your personal information when you purchase Norton license keys from BuyInstantKeys."
+        subtitle="How we collect, use, and protect your personal information when you purchase license keys from BuyInstantKeys."
         lastUpdated="February 1, 2026"
         sections={SECTIONS}
       >
@@ -56,7 +56,7 @@ export default function PrivacyPolicy() {
         <ul className="list-disc pl-6">
           <li>Full name, email address, phone number, and billing address (collected at checkout)</li>
           <li>Order details, product selections, and shopping cart contents</li>
-          <li>License activation information (Norton product key, customer name, email) submitted through our Activation Portal</li>
+          <li>License activation information (product key, customer name, email) submitted through our Activation Portal</li>
           <li>Communications you send us (inquiries, contact form messages, email correspondence)</li>
           <li>Account credentials if you create an admin account</li>
         </ul>

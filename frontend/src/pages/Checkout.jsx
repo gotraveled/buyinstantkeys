@@ -220,7 +220,7 @@ export default function Checkout() {
           </div>
           <div className="mt-4 space-y-2 rounded-xl border border-neutral-200 bg-white p-5 text-sm">
             <div className="flex items-center gap-2"><Envelope size={16} weight="duotone" /> Delivered to your inbox in 5–15 min</div>
-            <div className="flex items-center gap-2"><ShieldCheck size={16} weight="duotone" /> Genuine Norton keys</div>
+            <div className="flex items-center gap-2"><ShieldCheck size={16} weight="duotone" /> Genuine license keys</div>
             <div className="flex items-center gap-2"><CheckCircle size={16} weight="duotone" /> 30-day money-back guarantee</div>
           </div>
         </aside>

@@ -105,4 +105,20 @@
   .badge-hot {
     @apply inline-flex items-center gap-1.5 rounded-full bg-neutral-900 px-3 py-1 text-xs font-semibold text-[#FCE029];
   }
+
+  /* ---- Brand-accent utilities (driven by a --brand CSS variable on the page) ---- */
+  .btn-brand {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 font-semibold shadow-[0_1px_0_rgba(0,0,0,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    background-color: var(--brand, #0f172a);
+    color: var(--brand-text, #ffffff);
+    transition: background-color 0.2s ease, transform 0.15s ease;
+  }
+  .btn-brand:hover { background-color: var(--brand-dark, var(--brand, #0f172a)); transform: translateY(-1px); }
+  .brand-text { color: var(--brand, #0f172a); }
+  .brand-bg { background-color: var(--brand, #0f172a); }
+  .brand-bg-soft { background-color: var(--brand-soft, #f1f5f9); }
+  .brand-bg-softer { background-color: var(--brand-softer, #f8fafc); }
+  .brand-border { border-color: var(--brand-border, #e2e8f0); }
+  .brand-underline { background-color: var(--brand, #0f172a); }
+  .brand-ring:focus { --tw-ring-color: var(--brand, #0f172a); }
 }

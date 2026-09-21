@@ -5,7 +5,9 @@ import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
 import SEO from "@/components/SEO";
 import { StarRating } from "@/components/Trust";
+import ProductCard from "@/components/ProductCard";
 import ProductBox from "@/components/ProductBox";
+import { getBrand } from "@/lib/brands";
 import { ShieldCheck, Check, ArrowRight, Envelope, LockKey, Monitor, Cloud, Warning, Lightning, Users, Globe, DeviceMobile, Laptop, Play, Question, ShoppingCart, CreditCard } from "@phosphor-icons/react";
 
 export default function ProductDetail() {
@@ -15,12 +17,17 @@ export default function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [variantId, setVariantId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [related, setRelated] = useState([]);
 
   useEffect(() => {
     setLoading(true);
     api.get(`/products/${slug}`).then((r) => {
       setProduct(r.data);
       setVariantId(r.data.variants[0]?.id || null);
+      // fetch related products from the same brand
+      api.get("/products", { params: { brand: r.data.brand } })
+        .then((rel) => setRelated(rel.data.filter((x) => x.slug !== slug).slice(0, 3)))
+        .catch(() => {});
     }).catch(() => {
       toast.error("Product not found");
       nav("/products");
@@ -35,6 +42,9 @@ export default function ProductDetail() {
   const savings = variant.original_price && variant.original_price > variant.price
     ? Math.round(((variant.original_price - variant.price) / variant.original_price) * 100)
     : 0;
+  const brand = getBrand((product.brand || "").toLowerCase());
+  const brandName = product.brand || "Antivirus";
+  const portal = brand?.portalName || "the official site";
 
   const handleAdd = (goCheckout = false) => {
     addItem(product, variant, 1);
@@ -50,7 +60,7 @@ export default function ProductDetail() {
     "image": product.image_url || "https://buyinstantkeys.com/products/default.jpg",
     "brand": {
       "@type": "Brand",
-      "name": "Norton"
+      "name": brandName
     },
     "offers": {
       "@type": "Offer",
@@ -86,18 +96,18 @@ export default function ProductDetail() {
       },
       {
         "@type": "Question",
-        "name": "How do I activate my Norton license key?",
+        "name": `How do I activate my ${brandName} license key?`,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "After purchase, you'll receive your 25-character license key via email within 5-15 minutes. Visit my.norton.com, sign in or create an account, click 'Enter a product key', paste your key, and follow the on-screen instructions to download and install."
+          "text": `After purchase, you'll receive your license key via email within 5-15 minutes. Visit ${portal}, sign in or create an account, enter your product key, and follow the on-screen instructions to download and install.`
         }
       },
       {
         "@type": "Question",
-        "name": "Is this a genuine Norton license?",
+        "name": `Is this a genuine ${brandName} license?`,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, all our Norton license keys are 100% genuine and legally acquired from trusted channels. Each key is verified before delivery to ensure validity."
+          "text": `Yes, all our ${brandName} license keys are 100% genuine and legally acquired from trusted channels. Each key is verified before delivery to ensure validity.`
         }
       },
       {
@@ -140,8 +150,8 @@ export default function ProductDetail() {
     <>
       <SEO
         title={`${product.name} - ${variant.label} | BuyInstantKeys`}
-        description={`${product.description} Get ${product.name} at ${savings > 0 ? savings + '% off' : 'best price'}. Instant email delivery, 100% genuine Norton license key, 30-day money-back guarantee.`}
-        keywords={`${product.name}, ${product.category}, Norton 360 Deluxe with LifeLock, Norton license key, ${product.tagline}, genuine Norton software, cheap Norton ${product.category}, buy ${product.name} online`}
+        description={`${product.description} Get ${product.name} at ${savings > 0 ? savings + '% off' : 'best price'}. Instant email delivery, 100% genuine ${brandName} license key, 30-day money-back guarantee.`}
+        keywords={`${product.name}, ${product.category}, ${brandName} license key, ${product.tagline}, genuine ${brandName} software, buy ${product.name} online`}
         ogType="product"
         schema={[productSchema, breadcrumbSchema, faqSchema]}
       />
@@ -287,7 +297,7 @@ export default function ProductDetail() {
             { n: "01", icon: <ShoppingCart size={24} weight="duotone" />, title: "Choose Your Plan", desc: "Select the perfect plan for your needs and device count." },
             { n: "02", icon: <CreditCard size={24} weight="duotone" />, title: "Secure Checkout", desc: "Complete your purchase with our secure PayPal checkout." },
             { n: "03", icon: <Envelope size={24} weight="duotone" />, title: "Instant Delivery", desc: "Receive your license key via email within 5-15 minutes." },
-            { n: "04", icon: <Lightning size={24} weight="duotone" />, title: "Activate & Protect", desc: "Activate your key on my.norton.com and enjoy full protection." },
+            { n: "04", icon: <Lightning size={24} weight="duotone" />, title: "Activate & Protect", desc: `Activate your key at ${portal} and enjoy full protection.` },
           ].map((step, i) => (
             <div key={i} className="text-center">
               <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-neutral-900 text-[#FCE029] font-mono text-sm font-bold">{step.n}</div>
@@ -330,8 +340,8 @@ export default function ProductDetail() {
         <div className="mt-12 max-w-3xl mx-auto space-y-4">
           {[
             { q: `What is included in ${product.name}?`, a: `${product.name} includes ${product.features.slice(0, 3).join(", ")}, and many more advanced security features to keep your devices and data protected.` },
-            { q: "How do I activate my Norton license key?", a: "After purchase, you'll receive your 25-character license key via email within 5-15 minutes. Visit my.norton.com, sign in or create an account, click 'Enter a product key', paste your key, and follow the on-screen instructions to download and install." },
-            { q: "Is this a genuine Norton license?", a: "Yes, all our Norton license keys are 100% genuine and legally acquired from trusted channels. Each key is verified before delivery to ensure validity and proper activation." },
+            { q: `How do I activate my ${brandName} license key?`, a: `After purchase, you'll receive your license key via email within 5-15 minutes. Visit ${portal}, sign in or create an account, enter your product key, and follow the on-screen instructions to download and install.` },
+            { q: `Is this a genuine ${brandName} license?`, a: `Yes, all our ${brandName} license keys are 100% genuine and legally acquired from trusted channels. Each key is verified before delivery to ensure validity and proper activation.` },
             { q: "What is your refund policy?", a: "We offer a 30-day money-back guarantee. If your license key cannot be activated or you received the wrong product, we'll issue a full refund or replacement within 30 days of purchase." },
             { q: "Can I use this on multiple devices?", a: `Yes, this plan covers ${variant.devices === 999 ? 'unlimited' : variant.devices} device(s) for ${variant.years} year(s). You can install and activate on all supported devices including Windows, Mac, iOS, and Android.` },
             { q: "How long does delivery take?", a: "License keys are delivered instantly via email within 5-15 minutes after payment confirmation. In rare cases, it may take up to 24 hours for manual verification." },
@@ -379,16 +389,15 @@ export default function ProductDetail() {
       </section>
 
       {/* Related Products */}
-      <section className="mt-16">
-        <h2 className="font-display text-2xl font-bold tracking-tight">You May Also Like</h2>
-        <p className="mt-2 text-neutral-600">Explore other Norton products for complete protection</p>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {/* This would typically show related products from API */}
-          <div className="rounded-xl border border-neutral-200 bg-white p-6 text-center">
-            <div className="text-sm font-medium text-neutral-500">More products coming soon</div>
+      {related.length > 0 && (
+        <section className="mt-16">
+          <h2 className="font-display text-2xl font-bold tracking-tight">You May Also Like</h2>
+          <p className="mt-2 text-neutral-600">Explore other {brandName} products for complete protection</p>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((p) => <ProductCard key={p.id} product={p} />)}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
     </>
   );

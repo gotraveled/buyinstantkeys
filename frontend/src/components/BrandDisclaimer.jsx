@@ -12,7 +12,7 @@ export default function BrandDisclaimer({ variant = "footer" }) {
         <div className="flex items-start gap-2">
           <ShieldCheck size={14} weight="duotone" className="mt-0.5 shrink-0 text-neutral-500" />
           <p>
-            <strong className="font-semibold text-neutral-700">Disclaimer:</strong> BuyInstantKeys is an independent digital software reseller. We are <strong>not affiliated with, endorsed by, sponsored by, or in any way officially connected to</strong> NortonLifeLock, Gen Digital Inc., Norton, or any of their subsidiaries or affiliates. Norton® is a registered trademark of Gen Digital Inc. All other product names, logos, brands, trademarks and registered trademarks are property of their respective owners. All company, product and service names used on this website are for identification purposes only. Use of these names, logos, and brands does not imply endorsement. Read our full <Link to="/disclaimer" className="underline hover:text-neutral-900">Disclaimer</Link>.
+            <strong className="font-semibold text-neutral-700">Disclaimer:</strong> BuyInstantKeys is an independent digital software reseller. We are <strong>not affiliated with, endorsed by, sponsored by, or in any way officially connected to</strong> NortonLifeLock / Gen Digital Inc., Webroot / OpenText, McAfee LLC, or any of their subsidiaries or affiliates. Norton®, Webroot® and McAfee® are registered trademarks of their respective owners. All company, product and service names used on this website are for identification purposes only. Use of these names does not imply endorsement. Read our full <Link to="/disclaimer" className="underline hover:text-neutral-900">Disclaimer</Link>.
           </p>
         </div>
       </div>

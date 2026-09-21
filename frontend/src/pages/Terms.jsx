@@ -27,8 +27,8 @@ export default function Terms() {
     <>
       <SEO
         title="Terms & Conditions | BuyInstantKeys"
-        description="Read BuyInstantKeys terms and conditions for Norton license key purchases. Understand our refund policy, delivery terms, and customer rights."
-        keywords="BuyInstantKeys terms, Norton license terms, refund policy terms, digital delivery terms, purchase conditions, Norton key terms and conditions"
+        description="Read BuyInstantKeys terms and conditions for license key purchases. Understand our refund policy, delivery terms, and customer rights."
+        keywords="BuyInstantKeys terms, license terms, refund policy terms, digital delivery terms, purchase conditions, terms and conditions"
       />
       <PolicyLayout
         title="Terms and Conditions"
@@ -43,10 +43,10 @@ export default function Terms() {
 
       <Section id="definitions" title="2. Definitions">
         <ul className="list-disc pl-6">
-          <li><strong>"Product"</strong> — a digital license key or activation code for third-party software, primarily Norton security products.</li>
+          <li><strong>"Product"</strong> — a digital license key or activation code for third-party software, primarily Norton, Webroot and McAfee security products.</li>
           <li><strong>"Order"</strong> — a request submitted by you through the Site to purchase one or more Products.</li>
           <li><strong>"License"</strong> — the right, granted by the software publisher, to use the Product for the term and conditions set out by the publisher.</li>
-          <li><strong>"Publisher"</strong> — the original software vendor (e.g., Gen Digital Inc. for Norton products) whose end-user license agreement (EULA) governs your use of the software.</li>
+          <li><strong>"Publisher"</strong> — the original software vendor (e.g., Gen Digital Inc. for Norton, OpenText for Webroot, McAfee LLC for McAfee) whose end-user license agreement (EULA) governs your use of the software.</li>
         </ul>
       </Section>
 
@@ -73,7 +73,7 @@ export default function Terms() {
       </Section>
 
       <Section id="activation" title="7. License activation & use">
-        <p>To activate your License, you must sign in to the Publisher's activation portal (e.g., my.norton.com) and enter the 25-character product key we deliver. Free activation assistance is available through our Activation Portal at <a href="/activation" className="underline">buyinstantkeys.com/activation</a>.</p>
+        <p>To activate your License, you must sign in to the Publisher's activation portal (e.g., my.norton.com, webroot.com/safe, or mcafee.com/activate) and enter the product key we deliver. Free activation assistance is available through our Activation Portal at <a href="/activation" className="underline">buyinstantkeys.com/activation</a>.</p>
         <p>You are responsible for complying with the Publisher's EULA, including all restrictions on the number of devices, geographic use, personal vs. commercial use, and prohibitions on transfer or resale of the License.</p>
       </Section>
 
@@ -83,7 +83,7 @@ export default function Terms() {
 
       <Section id="ip" title="9. Intellectual property & trademarks">
         <p>All content on the Site — including text, logos, images, graphics, and code — belongs to BuyInstantKeys or is used with permission, and is protected by copyright, trademark, and other intellectual property laws.</p>
-        <p><strong>Norton®, LifeLock®, and any related product names are registered trademarks of Gen Digital Inc.</strong> BuyInstantKeys is not affiliated with, endorsed by, sponsored by, or in any way officially connected to Gen Digital Inc., NortonLifeLock, or any of their subsidiaries. All third-party product names, logos, and brands are property of their respective owners and are used solely for identification purposes.</p>
+        <p><strong>Norton® and LifeLock® are registered trademarks of Gen Digital Inc. Webroot® is a registered trademark of OpenText Corporation. McAfee® is a registered trademark of McAfee LLC.</strong> BuyInstantKeys is not affiliated with, endorsed by, sponsored by, or in any way officially connected to any of these companies or their subsidiaries. All third-party product names, logos, and brands are property of their respective owners and are used solely for identification purposes.</p>
       </Section>
 
       <Section id="prohibited" title="10. Prohibited uses">

@@ -3,156 +3,187 @@ import { useParams, Link } from "react-router-dom";
 import { api } from "@/lib/api";
 import SEO from "@/components/SEO";
 import ProductCard from "@/components/ProductCard";
-
-const CATEGORY_INFO = {
-  "norton-360": {
-    title: "Norton 360 Products",
-    description: "Buy Norton 360 Deluxe, Premium, Standard, and Advantage at up to 70% off. Complete device protection with VPN, password manager, and cloud backup.",
-    keywords: "Norton 360 Deluxe with LifeLock, Norton 360 Premium, Norton 360 Deluxe, Norton 360 Standard, Norton 360 Advantage, Norton 360 deals, Norton 360 license key"
-  },
-  "lifelock": {
-    title: "Norton with LifeLock Products",
-    description: "Norton 360 with LifeLock identity theft protection. Choose from Select, Select Plus, Advantage, and Ultimate Plus plans with credit monitoring.",
-    keywords: "Norton 360 Deluxe with LifeLock, Norton LifeLock Select, Norton LifeLock Ultimate Plus, identity theft protection, Norton LifeLock deals, LifeLock identity monitoring"
-  },
-  "vpn-privacy": {
-    title: "VPN & Privacy Products",
-    description: "Norton VPN, Norton AntiTrack, and privacy tools. Secure your online privacy with encrypted VPN connection and anti-tracking protection.",
-    keywords: "Norton VPN, Norton Secure VPN, Norton AntiTrack, privacy protection, VPN software, encrypted VPN, online privacy tools"
-  },
-  "business": {
-    title: "Business Security Products",
-    description: "Norton Small Business and enterprise security solutions. Protect your business devices with cloud-managed security and threat protection.",
-    keywords: "Norton Small Business, business antivirus, enterprise security, Norton for business, small business protection, business VPN"
-  },
-  "antivirus": {
-    title: "Norton AntiVirus Products",
-    description: "Classic Norton AntiVirus protection for PC and Mac. Essential malware protection, virus scanning, and threat removal.",
-    keywords: "Norton AntiVirus, Norton virus protection, malware removal, antivirus software, Norton security, PC protection"
-  },
-  "identity": {
-    title: "Identity Protection Products",
-    description: "Norton Identity Advisor Plus and identity theft protection. Dark web monitoring, restoration assistance, and stolen wallet protection.",
-    keywords: "Norton Identity Advisor Plus, identity theft protection, dark web monitoring, identity restoration, stolen wallet protection"
-  },
-  "utilities": {
-    title: "Norton Utilities Products",
-    description: "Norton Utilities Ultimate for PC optimization. Clean up, speed up, and optimize your computer performance.",
-    keywords: "Norton Utilities Ultimate, PC optimization, computer cleanup, system utilities, PC speed up, Norton performance tools"
-  },
-  "family": {
-    title: "Norton Family Products",
-    description: "Norton Family parental control software. Monitor and protect your children online with screen time management and content filtering.",
-    keywords: "Norton Family, parental control, child internet safety, screen time management, content filtering, family protection"
-  },
-  "gaming": {
-    title: "Norton Gaming Products",
-    description: "Norton 360 for Gamers. Game-optimized security that doesn't slow down your gaming experience with notification blocking.",
-    keywords: "Norton 360 for Gamers, gaming antivirus, game security, gamer protection, Norton gaming edition, game optimization"
-  },
-  "mobile": {
-    title: "Mobile Security Products",
-    description: "Norton Mobile Security for iOS and Android. Protect your mobile devices from malware, phishing, and online threats.",
-    keywords: "Norton Mobile Security, mobile antivirus, Android security, iOS security, phone protection, mobile threat protection"
-  }
-};
+import BrandDisclaimer from "@/components/BrandDisclaimer";
+import { getBrand, BRAND_LIST } from "@/lib/brands";
+import { ShieldCheck, ArrowRight, CheckCircle, Envelope, LockKey, Headset } from "@phosphor-icons/react";
 
 export default function CategoryPage() {
   const { category } = useParams();
+  const brand = getBrand(category);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-  const categoryInfo = CATEGORY_INFO[category] || {
-    title: `${category} Products`,
-    description: `Browse our ${category} collection of Norton security products.`,
-    keywords: `${category}, Norton products, Norton license keys, security software`
-  };
 
   useEffect(() => {
+    if (!brand) { setLoading(false); return; }
     setLoading(true);
-    // Map URL-friendly category names to backend category names
-    const categoryMap = {
-      "norton-360": "Norton 360",
-      "lifelock": "LifeLock",
-      "vpn-privacy": "Privacy",
-      "business": "Business",
-      "antivirus": "AntiVirus",
-      "identity": "Identity",
-      "utilities": "Utilities",
-      "family": "Family",
-      "gaming": "Gaming",
-      "mobile": "Mobile"
-    };
-    
-    const backendCategory = categoryMap[category] || category;
-    
-    api.get("/products", { params: { category: backendCategory } })
+    api.get("/products", { params: { brand: brand.name } })
       .then((r) => setProducts(r.data))
       .catch(() => setProducts([]))
       .finally(() => setLoading(false));
-  }, [category]);
+  }, [category, brand]);
+
+  // Unknown brand -> friendly fallback
+  if (!brand) {
+    return (
+      <div className="container-page py-24 text-center">
+        <h1 className="font-display text-3xl font-bold">Category not found</h1>
+        <p className="mt-3 text-neutral-600">Browse our security software by brand:</p>
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          {BRAND_LIST.map((b) => (
+            <Link key={b.slug} to={`/category/${b.slug}`} className="btn-outline">{b.name}</Link>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  const theme = {
+    "--brand": brand.color,
+    "--brand-dark": brand.colorDark,
+    "--brand-text": brand.textOn,
+    "--brand-soft": brand.soft,
+    "--brand-softer": brand.softAlt,
+    "--brand-border": brand.border,
+  };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://buyinstantkeys.com"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Products",
-        "item": "https://buyinstantkeys.com/products"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": categoryInfo.title,
-        "item": `https://buyinstantkeys.com/category/${category}`
-      }
-    ]
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://buyinstantkeys.com" },
+      { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://buyinstantkeys.com/products" },
+      { "@type": "ListItem", "position": 3, "name": brand.heroTitle, "item": `https://buyinstantkeys.com/category/${brand.slug}` },
+    ],
+  };
+
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": brand.heroTitle,
+    "itemListElement": products.map((p, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "name": p.name,
+      "url": `https://buyinstantkeys.com/product/${p.slug}`,
+    })),
   };
 
   return (
     <>
       <SEO
-        title={categoryInfo.title}
-        description={categoryInfo.description}
-        keywords={categoryInfo.keywords}
-        schema={[breadcrumbSchema]}
+        title={brand.seoTitle}
+        description={brand.seoDesc}
+        keywords={brand.seoKeywords}
+        schema={[breadcrumbSchema, itemListSchema]}
       />
-      <div className="container-page py-14">
-        <div className="mb-6 text-sm text-neutral-500">
-          <Link to="/products" className="hover:text-neutral-900">Products</Link> / <span className="text-neutral-900">{categoryInfo.title}</span>
-        </div>
-        
-        <div className="mb-8">
-          <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Category</div>
-          <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">{categoryInfo.title}</h1>
-          <p className="mt-3 max-w-2xl text-neutral-600">{categoryInfo.description}</p>
-        </div>
+      <div style={theme} className="bg-white">
+        {/* Hero */}
+        <section className="border-b border-neutral-200 brand-bg-softer">
+          <div className="container-page py-12 md:py-16">
+            <div className="mb-4 text-sm text-neutral-500">
+              <Link to="/products" className="hover:text-neutral-900">Products</Link>
+              <span className="mx-1.5">/</span>
+              <span className="text-neutral-900">{brand.name}</span>
+            </div>
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 rounded-full border bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-700 brand-border">
+                <ShieldCheck size={14} weight="fill" className="brand-text" /> Genuine {brand.name} keys
+              </div>
+              <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] tracking-tight text-neutral-900 sm:text-5xl">
+                {brand.heroTitle}
+              </h1>
+              <div className="mt-3 h-1.5 w-24 rounded-full brand-underline" />
+              <p className="mt-5 text-lg leading-relaxed text-neutral-700">{brand.heroSub}</p>
+              <p className="mt-2 text-sm text-neutral-500">{brand.tagline}.</p>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Link to={`/activation/${brand.slug}`} className="btn-brand">
+                  Activate a {brand.name} key <ArrowRight size={18} weight="bold" />
+                </Link>
+                <Link to="/products" className="btn-outline">All products</Link>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        {loading ? (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="h-80 animate-pulse rounded-xl bg-neutral-100" />
+        {/* Trust strip */}
+        <section className="border-b border-neutral-200 bg-white">
+          <div className="container-page flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-4 text-sm">
+            {[
+              { icon: <ShieldCheck size={16} weight="duotone" className="brand-text" />, t: "100% genuine keys" },
+              { icon: <Envelope size={16} weight="duotone" className="brand-text" />, t: "Email delivery in 5–15 min" },
+              { icon: <LockKey size={16} weight="duotone" className="brand-text" />, t: "Secure checkout" },
+              { icon: <Headset size={16} weight="duotone" className="brand-text" />, t: "Free activation help" },
+            ].map((b, i) => (
+              <div key={i} className="flex items-center gap-2 font-medium text-neutral-800">{b.icon}{b.t}</div>
             ))}
           </div>
-        ) : products.length > 0 ? (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {products.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
+        </section>
+
+        {/* Products */}
+        <section className="container-page py-14 md:py-20">
+          <div className="mb-8 flex items-end justify-between">
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">{products.length} products</div>
+              <h2 className="mt-2 font-display text-2xl font-bold tracking-tight sm:text-3xl">Shop {brand.name}</h2>
+            </div>
           </div>
-        ) : (
-          <div className="rounded-xl border border-dashed border-neutral-300 p-16 text-center text-neutral-600">
-            No products found in this category. <Link to="/products" className="font-semibold underline">Browse all products</Link>
+          {loading ? (
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="h-80 animate-pulse rounded-xl bg-neutral-100" />
+              ))}
+            </div>
+          ) : products.length > 0 ? (
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {products.map((p) => <ProductCard key={p.id} product={p} />)}
+            </div>
+          ) : (
+            <div className="rounded-xl border border-dashed border-neutral-300 p-16 text-center text-neutral-600">
+              No {brand.name} products found. <Link to="/products" className="font-semibold underline">Browse all products</Link>
+            </div>
+          )}
+        </section>
+
+        {/* About + FAQ (compliant, informative content) */}
+        <section className="border-t border-neutral-200 brand-bg-softer py-16">
+          <div className="container-page">
+            <div className="mx-auto max-w-3xl">
+              <h2 className="font-display text-3xl font-bold tracking-tight">About {brand.name} security</h2>
+              <div className="mt-5 space-y-4 text-neutral-700">
+                {brand.about.map((para, i) => <p key={i}>{para}</p>)}
+              </div>
+
+              <div className="mt-10">
+                <h3 className="font-display text-xl font-semibold">Frequently asked questions</h3>
+                <div className="mt-4 space-y-3">
+                  {brand.faqs.map((f, i) => (
+                    <div key={i} className="rounded-xl border bg-white p-5 brand-border">
+                      <div className="font-display font-semibold text-neutral-900">{f.q}</div>
+                      <p className="mt-1.5 text-sm text-neutral-600">{f.a}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-10 rounded-xl border bg-white p-6 brand-border">
+                <div className="flex items-start gap-3">
+                  <CheckCircle size={22} weight="duotone" className="mt-0.5 shrink-0 brand-text" />
+                  <div>
+                    <div className="font-display font-semibold">Need help activating {brand.name}?</div>
+                    <p className="mt-1 text-sm text-neutral-700">
+                      Our team provides free activation assistance for keys purchased from us.{" "}
+                      <Link to={`/activation/${brand.slug}`} className="font-semibold underline brand-text">
+                        Get {brand.name} activation help
+                      </Link>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        )}
+        </section>
+
+        <BrandDisclaimer />
       </div>
     </>
   );

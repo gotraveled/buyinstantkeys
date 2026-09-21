@@ -29,9 +29,9 @@ export default function Disclaimer() {
       <Section id="affiliation" title="2. No brand affiliation — we are an independent reseller">
         <p><strong>BuyInstantKeys is an independent digital software reseller.</strong> We are <strong>not affiliated with, endorsed by, sponsored by, or in any way officially connected to</strong>:</p>
         <ul className="list-disc pl-6">
-          <li>NortonLifeLock</li>
-          <li>Gen Digital Inc.</li>
-          <li>Norton, LifeLock, or any Norton-branded product</li>
+          <li>NortonLifeLock / Gen Digital Inc. (Norton, LifeLock)</li>
+          <li>Webroot / OpenText Corporation</li>
+          <li>McAfee LLC</li>
           <li>Any of the above entities' parents, subsidiaries, affiliates, or brands</li>
           <li>Any other software publisher, manufacturer, distributor, or brand referenced on this Site</li>
         </ul>
@@ -42,6 +42,8 @@ export default function Disclaimer() {
         <p>All trademarks, service marks, trade names, logos, and product names used on the Site are the property of their respective owners:</p>
         <ul className="list-disc pl-6">
           <li><strong>Norton®</strong> and <strong>LifeLock®</strong> are registered trademarks of Gen Digital Inc.</li>
+          <li><strong>Webroot®</strong> is a registered trademark of OpenText Corporation / Webroot Inc.</li>
+          <li><strong>McAfee®</strong> and <strong>LiveSafe®</strong> are registered trademarks of McAfee LLC.</li>
           <li><strong>Windows®</strong> is a registered trademark of Microsoft Corporation.</li>
           <li><strong>macOS®</strong> and <strong>iOS®</strong> are registered trademarks of Apple Inc.</li>
           <li><strong>Android™</strong> is a trademark of Google LLC.</li>
@@ -61,7 +63,7 @@ export default function Disclaimer() {
       </Section>
 
       <Section id="third-party" title="5. Third-party links & content">
-        <p>Our Site may contain links to third-party websites (such as my.norton.com, PayPal, or the publisher's product pages) that are not owned or controlled by BuyInstantKeys. We have no control over — and assume no responsibility for — the content, privacy policies, terms of use, or practices of any third-party websites. Accessing linked third-party sites is at your own risk.</p>
+        <p>Our Site may contain links to third-party websites (such as the publishers' activation portals, PayPal, or product pages) that are not owned or controlled by BuyInstantKeys. We have no control over — and assume no responsibility for — the content, privacy policies, terms of use, or practices of any third-party websites. Accessing linked third-party sites is at your own risk.</p>
       </Section>
 
       <Section id="no-warranty" title="6. No warranty for third-party software">

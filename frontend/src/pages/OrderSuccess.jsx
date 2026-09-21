@@ -46,7 +46,7 @@ export default function OrderSuccess() {
         <div className="mt-10 rounded-xl border border-yellow-200 bg-yellow-50 p-6 text-left">
           <div className="font-display font-semibold">What happens next?</div>
           <p className="mt-2 text-sm text-neutral-700">
-            Our team is verifying your payment and will email your genuine Norton license key(s) to <span className="font-semibold">{order?.customer_email || "your email"}</span> within 5–15 minutes. If you don't see it, check your spam folder.
+            Our team is verifying your payment and will email your genuine license key(s) to <span className="font-semibold">{order?.customer_email || "your email"}</span> within 5–15 minutes. If you don't see it, check your spam folder.
           </p>
         </div>
 

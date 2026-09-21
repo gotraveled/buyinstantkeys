@@ -42,7 +42,7 @@ export default function Cart() {
       <div className="container-page py-20 text-center">
         <ShoppingBag size={44} weight="duotone" className="mx-auto text-neutral-400" />
         <h1 className="mt-4 font-display text-3xl font-bold">Your cart is empty</h1>
-        <p className="mt-2 text-neutral-600">Browse our Norton products and add your favorites.</p>
+        <p className="mt-2 text-neutral-600">Browse our products and add your favorites.</p>
         <Link to="/products" data-testid="empty-cart-shop-btn" className="btn-primary mt-8">Shop products</Link>
       </div>
     );

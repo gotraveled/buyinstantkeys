@@ -27,12 +27,20 @@ const PALETTE = {
     tag: "LifeLock" 
   },
   green:  { 
-    primary: "#00C853", 
+    primary: "#16A34A", 
     secondary: "#FFFFFF", 
-    body: "#E8F5E9",
-    bodyGradient: ["#E8F5E9", "#C8E6C9"],
-    accent: "#00C853",
-    tag: "Privacy" 
+    body: "#F0FDF4",
+    bodyGradient: ["#F0FDF4", "#DCFCE7"],
+    accent: "#16A34A",
+    tag: "Webroot" 
+  },
+  red:    { 
+    primary: "#DC2626", 
+    secondary: "#FFFFFF", 
+    body: "#FEF2F2",
+    bodyGradient: ["#FEF2F2", "#FEE2E2"],
+    accent: "#DC2626",
+    tag: "McAfee" 
   },
   purple: { 
     primary: "#7C4DFF", 
@@ -45,7 +53,7 @@ const PALETTE = {
 };
 
 function shortName(name) {
-  return name.replace(/^Norton\s+/i, "");
+  return name.replace(/^(Norton|Webroot|McAfee)\s+/i, "");
 }
 
 function parseTierLabel(label) {
@@ -109,7 +117,7 @@ export default function ProductBox({ product, variant, size = "md", showRibbon =
                   color: cfg.secondary,
                 }}
               >
-                NORTON
+                {product?.brand || "SECURITY"}
               </div>
               <div
                 className="font-display font-semibold leading-tight"
