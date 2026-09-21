@@ -2,28 +2,31 @@ import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import BrandDisclaimer from "@/components/BrandDisclaimer";
 import { BRAND_LIST } from "@/lib/brands";
-import { ShieldCheck, ArrowRight, Key, Clock, Headset } from "@phosphor-icons/react";
+import { ShieldCheck, ArrowRight, Clock, Headset } from "@phosphor-icons/react";
 
 export default function Activation() {
   return (
     <div className="bg-neutral-50">
       <SEO
-        title="Activate Your Antivirus — Norton, Webroot & McAfee"
-        description="Free activation assistance for Norton, Webroot and McAfee license keys. Choose your brand and get step-by-step setup help, usually within 5–15 minutes."
-        keywords="activate antivirus, Norton activation, Webroot activation, McAfee activation, product key activation, license key help"
+        title="Antivirus Activation Assistance — Norton, Webroot & McAfee | BuyInstantKeys"
+        description="Free activation assistance for Norton, Webroot and McAfee license keys from BuyInstantKeys, an independent reseller. Choose your brand for step-by-step setup help."
+        keywords="antivirus activation help, Norton activation assistance, Webroot setup help, McAfee activation support, license key help, independent reseller"
       />
 
       {/* Hero */}
       <section className="border-b border-neutral-200 bg-white">
         <div className="container-page py-12 md:py-16 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-700">
-            <Key size={14} weight="fill" className="text-neutral-900" /> Activation assistance
+            <Headset size={14} weight="fill" className="text-neutral-900" /> BuyInstantKeys activation assistance
           </div>
           <h1 className="mx-auto mt-5 max-w-2xl font-display text-4xl font-bold leading-[1.05] tracking-tight text-neutral-900 sm:text-5xl">
-            Activate your security subscription
+            Free help activating your key
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-neutral-600">
-            Choose the brand of the license key you purchased. Our team provides free activation help — usually within 5–15 minutes.
+            Choose the brand of the license key you purchased from us. Our support team will walk you through activation on the official portal — usually within 5–15 minutes.
+          </p>
+          <p className="mx-auto mt-4 max-w-xl rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-600">
+            BuyInstantKeys is an independent reseller — not affiliated with Norton, Webroot or McAfee. Activation is always completed on the brand's official website.
           </p>
         </div>
       </section>
@@ -50,7 +53,7 @@ export default function Activation() {
                 className="mt-6 inline-flex items-center gap-2 rounded-md px-5 py-2.5 text-sm font-semibold text-white transition-transform group-hover:scale-[1.03]"
                 style={{ backgroundColor: b.color, color: b.textOn }}
               >
-                Activate {b.name} <ArrowRight size={16} weight="bold" />
+                Get {b.name} help <ArrowRight size={16} weight="bold" />
               </div>
             </Link>
           ))}

@@ -1,6 +1,10 @@
 import axios from "axios";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+// Default to same-origin ("") so the built app calls "/api" on whatever host
+// serves it. The FastAPI backend serves the frontend build itself, so no
+// separate backend URL is required in production. Set REACT_APP_BACKEND_URL
+// only when the API is hosted on a different origin.
+const BACKEND_URL = (process.env.REACT_APP_BACKEND_URL || "").replace(/\/$/, "");
 export const API = `${BACKEND_URL}/api`;
 
 export const api = axios.create({ baseURL: API });

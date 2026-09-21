@@ -109,9 +109,9 @@ export default function ActivationBrand() {
   return (
     <div style={theme} className="bg-neutral-50">
       <SEO
-        title={`${brand.name} Activation Help — Activate Your ${brand.name} Key`}
-        description={`Step-by-step ${brand.name} activation help. Enter your ${brand.name} product key and get free activation assistance, or follow our guided setup at ${brand.portalName}.`}
-        keywords={`${brand.name} activation, activate ${brand.name}, ${brand.name} product key, ${brand.name} setup, ${brand.name} install help`}
+        title={`${brand.name} Activation Assistance — Independent Help | BuyInstantKeys`}
+        description={`Free ${brand.name} activation assistance from BuyInstantKeys, an independent reseller. We help you activate the ${brand.name} key you bought from us on the official ${brand.portalName} portal.`}
+        keywords={`${brand.name} activation help, ${brand.name} setup assistance, ${brand.name} product key help, independent reseller activation, ${brand.name} install support`}
       />
 
       {/* Trust badges header strip */}
@@ -129,22 +129,38 @@ export default function ActivationBrand() {
         </div>
       </div>
 
-      {/* Hero */}
+      {/* Hero — clearly an independent assistance service */}
       <section className="relative overflow-hidden border-b border-neutral-200 brand-bg-softer">
         <div className="container-page py-8 md:py-12">
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center gap-2 rounded-full border bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-700 brand-border">
-              <Key size={14} weight="fill" className="brand-text" /> {brand.name} activation
+              <Headset size={14} weight="fill" className="brand-text" /> BuyInstantKeys activation assistance
             </div>
             <h1 className="mt-5 font-display text-3xl font-black leading-[1.05] tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
-              Activate your <span className="relative inline-block"><span className="relative z-10">{brand.name}</span><span className="absolute inset-x-0 bottom-1 z-0 h-3 brand-underline opacity-40" aria-hidden /></span> subscription
+              Need help activating your <span className="relative inline-block"><span className="relative z-10">{brand.name}</span><span className="absolute inset-x-0 bottom-1 z-0 h-3 brand-underline opacity-40" aria-hidden /></span> key?
             </h1>
             <p className="mt-4 text-lg leading-relaxed text-neutral-700">
-              Enter your details below and our team will guide you through setup — usually within 5–15 minutes. Or follow the steps to activate at {brand.portalName}.
+              We're an independent reseller. Send us your details and our support team will walk you through activating the {brand.name} key you purchased — usually within 5–15 minutes.
             </p>
           </div>
         </div>
       </section>
+
+      {/* Prominent independence notice — required for ad/brand compliance */}
+      <div className="border-b border-neutral-200 bg-white">
+        <div className="container-page py-4">
+          <div className="mx-auto flex max-w-3xl items-start gap-3 rounded-xl border border-neutral-200 bg-neutral-50 p-4 text-left">
+            <ShieldCheck size={20} weight="duotone" className="mt-0.5 shrink-0 brand-text" />
+            <p className="text-sm text-neutral-700">
+              <strong className="font-semibold text-neutral-900">This is not the official {brand.name} website.</strong>{" "}
+              BuyInstantKeys is an independent reseller and is not affiliated with or endorsed by {brand.entity}.
+              Activation itself is always completed on the official {brand.name} portal at{" "}
+              <a href={brand.portalUrl} target="_blank" rel="noopener noreferrer" className="font-semibold underline">{brand.portalName}</a>.
+              This page simply offers free, optional help with that process.
+            </p>
+          </div>
+        </div>
+      </div>
 
       {/* Main split: Form | Instructions */}
       <section className="container-page py-10 md:py-14 lg:py-20">
@@ -157,8 +173,8 @@ export default function ActivationBrand() {
                   <Key size={22} weight="duotone" />
                 </div>
                 <div>
-                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">{brand.name} activation assistance</div>
-                  <div className="font-display text-xl font-bold">Get activated in minutes</div>
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">Free activation assistance</div>
+                  <div className="font-display text-xl font-bold">Request help with your {brand.name} key</div>
                 </div>
               </div>
 
@@ -203,7 +219,7 @@ export default function ActivationBrand() {
                 </div>
 
                 <button data-testid="activation-submit-btn" type="submit" disabled={submitting} className="btn-brand w-full">
-                  {submitting ? "Submitting..." : `Activate my ${brand.name} subscription`}
+                  {submitting ? "Submitting..." : "Request activation assistance"}
                   <ArrowRight size={18} weight="bold" />
                 </button>
 
@@ -233,9 +249,9 @@ export default function ActivationBrand() {
 
           {/* RIGHT: Instructions */}
           <div className="order-1 lg:order-2">
-            <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">How to activate</div>
-            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">Four simple steps to activate {brand.name}</h2>
-            <p className="mt-3 text-neutral-600">Follow the steps below, or submit your details on the left and our team will handle everything for you.</p>
+            <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">How activation works</div>
+            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">Activate on the official {brand.name} site</h2>
+            <p className="mt-3 text-neutral-600">Activation always happens on {brand.name}'s official portal. Follow the steps below yourself, or submit your details and our team will guide you through them.</p>
 
             <ol className="mt-10 space-y-6">
               {brand.steps.map((s, i) => (
@@ -274,7 +290,7 @@ export default function ActivationBrand() {
         <div className="container-page">
           <div className="mx-auto max-w-2xl text-center">
             <div className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Common questions</div>
-            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight">{brand.name} activation, made easy</h2>
+            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight">{brand.name} activation help, made easy</h2>
           </div>
           <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-2">
             {brand.faqs.map((f, i) => (
