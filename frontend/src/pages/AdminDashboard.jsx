@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { SignOut, Package, Envelope, CurrencyDollar, ShieldCheck, Clock, CheckCircle } from "@phosphor-icons/react";
+import ProductManager from "@/components/admin/ProductManager";
 
 export default function AdminDashboard() {
   const nav = useNavigate();
@@ -112,23 +113,7 @@ export default function AdminDashboard() {
       )}
 
       {tab === "products" && (
-        <div className="mt-6 overflow-hidden rounded-xl border border-neutral-200 bg-white">
-          <table className="w-full text-sm">
-            <thead className="bg-neutral-50 text-left text-xs font-semibold uppercase tracking-wider text-neutral-600">
-              <tr><th className="p-4">Product</th><th className="p-4">Category</th><th className="p-4">Variants</th><th className="p-4">Status</th></tr>
-            </thead>
-            <tbody className="divide-y divide-neutral-200">
-              {products.map((p) => (
-                <tr key={p.id} data-testid={`admin-product-${p.slug}`}>
-                  <td className="p-4"><div className="font-semibold">{p.name}</div><div className="text-xs text-neutral-500">{p.slug}</div></td>
-                  <td className="p-4">{p.category}</td>
-                  <td className="p-4">{p.variants.length}</td>
-                  <td className="p-4">{p.is_active ? <span className="badge-trust">Active</span> : <span className="rounded-full bg-neutral-100 px-3 py-1 text-xs">Hidden</span>}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <ProductManager products={products} onChange={load} />
       )}
     </div>
   );
