@@ -4,6 +4,7 @@ from fastapi.responses import FileResponse, Response
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.middleware.gzip import GZipMiddleware
 from starlette.responses import Response
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
@@ -669,9 +670,17 @@ async def seed_data():
     if not existing_banner:
         await db.banner.insert_one(DEFAULT_BANNER)
 
+async def _ensure_indexes():
+    try:
+        await db.products.create_index([("is_active", 1), ("created_at", 1)])
+        await db.products.create_index("slug", unique=False)
+    except Exception as e:
+        logger.warning(f"index ensure failed: {e}")
+
 @app.on_event("startup")
 async def startup():
     await seed_data()
+    await _ensure_indexes()
 
 # ============ COUPON MODELS ============
 class Coupon(BaseModel):
@@ -824,6 +833,22 @@ async def root():
 async def config():
     return {"paypal_enabled": PAYPAL_ENABLED, "paypal_client_id": PAYPAL_CLIENT_ID if PAYPAL_ENABLED else "", "paypal_mode": PAYPAL_MODE}
 
+# ---- product read cache (short TTL; invalidated on admin writes) ----
+_PRODUCT_TTL = 60.0
+_product_cache = {}
+
+def _invalidate_products():
+    _product_cache.clear()
+
+def _cache_get(key):
+    ent = _product_cache.get(key)
+    if ent and (datetime.now(timezone.utc).timestamp() - ent[0]) < _PRODUCT_TTL:
+        return ent[1]
+    return None
+
+def _cache_set(key, val):
+    _product_cache[key] = (datetime.now(timezone.utc).timestamp(), val)
+
 @api_router.get("/products", response_model=List[Product])
 async def list_products(category: Optional[str] = None, brand: Optional[str] = None, featured: Optional[bool] = None):
     q = {"is_active": True}
@@ -833,15 +858,27 @@ async def list_products(category: Optional[str] = None, brand: Optional[str] = N
         q["brand"] = brand
     if featured is not None:
         q["is_featured"] = featured
+    key = ("list", category, brand, featured)
+    cached = _cache_get(key)
+    if cached is not None:
+        return cached
     docs = await db.products.find(q, {"_id": 0}).sort("created_at", 1).to_list(200)
-    return [Product(**d) for d in docs]
+    res = [Product(**d) for d in docs]
+    _cache_set(key, res)
+    return res
 
 @api_router.get("/products/{slug}", response_model=Product)
 async def get_product(slug: str):
+    key = ("one", slug)
+    cached = _cache_get(key)
+    if cached is not None:
+        return cached
     doc = await db.products.find_one({"slug": slug, "is_active": True}, {"_id": 0})
     if not doc:
         raise HTTPException(status_code=404, detail="Product not found")
-    return Product(**doc)
+    res = Product(**doc)
+    _cache_set(key, res)
+    return res
 
 @api_router.post("/orders", response_model=Order)
 async def create_order(body: OrderCreate):
@@ -1065,6 +1102,7 @@ async def admin_create_product(body: ProductCreate, admin_email: str = Depends(v
     variants = [Variant(**v.model_dump()) for v in body.variants]
     product = Product(**body.model_dump(exclude={"variants"}), variants=variants)
     await db.products.insert_one(product.model_dump())
+    _invalidate_products()
     return product
 
 @api_router.patch("/admin/products/{product_id}", response_model=Product)
@@ -1076,11 +1114,13 @@ async def admin_update_product(product_id: str, body: ProductUpdate, admin_email
     doc = await db.products.find_one({"id": product_id}, {"_id": 0})
     if not doc:
         raise HTTPException(status_code=404, detail="Product not found")
+    _invalidate_products()
     return Product(**doc)
 
 @api_router.delete("/admin/products/{product_id}")
 async def admin_delete_product(product_id: str, admin_email: str = Depends(verify_admin)):
     await db.products.update_one({"id": product_id}, {"$set": {"is_active": False}})
+    _invalidate_products()
     return {"status": "deleted"}
 
 # ============ COUPONS ============
@@ -1423,6 +1463,7 @@ if FRONTEND_BUILD.exists():
 else:
     logger.warning(f"Frontend build directory not found at {FRONTEND_BUILD}. SPA routing disabled.")
 
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
