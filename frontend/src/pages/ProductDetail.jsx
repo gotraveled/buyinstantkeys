@@ -41,6 +41,11 @@ export default function ProductDetail() {
   const brand = getBrand((product.brand || "").toLowerCase());
   const brandName = product.brand || "Antivirus";
   const portal = brand?.portalName || "the official site";
+  // Long-form description split into paragraphs (falls back to short description).
+  const longParas = (product.long_description || product.description || "")
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean);
 
   const handleAdd = (goCheckout = false) => {
     addItem(product, variant, 1);
@@ -230,7 +235,11 @@ export default function ProductDetail() {
 
           <div className="mt-10 rounded-xl border border-neutral-200 bg-neutral-50 p-6">
             <h3 className="font-display text-base font-semibold">Description</h3>
-            <p className="mt-2 text-sm text-neutral-700">{product.description}</p>
+            <div className="mt-2 space-y-3">
+              {longParas.map((para, i) => (
+                <p key={i} className="text-sm leading-relaxed text-neutral-700">{para}</p>
+              ))}
+            </div>
           </div>
         </div>
       </div>
