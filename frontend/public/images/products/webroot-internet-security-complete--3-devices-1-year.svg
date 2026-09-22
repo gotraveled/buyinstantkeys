@@ -26,7 +26,7 @@
   <!-- top colour band -->
   <path d="M78 50 Q78 30 98 30 L540 30 Q560 30 560 50 L560 150 L78 150 Z" fill="url(#band)"/>
   <text x="300" y="86" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="800" letter-spacing="3" fill="#FFFFFF">WEBROOT</text>
-  <text x="300" y="122" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="600" letter-spacing="1" fill="#FFFFFF" opacity="0.92">Webroot Internet Security Plus</text>
+  <text x="300" y="122" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="600" letter-spacing="1" fill="#FFFFFF" opacity="0.92">Webroot Internet Security Complete</text>
 
   <!-- generic shield icon (no brand logo) -->
   <g transform="translate(300 205)">
@@ -37,7 +37,7 @@
 
   <!-- product name -->
   <text x="300" y="300" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="800" fill="#111827">Webroot Internet</text>
-<text x="300" y="346" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="800" fill="#111827">Security Plus</text>
+<text x="300" y="346" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="800" fill="#111827">Security Complete</text>
 
   <!-- variant chip -->
   <rect x="150" y="384" width="300" height="52" rx="26" fill="#D9F2E2" stroke="#16A34A" stroke-opacity="0.4"/>

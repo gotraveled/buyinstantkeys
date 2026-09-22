@@ -41,10 +41,10 @@
 
   <!-- variant chip -->
   <rect x="150" y="384" width="300" height="52" rx="26" fill="#FBDADA" stroke="#DC2626" stroke-opacity="0.4"/>
-  <text x="300" y="417" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" fill="#1F2937">1 Device · 1 Year</text>
+  <text x="300" y="417" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" fill="#1F2937">5 Devices · 1 Year</text>
 
   <!-- plan label -->
-  <text x="300" y="470" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="600" fill="#6B7280">1 Device / 1 Year</text>
+  <text x="300" y="470" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="600" fill="#6B7280">5 Devices / 1 Year</text>
 
   <!-- divider -->
   <rect x="150" y="500" width="300" height="2" fill="#E5E7EB"/>

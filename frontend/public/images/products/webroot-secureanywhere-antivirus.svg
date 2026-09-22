@@ -26,7 +26,7 @@
   <!-- top colour band -->
   <path d="M78 50 Q78 30 98 30 L540 30 Q560 30 560 50 L560 150 L78 150 Z" fill="url(#band)"/>
   <text x="300" y="86" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="800" letter-spacing="3" fill="#FFFFFF">WEBROOT</text>
-  <text x="300" y="122" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="600" letter-spacing="1" fill="#FFFFFF" opacity="0.92">Webroot Internet Security Plus</text>
+  <text x="300" y="122" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="600" letter-spacing="1" fill="#FFFFFF" opacity="0.92">Webroot SecureAnywhere</text>
 
   <!-- generic shield icon (no brand logo) -->
   <g transform="translate(300 205)">
@@ -36,22 +36,23 @@
   </g>
 
   <!-- product name -->
-  <text x="300" y="300" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="800" fill="#111827">Webroot Internet</text>
-<text x="300" y="346" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="800" fill="#111827">Security Plus</text>
+  <text x="300" y="300" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="800" fill="#111827">Webroot</text>
+<text x="300" y="346" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="800" fill="#111827">SecureAnywhere</text>
+<text x="300" y="392" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="800" fill="#111827">AntiVirus</text>
 
   <!-- variant chip -->
-  <rect x="150" y="384" width="300" height="52" rx="26" fill="#D9F2E2" stroke="#16A34A" stroke-opacity="0.4"/>
-  <text x="300" y="417" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" fill="#1F2937">3 Devices · 1 Year</text>
+  <rect x="150" y="430" width="300" height="52" rx="26" fill="#D9F2E2" stroke="#16A34A" stroke-opacity="0.4"/>
+  <text x="300" y="463" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" fill="#1F2937">1 Device · 1 Year</text>
 
   <!-- plan label -->
-  <text x="300" y="470" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="600" fill="#6B7280">3 Devices / 1 Year</text>
+  <text x="300" y="516" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="600" fill="#6B7280">1 Device / 1 Year</text>
 
   <!-- divider -->
-  <rect x="150" y="500" width="300" height="2" fill="#E5E7EB"/>
+  <rect x="150" y="546" width="300" height="2" fill="#E5E7EB"/>
 
   <!-- platform line -->
-  <text x="300" y="542" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="600" fill="#374151">Windows · macOS · Android · iOS</text>
-  <text x="300" y="576" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#9CA3AF">Digital download · Delivered by email</text>
+  <text x="300" y="588" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="600" fill="#374151">Windows · macOS · Android · iOS</text>
+  <text x="300" y="622" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#9CA3AF">Digital download · Delivered by email</text>
 
   <!-- bottom strip -->
   <rect x="78" y="672" width="482" height="58" rx="0" fill="#16A34A" opacity="0.10"/>
