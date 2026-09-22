@@ -71,7 +71,7 @@ class Product(BaseModel):
     slug: str
     name: str
     tagline: str
-    description: str
+    description: str = ""
     long_description: str = ""
     category: str
     brand: str = "Norton"  # Norton | Webroot | McAfee
@@ -89,7 +89,7 @@ class ProductCreate(BaseModel):
     slug: str
     name: str
     tagline: str
-    description: str
+    description: str = ""
     long_description: str = ""
     category: str
     brand: str = "Norton"
