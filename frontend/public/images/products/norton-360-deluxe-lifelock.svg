@@ -36,8 +36,8 @@
   </g>
 
   <!-- product name -->
-  <text x="300" y="300" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="800" fill="#111827">Norton 360 Deluxe</text>
-<text x="300" y="346" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="800" fill="#111827">with LifeLock Select</text>
+  <text x="300" y="300" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="800" fill="#111827">Norton 360 with</text>
+<text x="300" y="346" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="800" fill="#111827">LifeLock Select</text>
 
   <!-- variant chip -->
   <rect x="150" y="384" width="300" height="52" rx="26" fill="#FFF4CC" stroke="#F5B301" stroke-opacity="0.4"/>

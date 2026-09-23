@@ -55,6 +55,7 @@ export default function ProductDetail() {
     macos: { icon: <Laptop size={28} weight="duotone" />, title: "macOS", desc: "macOS 10.15 (Catalina) or later" },
     android: { icon: <DeviceMobile size={28} weight="duotone" />, title: "Android", desc: "Android 8.0 (Oreo) or later" },
     ios: { icon: <DeviceMobile size={28} weight="duotone" />, title: "iOS", desc: "iOS 14 or later" },
+    chromeos: { icon: <Monitor size={28} weight="duotone" />, title: "Chromebook", desc: "ChromeOS (modern Chromebooks)" },
   };
   const platformCards = (product.platforms || ["windows", "macos", "android", "ios"])
     .filter((p) => platformLabels[p])

@@ -192,9 +192,808 @@ def verify_admin(authorization: Optional[str] = Header(None)) -> str:
         raise HTTPException(status_code=401, detail="Invalid token")
 
 # ============ SEED DATA ============
-SEED_VERSION = "2026-09-v13-expanded-catalog"
+SEED_VERSION = "2026-09-v14-official-content"
 
-PRODUCTS = [{'slug': 'norton-360-deluxe', 'name': 'Norton 360 Deluxe', 'brand': 'Norton', 'box_variant': 'gold', 'category': 'Norton 360', 'image_url': '', 'tagline': 'All-in-one security for up to 5 devices with VPN, dark web monitoring and 50 GB cloud backup.', 'description': 'Norton 360 Deluxe layers real-time antivirus, anti-ransomware and anti-phishing defense over your PCs, Macs, phones and tablets. A built-in Secure VPN keeps your connection private on public Wi-Fi, while Dark Web Monitoring watches for your personal data and Parental Controls help you manage what your kids see online. You also get a password manager and 50 GB of cloud backup to keep important files safe.', 'features': ['Real-time malware & ransomware protection', 'Secure VPN for private browsing', 'Dark Web Monitoring', '50 GB cloud backup', 'Password Manager', 'Parental Controls'], 'variants': [{'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 54.99, 'original_price': 99.99}, {'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 74.99, 'original_price': 119.99}], 'long_description': 'Norton 360 Deluxe covers the whole household under one subscription, wrapping real-time antivirus, anti-ransomware and anti-phishing defense around up to five PCs, Macs, phones and tablets.\n\nIt adds a Secure VPN for public Wi-Fi, Dark Web Monitoring for your personal data, a Password Manager, Parental Controls and 50 GB of cloud backup. It is a balanced, do-everything suite that stays out of your way until it matters.', 'source': 'seed', 'is_featured': True, 'platforms': ['windows', 'macos', 'android', 'ios']}, {'slug': 'norton-360-deluxe-lifelock', 'name': 'Norton 360 Deluxe with LifeLock Select', 'brand': 'Norton', 'box_variant': 'gold', 'category': 'Norton 360 LifeLock', 'image_url': '', 'tagline': 'Norton 360 Deluxe device security plus LifeLock identity theft protection for 5 devices.', 'description': "This bundle pairs Norton 360 Deluxe's full device security with LifeLock Select identity monitoring. Along with antivirus, a Secure VPN, password manager and 50 GB cloud backup for up to 5 devices, LifeLock watches for misuse of your personal information, alerts you to suspicious credit activity and helps restore your identity if it is ever compromised.", 'features': ['Complete security for 5 devices', 'LifeLock identity theft monitoring', 'Secure VPN & Password Manager', 'Dark web & credit alerts', '50 GB cloud backup', 'Identity restoration support'], 'variants': [{'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 99.99, 'original_price': 149.99}], 'long_description': "This bundle pairs Norton 360 Deluxe's device security with LifeLock Select identity theft protection, covering your devices and your identity in one plan for up to five devices.\n\nYou get antivirus, a Secure VPN, Password Manager, Dark Web Monitoring and 50 GB of cloud backup, plus LifeLock monitoring that alerts you to suspicious credit or account activity. If identity theft occurs, restoration specialists help you recover, backed by reimbursement for eligible expenses.", 'source': 'seed', 'is_featured': False, 'platforms': ['windows', 'macos', 'android', 'ios']}, {'slug': 'norton-360-premium', 'name': 'Norton 360 Premium', 'brand': 'Norton', 'box_variant': 'gold', 'category': 'Norton 360', 'image_url': '', 'tagline': 'Premium protection for up to 10 devices with VPN, parental controls and 100 GB backup.', 'description': "Norton 360 Premium extends Norton's multi-layered security to as many as 10 devices, making it a strong fit for families. It combines antivirus and ransomware defense with a Secure VPN, Dark Web Monitoring, Parental Controls and a password manager, plus 100 GB of cloud backup so every device stays protected and your files stay recoverable.", 'features': ['Protects up to 10 devices', 'Secure VPN & SafeCam', 'Dark Web Monitoring', '100 GB cloud backup', 'Parental Controls', 'Password Manager'], 'variants': [{'devices': 10, 'years': 1, 'label': '10 Devices / 1 Year', 'price': 99.99, 'original_price': 149.99}], 'long_description': 'Norton 360 Premium is the family-sized tier, extending protection to as many as ten devices under one subscription for households with many laptops, phones and tablets.\n\nIt includes the full Norton feature set: antivirus and ransomware defense, a Secure VPN, Dark Web Monitoring, a Password Manager and Parental Controls, plus 100 GB of cloud backup. Managed from one account, it offers the best per-device value in the 360 range.', 'source': 'seed', 'is_featured': True, 'platforms': ['windows', 'macos', 'android', 'ios']}, {'slug': 'norton-360-standard', 'name': 'Norton 360 Standard', 'brand': 'Norton', 'box_variant': 'gold', 'category': 'Norton 360', 'image_url': '', 'tagline': 'Essential Norton 360 security for a single device with VPN and 10 GB backup.', 'description': "Norton 360 Standard delivers Norton's core protection for one PC, Mac, phone or tablet. It guards against viruses, ransomware and phishing in real time, adds a Secure VPN for private browsing, Dark Web Monitoring and a password manager, and includes 10 GB of cloud backup for your important files.", 'features': ['Real-time threat protection', 'Secure VPN', 'Dark Web Monitoring', '10 GB cloud backup', 'Password Manager', 'Smart Firewall'], 'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 49.99, 'original_price': 94.99}], 'long_description': "Norton 360 Standard is the entry point into the 360 family, built to protect a single device with the essentials done right.\n\nIt includes real-time protection against viruses, ransomware and phishing, a Secure VPN, Dark Web Monitoring, a Password Manager and 10 GB of cloud backup, backed by Norton's 100% Virus Protection Promise.", 'source': 'seed', 'is_featured': False, 'platforms': ['windows', 'macos', 'android', 'ios']}, {'slug': 'norton-secure-vpn', 'name': 'Norton Secure VPN', 'brand': 'Norton', 'box_variant': 'gold', 'category': 'Norton VPN', 'image_url': '', 'tagline': 'Bank-grade encryption for private browsing on up to 5 devices.', 'description': 'Norton Secure VPN encrypts your internet connection so you can browse, bank and shop privately, even on public Wi-Fi. It masks your IP address, helps block ad trackers and works across Windows, Mac, Android and iOS, all from a single easy-to-use app.', 'features': ['Bank-grade encryption', 'No-log VPN policy', 'Wi-Fi security on public networks', 'Ad-tracker blocking', 'Up to 5 devices', 'Windows, Mac, Android & iOS'], 'variants': [{'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 54.99, 'original_price': 79.99}], 'long_description': 'Norton Secure VPN encrypts your internet connection so your browsing stays private, especially on public Wi-Fi where your data is most exposed.\n\nIt masks your IP address, uses bank-grade encryption and blocks ad trackers. The app runs on Windows, Mac, Android and iOS, and one subscription covers up to five devices.', 'source': 'seed', 'is_featured': False, 'platforms': ['windows', 'macos', 'android', 'ios']}, {'slug': 'norton-small-business', 'name': 'Norton Small Business', 'brand': 'Norton', 'box_variant': 'gold', 'category': 'Norton Small Business', 'image_url': '', 'tagline': 'Multi-device security built for small teams, protecting up to 10 devices.', 'description': 'Norton Small Business brings strong, easy-to-manage protection to growing teams without the IT overhead. Secure up to 10 devices with real-time threat defense, a Secure VPN, password manager and cloud backup, all managed through a simple, centralized experience designed for business owners.', 'features': ['Covers up to 10 devices', 'Real-time threat protection', 'Secure VPN', 'Password Manager', 'Cloud backup', 'Centralized management'], 'variants': [{'devices': 10, 'years': 1, 'label': '10 Devices / 1 Year', 'price': 99.99, 'original_price': 149.99}], 'long_description': 'Norton Small Business brings easy-to-manage security to teams without a dedicated IT department, protecting up to ten devices under one plan.\n\nEach device gets real-time threat defense, a Secure VPN for safe remote work, a Password Manager and cloud backup. Everything is managed centrally, so adding or removing devices takes minutes.', 'source': 'seed', 'is_featured': False, 'platforms': ['windows', 'macos', 'android', 'ios']}, {'slug': 'norton-utilities-ultimate', 'name': 'Norton Utilities Ultimate', 'brand': 'Norton', 'box_variant': 'gold', 'category': 'Norton Utilities', 'image_url': '', 'tagline': 'Clean, speed up and optimize up to 10 PCs automatically.', 'description': 'Norton Utilities Ultimate helps keep your PCs running like new. It clears junk files, fixes common issues, optimizes startup and frees up resources so your machines stay fast and responsive. Automated maintenance runs quietly in the background across up to 10 PCs.', 'features': ['Speeds up & cleans PCs', 'Automatic maintenance', 'Startup optimizer', 'Frees disk space & RAM', 'Fixes common PC issues', 'Supports up to 10 PCs'], 'variants': [{'devices': 10, 'years': 1, 'label': '10 PCs / 1 Year', 'price': 69.99, 'original_price': 99.99}], 'long_description': 'Norton Utilities Ultimate is a PC optimization tool, not an antivirus, designed to keep up to ten PCs running fast, clean and stable.\n\nIt clears junk files, fixes common performance issues, optimizes startup and runs automated maintenance in the background. It frees up RAM and disk space and can improve responsiveness on older hardware.', 'source': 'seed', 'is_featured': False, 'platforms': ['windows']}, {'slug': 'mcafee-antivirus', 'name': 'McAfee AntiVirus', 'brand': 'McAfee', 'box_variant': 'red', 'category': 'McAfee AntiVirus', 'image_url': '', 'tagline': 'Award-winning antivirus that keeps your PC safe from viruses and malware.', 'description': 'McAfee AntiVirus provides dependable, always-on protection for your PC. It scans for and removes viruses, malware, spyware and ransomware in real time, blocks risky downloads and websites, and runs quietly in the background so you stay protected without slowdowns.', 'features': ['Real-time virus & malware protection', 'Ransomware & spyware defense', 'Safe web browsing', 'Firewall network protection', 'Lightweight performance', 'Automatic updates'], 'variants': [{'devices': 1, 'years': 1, 'label': '1 PC / 1 Year', 'price': 39.99, 'original_price': 59.99}, {'devices': 1, 'years': 3, 'label': '1 PC / 3 Years', 'price': 79.99, 'original_price': 119.99}], 'long_description': 'McAfee AntiVirus is the focused, entry-level option, built to keep a single PC protected from the threats that matter most.\n\nIt provides real-time scanning that removes viruses, malware, spyware and ransomware, plus a firewall and safe-browsing warnings. Lightweight and quiet, it covers the essentials at a low cost.', 'source': 'seed', 'is_featured': False, 'platforms': ['windows']}, {'slug': 'mcafee-internet-security', 'name': 'McAfee Internet Security', 'brand': 'McAfee', 'box_variant': 'red', 'category': 'McAfee Internet Security', 'image_url': '', 'tagline': 'Complete online protection with antivirus, firewall and web safety for your devices.', 'description': 'McAfee Internet Security goes beyond basic antivirus to protect your whole online life. It combines real-time malware defense with a two-way firewall, anti-spam, safe-browsing warnings and a password manager, keeping your devices and personal data secure across Windows, Mac and mobile.', 'features': ['Antivirus & anti-malware', 'Two-way firewall', 'Safe web & anti-phishing', 'Password manager', 'Anti-spam protection', 'Multi-device coverage'], 'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 39.99, 'original_price': 59.99}, {'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 49.99, 'original_price': 79.99}, {'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 59.99, 'original_price': 99.99}, {'devices': 10, 'years': 1, 'label': '10 Devices / 1 Year', 'price': 69.99, 'original_price': 119.99}], 'long_description': 'McAfee Internet Security steps up from basic antivirus to protect your broader online activity across multiple devices.\n\nAlongside real-time antivirus it adds a two-way firewall, anti-spam, safe-browsing warnings and a password manager. It runs across Windows, Mac and mobile, balancing protection, features and price.', 'source': 'seed', 'is_featured': True, 'platforms': ['windows', 'macos', 'android', 'ios']}, {'slug': 'mcafee-mobile-security', 'name': 'McAfee Mobile Security', 'brand': 'McAfee', 'box_variant': 'red', 'category': 'McAfee Mobile Security', 'image_url': '', 'tagline': 'Security and privacy protection for your Android and iOS devices.', 'description': 'McAfee Mobile Security protects your smartphones and tablets from mobile threats, unsafe apps and risky Wi-Fi. It includes anti-theft tools, a secure VPN, app privacy checks and web protection so you can bank, shop and browse safely on the go.', 'features': ['Mobile malware protection', 'Secure VPN', 'Anti-theft & device locate', 'Wi-Fi security alerts', 'App privacy protection', 'Safe browsing'], 'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 29.99, 'original_price': 44.99}, {'devices': 10, 'years': 1, 'label': '10 Devices / 1 Year', 'price': 49.99, 'original_price': 89.99}], 'long_description': 'McAfee Mobile Security is purpose-built for smartphones and tablets, protecting Android and iOS devices from malicious apps, unsafe Wi-Fi and phishing links.\n\nIt includes a secure VPN, anti-theft tools to locate or lock a lost device, and app privacy checks. Web protection warns you before you tap a dangerous link.', 'source': 'seed', 'is_featured': False, 'platforms': ['android', 'ios']}, {'slug': 'mcafee-total-protection', 'name': 'McAfee Total Protection', 'brand': 'McAfee', 'box_variant': 'red', 'category': 'McAfee Total Protection', 'image_url': '', 'tagline': 'All-in-one security, privacy and identity protection for the whole family.', 'description': "McAfee Total Protection is McAfee's most complete suite, combining award-winning antivirus with identity monitoring, a Secure VPN, password manager and personal data cleanup. It protects your devices, your privacy and your identity across every platform, with continuous monitoring and real-time alerts.", 'features': ['Antivirus & ransomware protection', 'Secure VPN', 'Identity & dark web monitoring', 'Password manager', 'Personal data cleanup', 'Protects multiple devices'], 'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 44.99, 'original_price': 84.99}, {'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 59.99, 'original_price': 119.99}, {'devices': 10, 'years': 1, 'label': '10 Devices / 1 Year', 'price': 74.99, 'original_price': 159.99}], 'long_description': 'McAfee Total Protection is the most complete suite, combining device security, privacy tools and identity protection in one subscription.\n\nOn top of antivirus and ransomware defense it adds a Secure VPN, a password manager, identity and dark web monitoring, and personal data cleanup. It is the all-in-one option for maximum coverage.', 'source': 'seed', 'is_featured': True, 'platforms': ['windows', 'macos', 'android', 'ios']}, {'slug': 'webroot-secureanywhere-antivirus', 'name': 'Webroot SecureAnywhere AntiVirus', 'brand': 'Webroot', 'box_variant': 'green', 'category': 'Webroot SecureAnywhere', 'image_url': '', 'tagline': "Lightning-fast, cloud-based antivirus that won't slow you down.", 'description': 'Webroot SecureAnywhere AntiVirus uses cloud-based threat intelligence to stop viruses, ransomware and phishing in real time, without bulky signature updates. It installs in seconds, scans in about 20 seconds and uses minimal system resources, so your PC stays fast and protected.', 'features': ['Cloud-based threat protection', 'Ultra-fast scans', 'Ransomware & phishing defense', 'Firewall & network monitor', 'Lightweight footprint', 'Real-time anti-phishing'], 'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 39.99, 'original_price': 49.99}, {'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 54.99, 'original_price': 69.99}], 'long_description': 'Webroot SecureAnywhere AntiVirus uses cloud-based threat intelligence instead of heavy signature files, so protection stays remarkably light on your system.\n\nIt installs in seconds, uses little disk space and scans in about twenty seconds, while still delivering real-time defense against viruses, ransomware and phishing plus a firewall and network monitor.', 'source': 'seed', 'is_featured': True, 'platforms': ['windows', 'macos']}, {'slug': 'webroot-internet-security-plus', 'name': 'Webroot Internet Security Plus', 'brand': 'Webroot', 'box_variant': 'green', 'category': 'Webroot Internet Security Plus', 'image_url': '', 'tagline': 'Antivirus plus password management and mobile protection for all your devices.', 'description': "Webroot Internet Security Plus builds on Webroot's fast cloud antivirus with extras for your digital life. It secures PCs, Macs, smartphones and tablets, adds a password manager to protect your logins, and removes traces of online activity to keep your browsing private.", 'features': ['Cloud antivirus for PC & Mac', 'Secures smartphones & tablets', 'Password manager', 'Eliminates online activity traces', 'Real-time anti-phishing', 'Lightning-fast scans'], 'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 49.99, 'original_price': 69.99}, {'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 64.99, 'original_price': 89.99}], 'long_description': 'Webroot Internet Security Plus builds on the fast cloud antivirus with features that protect your whole digital life across PCs, Macs, smartphones and tablets.\n\nIt adds a password manager to secure your logins and tools that erase traces of your online activity for extra privacy. It is a good middle ground between basic antivirus and the full Complete suite.', 'source': 'seed', 'is_featured': False, 'platforms': ['windows', 'macos', 'android', 'ios']}, {'slug': 'webroot-internet-security-complete', 'name': 'Webroot Internet Security Complete', 'brand': 'Webroot', 'box_variant': 'green', 'category': 'Webroot Internet Security Complete', 'image_url': '', 'tagline': "Webroot's most complete protection with backup, privacy and a system optimizer.", 'description': 'Webroot Internet Security Complete is the full package: cloud-based antivirus, a password manager, mobile protection and a system optimizer that wipes away traces of online activity. It also includes secure cloud backup to keep your important files safe, all in one lightweight suite.', 'features': ['Complete antivirus protection', 'Password manager', 'System optimizer & cleanup', 'Secure cloud backup', 'Mobile device security', 'Privacy protection'], 'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 59.99, 'original_price': 89.99}, {'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 74.99, 'original_price': 109.99}, {'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 89.99, 'original_price': 129.99}], 'long_description': "Webroot Internet Security Complete is the top of the SecureAnywhere range, bundling everything into one lightweight package.\n\nYou get the cloud antivirus, password manager and mobile protection from Plus, plus a system optimizer that cleans online traces and secure cloud backup for your files. It stays fast and light thanks to Webroot's cloud design.", 'source': 'seed', 'is_featured': True, 'platforms': ['windows', 'macos', 'android', 'ios']}, {'slug': 'webroot-premium-identity', 'name': 'Webroot Premium with Identity Protection', 'brand': 'Webroot', 'box_variant': 'green', 'category': 'Webroot Premium', 'image_url': '', 'tagline': 'Webroot security plus identity protection and dark web monitoring.', 'description': 'Webroot Premium combines fast, cloud-based device security with identity protection. Along with antivirus, anti-phishing and a password manager for your devices, it monitors your identity and the dark web for your personal data and provides up to $1M in fraud expense reimbursement with 24/7 restoration support.', 'features': ['Cloud antivirus & anti-phishing', 'Identity monitoring', 'Dark web monitoring', 'Password manager', 'Up to $1M fraud reimbursement', '24/7 identity restoration'], 'variants': [{'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 99.99, 'original_price': 129.99}], 'long_description': 'Webroot Premium pairs fast cloud-based security with identity protection, covering your devices and your personal information in one plan.\n\nYou get antivirus, anti-phishing and a password manager, plus identity and dark web monitoring. If your identity is compromised, you get up to $1M in fraud expense reimbursement and 24/7 restoration support.', 'source': 'seed', 'is_featured': False, 'platforms': ['windows', 'macos', 'android', 'ios']}, {'slug': 'norton-antivirus-plus', 'name': 'Norton AntiVirus Plus', 'brand': 'Norton', 'box_variant': 'gold', 'category': 'Norton Antivirus', 'image_url': '', 'tagline': 'Strong antivirus and firewall protection for a single Windows PC.', 'description': 'Norton AntiVirus Plus delivers real-time malware protection, a smart firewall and a password manager for one Windows PC. It is the right choice when you want core Norton protection without the extras of the 360 suites.', 'features': ['Real-time malware & ransomware protection', 'Smart firewall for PC', 'Password Manager', '2 GB cloud backup', 'Virus Protection Promise'], 'variants': [{'devices': 1, 'years': 1, 'label': '1 PC / 1 Year', 'price': 34.99, 'original_price': 59.99}, {'devices': 1, 'years': 2, 'label': '1 PC / 2 Years', 'price': 54.99, 'original_price': 99.99}], 'long_description': "Norton AntiVirus Plus is built for users who want focused, no-nonsense antivirus protection for their Windows PC. It includes real-time threat defense against malware and ransomware, a smart firewall that watches network traffic, and a password manager so you do not have to remember every login.\n\nWith 2 GB of cloud backup and Norton's Virus Protection Promise, you get core security from a trusted brand without paying for features you will not use. It is a lean, reliable solution for a single computer.", 'platforms': ['windows'], 'is_featured': False}, {'slug': 'norton-360-gamers', 'name': 'Norton 360 for Gamers', 'brand': 'Norton', 'box_variant': 'gold', 'category': 'Norton 360', 'image_url': '', 'tagline': 'Security that stays out of the way while you game, stream and browse.', 'description': 'Norton 360 for Gamers optimizes your gaming experience with fewer notifications and a Game Booster that improves performance, while still delivering real-time malware protection, Secure VPN and Dark Web Monitoring.', 'features': ['Game Booster & notification optimization', 'Real-time malware & ransomware protection', 'Secure VPN for private browsing', 'Dark Web Monitoring', '50 GB cloud backup', 'Password Manager'], 'variants': [{'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 49.99, 'original_price': 79.99}], 'long_description': 'Norton 360 for Gamers gives players the security they need without interrupting the action. Its Game Booster helps optimize performance and suppresses non-critical notifications while you play, so you stay focused.\n\nUnder the hood you still get real-time malware and ransomware protection, a Secure VPN, Dark Web Monitoring, 50 GB of cloud backup and a password manager. It is the right suite for anyone who spends serious time gaming or streaming on PC.', 'platforms': ['windows', 'macos', 'android', 'ios'], 'is_featured': False}, {'slug': 'webroot-mobile-security', 'name': 'Webroot Mobile Security', 'brand': 'Webroot', 'box_variant': 'green', 'category': 'Webroot Mobile', 'image_url': '', 'tagline': 'Lightweight protection for Android and iOS smartphones and tablets.', 'description': 'Webroot Mobile Security keeps your phone or tablet safe from malicious apps, phishing links and risky Wi-Fi without draining battery or slowing performance.', 'features': ['App inspection & malware blocking', 'Anti-phishing web shield', 'Secure browsing on mobile', 'Anti-theft features (Android)', 'Lightweight, battery-friendly design'], 'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 19.99, 'original_price': 29.99}, {'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 34.99, 'original_price': 49.99}], 'long_description': 'Webroot Mobile Security is a lightweight, cloud-based solution for Android and iOS devices. It scans apps and links in real time, blocks phishing sites and keeps your mobile identity safer without draining battery life.\n\nThe Android version adds anti-theft tools such as remote lock and wipe. Whether you use one phone or several family devices, this plan is designed to stay fast and unobtrusive.', 'platforms': ['android', 'ios'], 'is_featured': False}, {'slug': 'webroot-wifi-security-vpn', 'name': 'Webroot WiFi Security VPN', 'brand': 'Webroot', 'box_variant': 'green', 'category': 'Webroot VPN', 'image_url': '', 'tagline': 'Encrypt your connection and browse privately on any network.', 'description': 'Webroot WiFi Security VPN masks your IP address and encrypts your internet traffic so you can use public Wi-Fi, stream and browse without exposing your data.', 'features': ['Bank-grade AES-256 encryption', 'No-logs VPN policy', 'Multiple virtual server locations', 'Works on PC, Mac, Android and iOS', 'Automatic protection on unsafe Wi-Fi'], 'variants': [{'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 34.99, 'original_price': 59.99}, {'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 49.99, 'original_price': 79.99}], 'long_description': 'Webroot WiFi Security VPN is a no-logs virtual private network that protects your connection on public Wi-Fi, at coffee shops, airports and hotels. It encrypts traffic with AES-256 and lets you choose from multiple virtual locations.\n\nYou can protect up to five devices under one subscription across Windows, macOS, Android and iOS. It is a simple way to add privacy and avoid tracking without slowing down your connection.', 'platforms': ['windows', 'macos', 'android', 'ios'], 'is_featured': False}, {'slug': 'mcafee-plus-essential', 'name': 'McAfee+ Essential', 'brand': 'McAfee', 'box_variant': 'red', 'category': 'McAfee+', 'image_url': '', 'tagline': 'Modern antivirus and identity monitoring for up to 5 devices.', 'description': 'McAfee+ Essential delivers award-winning antivirus, a secure firewall and basic identity monitoring for individuals and small households who want straightforward protection.', 'features': ['Real-time antivirus & firewall', 'Identity monitoring alerts', 'Secure VPN', 'Password Manager', 'Protection for 5 devices'], 'variants': [{'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 59.99, 'original_price': 89.99}], 'long_description': "McAfee+ Essential is the entry point to McAfee's modern subscription lineup. It covers up to five devices with real-time antivirus, an intelligent firewall, a Secure VPN and a password manager.\n\nYou also get basic identity monitoring that alerts you if your personal information shows up in places it should not. It is a solid, easy-to-manage plan for everyday users and small families.", 'platforms': ['windows', 'macos', 'android', 'ios'], 'is_featured': False}, {'slug': 'mcafee-plus-premium', 'name': 'McAfee+ Premium', 'brand': 'McAfee', 'box_variant': 'red', 'category': 'McAfee+', 'image_url': '', 'tagline': 'Unlimited devices with full identity theft protection and credit monitoring.', 'description': 'McAfee+ Premium protects unlimited devices and adds full identity theft protection, credit monitoring and $1 million in identity theft coverage for complete peace of mind.', 'features': ['Protection for unlimited devices', 'Real-time antivirus & firewall', 'Secure VPN & Password Manager', 'Credit monitoring & identity alerts', '$1 million identity theft coverage'], 'variants': [{'devices': 999, 'years': 1, 'label': 'Unlimited Devices / 1 Year', 'price': 99.99, 'original_price': 149.99}], 'long_description': "McAfee+ Premium is McAfee's full-featured plan for households with many devices. It covers an unlimited number of PCs, Macs, smartphones and tablets with antivirus, firewall, VPN and password management.\n\nWhat sets Premium apart is its identity protection layer: credit monitoring, identity alerts and up to $1 million in identity theft coverage. It is the right choice when your digital identity matters as much as your devices.", 'platforms': ['windows', 'macos', 'android', 'ios'], 'is_featured': False}, {'slug': 'mcafee-plus-advanced', 'name': 'McAfee+ Advanced', 'brand': 'McAfee', 'box_variant': 'red', 'category': 'McAfee+', 'image_url': '', 'tagline': 'Maximum protection with identity restoration and monthly credit scores.', 'description': 'McAfee+ Advanced adds credit lock, monthly credit scores and dedicated identity restoration support on top of unlimited device security and $1 million in identity coverage.', 'features': ['Unlimited device protection', 'Credit lock & monthly credit score', 'Identity restoration support', 'Real-time antivirus, firewall & VPN', '$1 million identity theft coverage'], 'variants': [{'devices': 999, 'years': 1, 'label': 'Unlimited Devices / 1 Year', 'price': 149.99, 'original_price': 199.99}], 'long_description': "McAfee+ Advanced is McAfee's top consumer tier. It includes everything in Premium plus credit lock, monthly credit scores and hands-on identity restoration support if theft occurs.\n\nWith unlimited device coverage, real-time antivirus, a firewall, VPN and $1 million in identity theft coverage, this plan is built for users who want maximum digital safety and recovery support.", 'platforms': ['windows', 'macos', 'android', 'ios'], 'is_featured': False}, {'slug': 'mcafee-livesafe', 'name': 'McAfee LiveSafe', 'brand': 'McAfee', 'box_variant': 'red', 'category': 'McAfee LiveSafe', 'image_url': '', 'tagline': 'Legacy unlimited-device protection with secure cloud storage and identity tools.', 'description': 'McAfee LiveSafe offers unlimited device antivirus, a password manager, secure cloud storage and identity protection in one familiar, long-running McAfee package.', 'features': ['Protection for unlimited devices', 'Real-time antivirus & firewall', 'Secure cloud storage', 'Password Manager', 'Identity protection basics'], 'variants': [{'devices': 999, 'years': 1, 'label': 'Unlimited Devices / 1 Year', 'price': 89.99, 'original_price': 129.99}], 'long_description': 'McAfee LiveSafe has been a trusted McAfee flagship for years. It covers an unlimited number of devices with real-time antivirus, firewall, password management and secure cloud storage for your important files.\n\nIt also includes basic identity protection features, making it a well-rounded choice for households that want one subscription to protect everything without moving to the newer McAfee+ tiers.', 'platforms': ['windows', 'macos', 'android', 'ios'], 'is_featured': False}]
+PRODUCTS = [{'slug': 'norton-360-deluxe',
+  'name': 'Norton 360 Deluxe',
+  'brand': 'Norton',
+  'box_variant': 'gold',
+  'category': 'Norton 360',
+  'image_url': '',
+  'tagline': 'All-in-one protection for up to 5 devices with VPN, Dark Web Monitoring, Parental Control and 50 GB '
+             'cloud backup.',
+  'description': 'Norton 360 Deluxe layers real-time antivirus, anti-ransomware and anti-phishing defense over your '
+                 'PCs, Macs, phones and tablets. A built-in Secure VPN keeps your connection private on public Wi-Fi, '
+                 'while Dark Web Monitoring watches for your personal data, Parental Controls help you manage what '
+                 'your kids see online, and 50 GB of cloud backup keeps important files safe.',
+  'features': ['Real-time malware & ransomware protection',
+               'AI-powered Scam Protection',
+               'Deepfake Protection',
+               'Secure VPN (5 devices)',
+               'Dark Web Monitoring',
+               '50 GB cloud backup',
+               'Password Manager',
+               'Parental Controls',
+               '100% Virus Protection Promise'],
+  'variants': [{'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 54.99, 'original_price': 99.99},
+               {'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 74.99, 'original_price': 119.99}],
+  'long_description': 'Norton 360 Deluxe covers the whole household under one subscription, wrapping real-time '
+                      'antivirus, anti-ransomware and anti-phishing defense around up to five PCs, Macs, phones and '
+                      'tablets.\n'
+                      '\n'
+                      'It adds a Secure VPN for public Wi-Fi, Dark Web Monitoring for your personal data, a Password '
+                      'Manager, Parental Controls and 50 GB of cloud backup. Newer capabilities include AI-powered '
+                      'Scam Protection to help block scam texts and calls, and Deepfake Protection to help detect '
+                      'AI-generated scam videos.',
+  'source': 'seed',
+  'is_featured': True,
+  'platforms': ['windows', 'macos', 'android', 'ios']},
+ {'slug': 'norton-360-deluxe-lifelock',
+  'name': 'Norton 360 with LifeLock Select',
+  'brand': 'Norton',
+  'box_variant': 'gold',
+  'category': 'Norton 360 LifeLock',
+  'image_url': '',
+  'tagline': 'Device security plus LifeLock identity theft protection, credit monitoring and $1 million coverage for 5 '
+             'devices.',
+  'description': 'Norton 360 with LifeLock Select combines Norton 360 Deluxe device security with LifeLock identity '
+                 'theft protection. It monitors your identity, alerts you to suspicious activity, and provides up to '
+                 '$1 million in stolen funds reimbursement for qualifying losses.',
+  'features': ['Real-time malware & ransomware protection',
+               'AI-powered Scam Protection',
+               'Deepfake Protection',
+               'Secure VPN (5 devices)',
+               'Dark Web Monitoring',
+               '50 GB cloud backup',
+               'Password Manager',
+               'Parental Controls',
+               'LifeLock identity theft protection',
+               'Credit monitoring (one bureau)',
+               '$1 million stolen funds reimbursement*',
+               '100% Virus Protection Promise'],
+  'variants': [{'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 99.99, 'original_price': 149.99}],
+  'long_description': 'Norton 360 with LifeLock Select pairs the full device security of Norton 360 Deluxe with '
+                      'LifeLock identity theft protection. It covers up to five PCs, Macs, phones and tablets and '
+                      'monitors your identity for misuse.\n'
+                      '\n'
+                      'You get Dark Web Monitoring, credit monitoring from one bureau, alerts for suspicious activity, '
+                      'and up to $1 million in stolen funds reimbursement for qualifying identity theft losses. It is '
+                      'the right choice when you want both cybersecurity and basic identity protection in one '
+                      'subscription.',
+  'source': 'seed',
+  'is_featured': False,
+  'platforms': ['windows', 'macos', 'android', 'ios']},
+ {'slug': 'norton-360-premium',
+  'name': 'Norton 360 Premium',
+  'brand': 'Norton',
+  'box_variant': 'gold',
+  'category': 'Norton 360',
+  'image_url': '',
+  'tagline': 'Family-sized protection for up to 10 devices with 100 GB cloud backup and premium privacy features.',
+  'description': 'Norton 360 Premium protects up to 10 devices with the same Deluxe-level security plus 100 GB of '
+                 'cloud backup, giving larger households more room to protect photos, documents and other important '
+                 'files.',
+  'features': ['Real-time malware & ransomware protection',
+               'AI-powered Scam Protection',
+               'Deepfake Protection',
+               'Secure VPN (10 devices)',
+               'Dark Web Monitoring',
+               '100 GB cloud backup',
+               'Password Manager',
+               'Parental Controls',
+               '100% Virus Protection Promise'],
+  'variants': [{'devices': 10, 'years': 1, 'label': '10 Devices / 1 Year', 'price': 99.99, 'original_price': 149.99}],
+  'long_description': 'Norton 360 Premium is built for larger families and households with many devices. It protects '
+                      'up to 10 PCs, Macs, smartphones or tablets with real-time antivirus, anti-ransomware and '
+                      'anti-phishing, plus a Secure VPN, Dark Web Monitoring, Password Manager and Parental Controls.\n'
+                      '\n'
+                      'The Premium tier doubles the cloud backup allowance to 100 GB and supports up to 10 '
+                      'simultaneous VPN connections, so everyone can browse privately at the same time.',
+  'source': 'seed',
+  'is_featured': True,
+  'platforms': ['windows', 'macos', 'android', 'ios']},
+ {'slug': 'norton-360-standard',
+  'name': 'Norton 360 Standard',
+  'brand': 'Norton',
+  'box_variant': 'gold',
+  'category': 'Norton 360',
+  'image_url': '',
+  'tagline': 'Essential all-in-one protection with VPN, Dark Web Monitoring and 10 GB cloud backup for 3 devices.',
+  'description': 'Norton 360 Standard covers up to 3 devices with real-time antivirus, a Secure VPN for private '
+                 'browsing, Dark Web Monitoring, a Password Manager and 10 GB of cloud backup.',
+  'features': ['Real-time antivirus, malware & ransomware protection',
+               'AI-powered Scam Protection',
+               'Deepfake Protection',
+               'Secure VPN (3 devices)',
+               'Dark Web Monitoring',
+               '10 GB cloud backup',
+               'Password Manager',
+               '100% Virus Protection Promise'],
+  'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 49.99, 'original_price': 94.99}],
+  'long_description': "Norton 360 Standard is the most accessible way into Norton's all-in-one security lineup. It "
+                      'protects up to 3 PCs, Macs, smartphones or tablets with real-time antivirus, anti-malware and '
+                      'anti-ransomware technology.\n'
+                      '\n'
+                      'You also get a Secure VPN, Dark Web Monitoring that alerts you if your personal data appears on '
+                      'the dark web, a Password Manager and 10 GB of cloud backup. AI-powered Scam Protection and '
+                      "Deepfake Protection help keep you safer from today's most advanced online scams.",
+  'source': 'seed',
+  'is_featured': False,
+  'platforms': ['windows', 'macos', 'android', 'ios']},
+ {'slug': 'norton-secure-vpn',
+  'name': 'Norton Secure VPN',
+  'brand': 'Norton',
+  'box_variant': 'gold',
+  'category': 'Norton VPN',
+  'image_url': '',
+  'tagline': 'Bank-grade VPN that encrypts your connection and hides your IP on Windows, Mac, Android and iOS.',
+  'description': 'Norton Secure VPN masks your IP address and encrypts your internet traffic with bank-grade '
+                 'encryption, helping keep your online activity private on public Wi-Fi and at home.',
+  'features': ['Bank-grade AES-256 encryption',
+               'No-log VPN policy',
+               'Automatic protection on unsafe Wi-Fi',
+               'Multiple virtual server locations',
+               'Ad tracker blocking',
+               'Works on PC, Mac, Android and iOS'],
+  'variants': [{'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 54.99, 'original_price': 79.99}],
+  'long_description': 'Norton Secure VPN is a no-logs virtual private network that encrypts your internet connection '
+                      'and hides your IP address. It automatically protects you on public Wi-Fi hotspots and lets you '
+                      'choose from multiple virtual locations for more private browsing, streaming and banking.\n'
+                      '\n'
+                      'The plan covers up to five devices across Windows, macOS, Android and iOS, and helps block ad '
+                      'trackers that follow you around the web.',
+  'source': 'seed',
+  'is_featured': False,
+  'platforms': ['windows', 'macos', 'android', 'ios']},
+ {'slug': 'norton-small-business',
+  'name': 'Norton Small Business',
+  'brand': 'Norton',
+  'box_variant': 'gold',
+  'category': 'Norton Small Business',
+  'image_url': '',
+  'tagline': 'Centralized cybersecurity for small businesses covering up to 10 devices.',
+  'description': 'Norton Small Business Premium provides business-grade antivirus, VPN, a centralized management '
+                 'console and protection for up to 10 PCs, Macs, smartphones or tablets.',
+  'features': ['Business-grade antivirus & anti-malware',
+               'Secure VPN for employees',
+               'Centralized management console',
+               'Protection for up to 10 devices',
+               'Email and web protection',
+               'Cloud backup for business files'],
+  'variants': [{'devices': 10, 'years': 1, 'label': '10 Devices / 1 Year', 'price': 99.99, 'original_price': 149.99}],
+  'long_description': 'Norton Small Business Premium is designed for small companies that need easy-to-deploy, '
+                      'centralized security. It protects up to 10 business devices with antivirus, anti-malware, a '
+                      'secure VPN and a cloud-based management console that lets you monitor and manage protection '
+                      'from anywhere.\n'
+                      '\n'
+                      'Email and web protection help block phishing and malicious websites, while backup options keep '
+                      'important business files safer from ransomware or hardware failure.',
+  'source': 'seed',
+  'is_featured': False,
+  'platforms': ['windows', 'macos', 'android', 'ios']},
+ {'slug': 'norton-utilities-ultimate',
+  'name': 'Norton Utilities Ultimate',
+  'brand': 'Norton',
+  'box_variant': 'gold',
+  'category': 'Norton Utilities',
+  'image_url': '',
+  'tagline': 'Speed up, clean up and tune up to 10 Windows PCs with one subscription.',
+  'description': 'Norton Utilities Ultimate removes junk files, fixes registry issues, frees up disk space and helps '
+                 'keep up to 10 Windows PCs running smoothly.',
+  'features': ['Junk file & registry cleanup',
+               'Startup program optimizer',
+               'File shredder for secure deletion',
+               'Privacy trace cleaner',
+               'Real-time performance monitoring',
+               'Covers up to 10 Windows PCs'],
+  'variants': [{'devices': 10, 'years': 1, 'label': '10 PCs / 1 Year', 'price': 69.99, 'original_price': 99.99}],
+  'long_description': 'Norton Utilities Ultimate is a PC optimization suite that helps improve boot times, free disk '
+                      'space and fix common Windows performance issues. It cleans junk files, repairs registry '
+                      'entries, removes browser traces and lets you securely shred sensitive files.\n'
+                      '\n'
+                      'With coverage for up to 10 Windows PCs, it is ideal for home offices and families who want to '
+                      'keep older computers running like new.',
+  'source': 'seed',
+  'is_featured': False,
+  'platforms': ['windows']},
+ {'slug': 'mcafee-antivirus',
+  'name': 'McAfee AntiVirus',
+  'brand': 'McAfee',
+  'box_variant': 'red',
+  'category': 'McAfee AntiVirus',
+  'image_url': '',
+  'tagline': 'Award-winning antivirus protection for a single Windows PC with automatic updates.',
+  'description': 'McAfee AntiVirus provides essential, lightweight protection for one Windows PC, defending against '
+                 'viruses, malware, ransomware and phishing with real-time threat detection.',
+  'features': ['Real-time antivirus & malware protection',
+               'Anti-phishing web protection',
+               'Lightweight background performance',
+               'Automatic threat intelligence updates',
+               'McAfee Virus Protection Pledge*'],
+  'variants': [{'devices': 1, 'years': 1, 'label': '1 PC / 1 Year', 'price': 39.99, 'original_price': 59.99},
+               {'devices': 1, 'years': 3, 'label': '1 PC / 3 Years', 'price': 79.99, 'original_price': 119.99}],
+  'long_description': 'McAfee AntiVirus is a straightforward, reliable solution for protecting one Windows PC. It '
+                      'delivers real-time detection and blocking of viruses, malware, ransomware and phishing attacks '
+                      'without slowing your computer down.\n'
+                      '\n'
+                      "Automatic updates keep your protection current, and McAfee's Virus Protection Pledge means "
+                      'experts will help remove viruses or your money back (with auto-renewal enrollment).',
+  'source': 'seed',
+  'is_featured': False,
+  'platforms': ['windows']},
+ {'slug': 'mcafee-internet-security',
+  'name': 'McAfee Internet Security',
+  'brand': 'McAfee',
+  'box_variant': 'red',
+  'category': 'McAfee Internet Security',
+  'image_url': '',
+  'tagline': 'Multi-device security with firewall, VPN, identity monitoring and award-winning antivirus.',
+  'description': 'McAfee Internet Security protects your devices with real-time antivirus, a smart firewall, a Secure '
+                 'VPN, identity monitoring and safe web browsing tools.',
+  'features': ['Real-time antivirus & malware protection',
+               'Advanced firewall',
+               'Secure VPN',
+               'Anti-phishing web protection',
+               'Identity monitoring alerts',
+               'Password Manager',
+               'Cross-device protection'],
+  'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 39.99, 'original_price': 59.99},
+               {'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 49.99, 'original_price': 79.99},
+               {'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 59.99, 'original_price': 99.99},
+               {'devices': 10, 'years': 1, 'label': '10 Devices / 1 Year', 'price': 69.99, 'original_price': 119.99}],
+  'long_description': 'McAfee Internet Security provides comprehensive online protection for multiple devices. It '
+                      'combines real-time antivirus with an advanced firewall, a Secure VPN, anti-phishing web '
+                      'protection and identity monitoring alerts.\n'
+                      '\n'
+                      'A built-in Password Manager helps you create and store strong credentials, while cross-device '
+                      'protection extends coverage to your PCs, Macs, Android and iOS devices.',
+  'source': 'seed',
+  'is_featured': True,
+  'platforms': ['windows', 'macos', 'android', 'ios']},
+ {'slug': 'mcafee-mobile-security',
+  'name': 'McAfee Mobile Security',
+  'brand': 'McAfee',
+  'box_variant': 'red',
+  'category': 'McAfee Mobile Security',
+  'image_url': '',
+  'tagline': 'Antivirus, anti-theft and privacy protection for Android and iOS devices.',
+  'description': 'McAfee Mobile Security keeps your smartphone or tablet safe with antivirus, anti-theft tools, Wi-Fi '
+                 'protection and privacy features designed for life on the go.',
+  'features': ['Mobile antivirus & malware protection',
+               'Anti-theft protection (Android)',
+               'Secure Wi-Fi scanning',
+               'App privacy review',
+               'Anti-phishing web protection'],
+  'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 29.99, 'original_price': 44.99},
+               {'devices': 10, 'years': 1, 'label': '10 Devices / 1 Year', 'price': 49.99, 'original_price': 89.99}],
+  'long_description': 'McAfee Mobile Security is designed for Android and iOS smartphones and tablets. It blocks '
+                      'mobile malware, reviews app permissions for privacy risks, warns you about unsafe Wi-Fi '
+                      'networks and helps protect against phishing links.\n'
+                      '\n'
+                      'Android users also get anti-theft tools that can locate, lock or wipe a lost device. It is the '
+                      'right plan when your phone is your primary gateway to the internet.',
+  'source': 'seed',
+  'is_featured': False,
+  'platforms': ['android', 'ios']},
+ {'slug': 'mcafee-total-protection',
+  'name': 'McAfee Total Protection',
+  'brand': 'McAfee',
+  'box_variant': 'red',
+  'category': 'McAfee Total Protection',
+  'image_url': '',
+  'tagline': 'All-in-one antivirus, privacy and identity protection for your whole household.',
+  'description': 'McAfee Total Protection delivers premium antivirus, a Secure VPN, identity monitoring, a Password '
+                 'Manager and safe browsing for multiple devices under one subscription.',
+  'features': ['Premium antivirus & ransomware protection',
+               'Scam protection & deepfake scam defense',
+               'Secure VPN',
+               'Identity monitoring alerts',
+               'Password Manager',
+               'Safe web browsing & web protection',
+               'File shredder & tracker remover',
+               'Cross-device coverage'],
+  'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 44.99, 'original_price': 84.99},
+               {'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 59.99, 'original_price': 119.99},
+               {'devices': 10, 'years': 1, 'label': '10 Devices / 1 Year', 'price': 74.99, 'original_price': 159.99}],
+  'long_description': 'McAfee Total Protection is an all-in-one security suite that helps keep your devices, privacy '
+                      'and identity safer. It includes premium antivirus, scam protection, a Secure VPN, identity '
+                      'monitoring alerts and a Password Manager.\n'
+                      '\n'
+                      'Safe web browsing warns you about risky sites and downloads, while a file shredder and tracker '
+                      'remover help you clean up digital clutter. It is a solid choice for households that want '
+                      'broader protection without the higher tiers.',
+  'source': 'seed',
+  'is_featured': True,
+  'platforms': ['windows', 'macos', 'android', 'ios']},
+ {'slug': 'webroot-secureanywhere-antivirus',
+  'name': 'Webroot SecureAnywhere AntiVirus',
+  'brand': 'Webroot',
+  'box_variant': 'green',
+  'category': 'Webroot SecureAnywhere',
+  'image_url': '',
+  'tagline': 'Lightning-fast cloud antivirus that protects PCs and Macs without slowing them down.',
+  'description': 'Webroot SecureAnywhere AntiVirus uses cloud-based technology to deliver real-time protection against '
+                 'viruses, malware, phishing and ransomware in a tiny, fast package.',
+  'features': ['Real-time cloud-based antivirus',
+               'Anti-phishing & web threat shield',
+               'Firewall & network monitor',
+               'Text scam detection',
+               'Breach monitor',
+               'Always-on protection without large updates',
+               'Lightning-fast scans'],
+  'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 39.99, 'original_price': 49.99},
+               {'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 54.99, 'original_price': 69.99}],
+  'long_description': 'Webroot SecureAnywhere AntiVirus is a cloud-powered antivirus for Windows and Mac that installs '
+                      'in seconds and scans in minutes. It uses real-time threat intelligence to block viruses, '
+                      'malware, phishing and ransomware before they can harm your device.\n'
+                      '\n'
+                      'New features include text scam detection and a breach monitor that alerts you when your '
+                      'information appears in known data leaks.',
+  'source': 'seed',
+  'is_featured': True,
+  'platforms': ['windows', 'macos']},
+ {'slug': 'webroot-internet-security-plus',
+  'name': 'Webroot Internet Security Plus',
+  'brand': 'Webroot',
+  'box_variant': 'green',
+  'category': 'Webroot Internet Security Plus',
+  'image_url': '',
+  'tagline': 'Multi-device antivirus plus a Secure VPN and password manager for your household.',
+  'description': "Webroot Internet Security Plus extends Webroot's fast cloud antivirus to all your devices and adds a "
+                 'Secure VPN, password manager and system optimizer tools.',
+  'features': ['Cloud antivirus for PCs, Macs, phones & tablets',
+               'Secure VPN',
+               'Password manager',
+               'System optimizer',
+               'Anti-phishing web shield',
+               'Text scam detection & breach monitor',
+               'Cross-device protection'],
+  'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 49.99, 'original_price': 69.99},
+               {'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 64.99, 'original_price': 89.99}],
+  'long_description': 'Webroot Internet Security Plus covers multiple PCs, Macs, smartphones and tablets with '
+                      'cloud-based antivirus that never bogs down your system. It adds a Secure VPN for private '
+                      'browsing, a password manager and tools to optimize system performance.\n'
+                      '\n'
+                      'It also includes anti-phishing protection, text scam detection and a breach monitor so you can '
+                      'act quickly if your data is exposed.',
+  'source': 'seed',
+  'is_featured': False,
+  'platforms': ['windows', 'macos', 'android', 'ios']},
+ {'slug': 'webroot-internet-security-complete',
+  'name': 'Webroot Internet Security Complete',
+  'brand': 'Webroot',
+  'box_variant': 'green',
+  'category': 'Webroot Internet Security Complete',
+  'image_url': '',
+  'tagline': 'Complete multi-device security with cloud backup, identity shield and system cleanup tools.',
+  'description': 'Webroot Internet Security Complete adds secure cloud backup, Identity Shield and advanced system '
+                 "cleanup to Webroot's fast, cloud-based antivirus protection.",
+  'features': ['Cloud antivirus for multiple devices',
+               '25 GB secure cloud backup',
+               'Identity Shield for banking & shopping',
+               'System optimizer & cleanup',
+               'Secure VPN & password manager',
+               'Anti-phishing web shield',
+               'Text scam detection & breach monitor'],
+  'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 59.99, 'original_price': 89.99},
+               {'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 74.99, 'original_price': 109.99},
+               {'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 89.99, 'original_price': 129.99}],
+  'long_description': "Webroot Internet Security Complete is Webroot's most comprehensive traditional security suite. "
+                      'It protects multiple devices with cloud-based antivirus and adds 25 GB of secure cloud backup, '
+                      'Identity Shield to help protect banking and shopping transactions, and system cleanup tools.\n'
+                      '\n'
+                      'You also get a Secure VPN, password manager, anti-phishing web shield, text scam detection and '
+                      'a breach monitor.',
+  'source': 'seed',
+  'is_featured': True,
+  'platforms': ['windows', 'macos', 'android', 'ios']},
+ {'slug': 'webroot-premium-identity',
+  'name': 'Webroot Premium with Identity Protection',
+  'brand': 'Webroot',
+  'box_variant': 'green',
+  'category': 'Webroot Premium',
+  'image_url': '',
+  'tagline': 'Advanced antivirus plus Allstate-powered identity protection, credit monitoring and $1M reimbursement.',
+  'description': 'Webroot Premium combines fast cloud antivirus with identity protection powered by Allstate Identity '
+                 'Protection, including dark web monitoring, credit alerts and up to $1 million in identity theft '
+                 'expense reimbursement.',
+  'features': ['Cloud antivirus for multiple devices',
+               'Identity monitoring & dark web alerts',
+               'Credit monitoring & alerts',
+               '$1 million identity theft expense reimbursement*',
+               'Secure VPN & password manager',
+               '24/7 US-based identity restoration',
+               'Text scam detection & breach monitor'],
+  'variants': [{'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 99.99, 'original_price': 129.99}],
+  'long_description': "Webroot Premium pairs Webroot's fast, cloud-based antivirus with identity protection backed by "
+                      'Allstate Identity Protection. It monitors the dark web and your credit for signs of identity '
+                      'misuse and provides up to $1 million in identity theft expense reimbursement.\n'
+                      '\n'
+                      'US-based restoration experts are available 24/7 to help you recover if your identity is '
+                      'compromised. It also includes a Secure VPN, password manager and text scam detection.',
+  'source': 'seed',
+  'is_featured': False,
+  'platforms': ['windows', 'macos', 'android', 'ios']},
+ {'slug': 'norton-antivirus-plus',
+  'name': 'Norton AntiVirus Plus',
+  'brand': 'Norton',
+  'box_variant': 'gold',
+  'category': 'Norton Antivirus',
+  'image_url': '',
+  'tagline': 'Award-winning antivirus, AI Scam Protection and a Password Manager for 1 PC, Mac or mobile device.',
+  'description': 'Norton AntiVirus Plus delivers powerful antivirus and anti-malware protection for one device. It '
+                 'includes AI-powered Scam Protection to help stop advanced scams, a Smart Firewall for PC, a Password '
+                 'Manager and 2 GB of cloud backup.',
+  'features': ['Real-time antivirus, malware & ransomware protection',
+               'AI-powered Scam Protection',
+               'Deepfake Protection',
+               'Smart Firewall for PC / Firewall for Mac',
+               'Password Manager',
+               '2 GB cloud backup',
+               '100% Virus Protection Promise'],
+  'variants': [{'devices': 1, 'years': 1, 'label': '1 PC / 1 Year', 'price': 34.99, 'original_price': 59.99},
+               {'devices': 1, 'years': 2, 'label': '1 PC / 2 Years', 'price': 54.99, 'original_price': 99.99}],
+  'long_description': 'Norton AntiVirus Plus is the ideal entry-level plan for users who want trusted, award-winning '
+                      'antivirus without the full 360 suite. It protects one PC, Mac, smartphone or tablet with '
+                      'real-time malware and ransomware defense.\n'
+                      '\n'
+                      'It also includes AI-powered Scam Protection to help detect scams online and in texts, Deepfake '
+                      'Protection, a Smart Firewall for PC, a Password Manager and 2 GB of cloud backup for Windows. '
+                      "Norton's 100% Virus Protection Promise adds extra confidence: if a virus ever gets through, "
+                      'experts will help remove it or you get a refund.*',
+  'platforms': ['windows', 'macos', 'android', 'ios'],
+  'is_featured': False},
+ {'slug': 'norton-360-gamers',
+  'name': 'Norton 360 for Gamers',
+  'brand': 'Norton',
+  'box_variant': 'gold',
+  'category': 'Norton 360',
+  'image_url': '',
+  'tagline': 'Security designed for PC gamers with Game Booster, fewer notifications and full Norton 360 protection '
+             'for 3 devices.',
+  'description': 'Norton 360 for Gamers delivers the same powerful device security as Norton 360 Deluxe, plus Game '
+                 'Booster that optimizes PC performance and suppresses non-critical notifications while you play.',
+  'features': ['Game Booster for PC gaming',
+               'Real-time malware & ransomware protection',
+               'AI-powered Scam Protection',
+               'Deepfake Protection',
+               'Secure VPN (3 devices)',
+               'Dark Web Monitoring',
+               '50 GB cloud backup',
+               'Password Manager',
+               '100% Virus Protection Promise'],
+  'variants': [{'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 49.99, 'original_price': 79.99}],
+  'long_description': 'Norton 360 for Gamers is built for players who want protection without interruptions. It '
+                      'includes the same real-time antivirus, Secure VPN, Dark Web Monitoring, Password Manager and 50 '
+                      'GB cloud backup as Norton 360 Deluxe.\n'
+                      '\n'
+                      'The difference is Game Booster, which helps improve PC performance while gaming and suppresses '
+                      'non-critical security notifications so they do not pull you out of the action. It covers up to '
+                      'three devices.',
+  'platforms': ['windows', 'macos', 'android', 'ios'],
+  'is_featured': False},
+ {'slug': 'webroot-mobile-security',
+  'name': 'Webroot Mobile Security',
+  'brand': 'Webroot',
+  'box_variant': 'green',
+  'category': 'Webroot Mobile',
+  'image_url': '',
+  'tagline': 'Lightweight protection for Android and iOS smartphones and tablets.',
+  'description': 'Webroot Mobile Security keeps your phone or tablet safe from malicious apps, phishing links and '
+                 'risky Wi-Fi without draining battery or slowing performance.',
+  'features': ['App inspection & malware blocking',
+               'Anti-phishing web shield',
+               'Secure browsing on mobile',
+               'Anti-theft features (Android)',
+               'Lightweight, battery-friendly design'],
+  'variants': [{'devices': 1, 'years': 1, 'label': '1 Device / 1 Year', 'price': 19.99, 'original_price': 29.99},
+               {'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 34.99, 'original_price': 49.99}],
+  'long_description': 'Webroot Mobile Security is a lightweight, cloud-based solution for Android and iOS devices. It '
+                      'scans apps and links in real time, blocks phishing sites and keeps your mobile identity safer '
+                      'without draining battery life.\n'
+                      '\n'
+                      'The Android version adds anti-theft tools such as remote lock and wipe. Whether you use one '
+                      'phone or several family devices, this plan is designed to stay fast and unobtrusive.',
+  'platforms': ['android', 'ios'],
+  'is_featured': False},
+ {'slug': 'webroot-wifi-security-vpn',
+  'name': 'Webroot WiFi Security VPN',
+  'brand': 'Webroot',
+  'box_variant': 'green',
+  'category': 'Webroot VPN',
+  'image_url': '',
+  'tagline': 'Encrypt your connection and browse privately on any network.',
+  'description': 'Webroot WiFi Security VPN masks your IP address and encrypts your internet traffic so you can use '
+                 'public Wi-Fi, stream and browse without exposing your data.',
+  'features': ['Bank-grade AES-256 encryption',
+               'No-logs VPN policy',
+               'Multiple virtual server locations',
+               'Automatic protection on unsafe Wi-Fi',
+               'Works on PC, Mac, Android and iOS'],
+  'variants': [{'devices': 3, 'years': 1, 'label': '3 Devices / 1 Year', 'price': 34.99, 'original_price': 59.99},
+               {'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 49.99, 'original_price': 79.99}],
+  'long_description': 'Webroot WiFi Security VPN is a no-logs virtual private network that protects your connection on '
+                      'public Wi-Fi, at coffee shops, airports and hotels. It encrypts traffic with AES-256 and lets '
+                      'you choose from multiple virtual locations.\n'
+                      '\n'
+                      'You can protect up to five devices under one subscription across Windows, macOS, Android and '
+                      'iOS. It is a simple way to add privacy and avoid tracking without slowing down your connection.',
+  'platforms': ['windows', 'macos', 'android', 'ios'],
+  'is_featured': False},
+ {'slug': 'mcafee-plus-essential',
+  'name': 'McAfee+ Essential',
+  'brand': 'McAfee',
+  'box_variant': 'red',
+  'category': 'McAfee+',
+  'image_url': '',
+  'tagline': 'Modern antivirus, VPN and identity monitoring for up to 5 devices.',
+  'description': 'McAfee+ Essential delivers award-winning antivirus, an intelligent firewall, a Secure VPN, basic '
+                 'identity monitoring and a Password Manager for up to five devices.',
+  'features': ['Real-time antivirus & firewall',
+               'Scam protection',
+               'Secure VPN',
+               'Identity monitoring alerts',
+               'Password Manager',
+               'Protection for 5 devices'],
+  'variants': [{'devices': 5, 'years': 1, 'label': '5 Devices / 1 Year', 'price': 59.99, 'original_price': 89.99}],
+  'long_description': "McAfee+ Essential is the entry point into McAfee's current subscription lineup. It covers up to "
+                      'five devices with real-time antivirus, an intelligent firewall, a Secure VPN and a Password '
+                      'Manager.\n'
+                      '\n'
+                      'Basic identity monitoring alerts you if your personal information is found where it should not '
+                      'be, helping you act quickly to protect your accounts.',
+  'platforms': ['windows', 'macos', 'android', 'ios'],
+  'is_featured': False},
+ {'slug': 'mcafee-plus-premium',
+  'name': 'McAfee+ Premium',
+  'brand': 'McAfee',
+  'box_variant': 'red',
+  'category': 'McAfee+',
+  'image_url': '',
+  'tagline': 'Unlimited devices with full identity theft protection, credit monitoring and $1 million coverage.',
+  'description': 'McAfee+ Premium protects an unlimited number of devices and adds full identity theft protection, '
+                 'credit monitoring, dark web monitoring and $1 million in identity theft coverage.',
+  'features': ['Unlimited device protection',
+               'Real-time antivirus & firewall',
+               'Scam protection & VPN',
+               'Credit monitoring',
+               'Dark web monitoring',
+               '$1 million identity theft coverage',
+               'Identity restoration support'],
+  'variants': [{'devices': 999,
+                'years': 1,
+                'label': 'Unlimited Devices / 1 Year',
+                'price': 99.99,
+                'original_price': 149.99}],
+  'long_description': "McAfee+ Premium is McAfee's full-featured plan for households with many devices. It covers an "
+                      'unlimited number of PCs, Macs, smartphones and tablets with antivirus, firewall, VPN and '
+                      'password management.\n'
+                      '\n'
+                      'The Premium tier adds credit monitoring, dark web monitoring and up to $1 million in identity '
+                      'theft coverage, along with identity restoration support from specialists.',
+  'platforms': ['windows', 'macos', 'android', 'ios'],
+  'is_featured': False},
+ {'slug': 'mcafee-plus-advanced',
+  'name': 'McAfee+ Advanced',
+  'brand': 'McAfee',
+  'box_variant': 'red',
+  'category': 'McAfee+',
+  'image_url': '',
+  'tagline': 'Maximum device and identity protection with credit lock, credit scores and $1 million coverage.',
+  'description': 'McAfee+ Advanced adds credit lock, monthly credit scores and dedicated identity restoration support '
+                 'on top of unlimited device security, VPN and $1 million in identity coverage.',
+  'features': ['Unlimited device protection',
+               'Credit lock & monthly credit score',
+               'Identity restoration support',
+               'Real-time antivirus, firewall & VPN',
+               'Dark web & credit monitoring',
+               '$1 million identity theft coverage'],
+  'variants': [{'devices': 999,
+                'years': 1,
+                'label': 'Unlimited Devices / 1 Year',
+                'price': 149.99,
+                'original_price': 199.99}],
+  'long_description': "McAfee+ Advanced is McAfee's top consumer security tier. It includes everything in Premium plus "
+                      'credit lock, monthly credit scores and hands-on identity restoration support if theft occurs.\n'
+                      '\n'
+                      'With unlimited device coverage, real-time antivirus, a firewall, VPN and $1 million in identity '
+                      'theft coverage, it is built for users who want maximum digital safety and recovery support.',
+  'platforms': ['windows', 'macos', 'android', 'ios'],
+  'is_featured': False},
+ {'slug': 'mcafee-livesafe',
+  'name': 'McAfee LiveSafe',
+  'brand': 'McAfee',
+  'box_variant': 'red',
+  'category': 'McAfee LiveSafe',
+  'image_url': '',
+  'tagline': 'Legacy unlimited-device antivirus with secure cloud storage and identity tools.',
+  'description': 'McAfee LiveSafe offers unlimited-device antivirus, a Password Manager, secure cloud storage and '
+                 'identity protection in one familiar McAfee package.',
+  'features': ['Unlimited device protection',
+               'Real-time antivirus & firewall',
+               'Secure cloud storage',
+               'Password Manager',
+               'Identity protection basics',
+               'Cross-device coverage'],
+  'variants': [{'devices': 999,
+                'years': 1,
+                'label': 'Unlimited Devices / 1 Year',
+                'price': 89.99,
+                'original_price': 129.99}],
+  'long_description': 'McAfee LiveSafe has been a trusted McAfee flagship for years. It covers an unlimited number of '
+                      'devices with real-time antivirus, firewall, password management and secure cloud storage for '
+                      'your important files.\n'
+                      '\n'
+                      'It also includes basic identity protection features, making it a well-rounded choice for '
+                      'households that want one subscription to protect everything without moving to the newer McAfee+ '
+                      'tiers.',
+  'platforms': ['windows', 'macos', 'android', 'ios'],
+  'is_featured': False},
+ {'slug': 'norton-360-advanced',
+  'name': 'Norton 360 Advanced',
+  'brand': 'Norton',
+  'box_variant': 'gold',
+  'category': 'Norton 360',
+  'image_url': '',
+  'tagline': '10-device protection with 200 GB cloud backup, identity restoration and credit report access.',
+  'description': 'Norton 360 Advanced covers up to 10 devices with real-time antivirus, a Secure VPN, Dark Web '
+                 'Monitoring, 200 GB cloud backup, Social Media Monitoring, Identity Restoration Support and credit '
+                 'report access.',
+  'features': ['Real-time malware & ransomware protection',
+               'AI-powered Scam Protection',
+               'Deepfake Protection',
+               'Secure VPN (10 devices)',
+               'Dark Web & Social Media Monitoring',
+               '200 GB cloud backup',
+               'Identity Restoration Support',
+               'Credit report & score access',
+               'Password Manager & Parental Controls',
+               '100% Virus Protection Promise'],
+  'variants': [{'devices': 10, 'years': 1, 'label': '10 Devices / 1 Year', 'price': 119.99, 'original_price': 169.99}],
+  'long_description': 'Norton 360 Advanced is the step above Premium for users who need more storage and identity '
+                      'support. It protects up to 10 PCs, Macs, smartphones or tablets with real-time antivirus, '
+                      'anti-ransomware and anti-phishing, plus a Secure VPN for up to 10 devices.\n'
+                      '\n'
+                      'It adds 200 GB of cloud backup, Dark Web Monitoring, Social Media Monitoring, Identity '
+                      'Restoration Support and access to your credit report. AI-powered Scam Protection and Deepfake '
+                      "Protection help you avoid today's most convincing online scams.",
+  'platforms': ['windows', 'macos', 'android', 'ios'],
+  'is_featured': False},
+ {'slug': 'norton-360-lifelock-advantage',
+  'name': 'Norton 360 with LifeLock Advantage',
+  'brand': 'Norton',
+  'box_variant': 'gold',
+  'category': 'Norton 360 LifeLock',
+  'image_url': '',
+  'tagline': '10-device security plus enhanced LifeLock identity protection, $100K stolen funds reimbursement and '
+             'credit alerts.',
+  'description': 'Norton 360 with LifeLock Advantage covers up to 10 devices and adds stronger identity protection '
+                 'including bank & credit card activity alerts, credit monitoring, Identity Lock and up to $100,000 in '
+                 'stolen funds reimbursement for qualifying losses.',
+  'features': ['Real-time malware & ransomware protection',
+               'AI-powered Scam Protection Pro',
+               'Deepfake Protection',
+               'Secure VPN (10 devices)',
+               'Dark Web Monitoring & Privacy Monitor',
+               '250 GB cloud backup',
+               'LifeLock identity theft protection',
+               'Bank & credit card activity alerts',
+               'Credit monitoring (one bureau)',
+               'Identity Lock',
+               'Up to $100,000 stolen funds reimbursement*',
+               '100% Virus Protection Promise'],
+  'variants': [{'devices': 10, 'years': 1, 'label': '10 Devices / 1 Year', 'price': 169.99, 'original_price': 259.99}],
+  'long_description': 'Norton 360 with LifeLock Advantage includes everything in the Select tier plus stronger '
+                      'identity monitoring and financial alerts. It covers up to 10 devices and provides bank & credit '
+                      'card activity alerts, credit monitoring from one bureau, Identity Lock and up to $100,000 in '
+                      'stolen funds reimbursement for qualifying identity theft losses.\n'
+                      '\n'
+                      'You also get 250 GB of cloud backup, a Secure VPN, Parental Controls, Dark Web Monitoring, '
+                      'Privacy Monitor and AI-powered Scam Protection Pro.',
+  'platforms': ['windows', 'macos', 'android', 'ios'],
+  'is_featured': False},
+ {'slug': 'norton-360-lifelock-ultimate-plus',
+  'name': 'Norton 360 with LifeLock Ultimate Plus',
+  'brand': 'Norton',
+  'box_variant': 'gold',
+  'category': 'Norton 360 LifeLock',
+  'image_url': '',
+  'tagline': 'Unlimited device security with 500 GB backup, three-bureau credit monitoring and $1M stolen funds '
+             'reimbursement.',
+  'description': "Norton 360 with LifeLock Ultimate Plus is Norton's most comprehensive plan. It covers unlimited "
+                 'devices, includes 500 GB cloud backup, monitors all three credit bureaus, adds 401(k) & investment '
+                 'account alerts, home title monitoring and up to $1 million in stolen funds reimbursement.',
+  'features': ['Real-time malware & ransomware protection',
+               'AI-powered Scam Protection Pro with reimbursement',
+               'Deepfake Protection',
+               'Secure VPN (unlimited devices)',
+               'Dark Web Monitoring & Privacy Monitor',
+               '500 GB cloud backup',
+               'Three-bureau credit monitoring',
+               '401(k) & investment account alerts',
+               'Home title monitoring',
+               'Up to $1 million stolen funds reimbursement*',
+               'Up to $10,000 scam reimbursement',
+               '100% Virus Protection Promise'],
+  'variants': [{'devices': 999,
+                'years': 1,
+                'label': 'Unlimited Devices / 1 Year',
+                'price': 249.99,
+                'original_price': 364.99}],
+  'long_description': 'Norton 360 with LifeLock Ultimate Plus is the top-tier Norton plan. It protects an unlimited '
+                      'number of PCs, Macs, smartphones and tablets with real-time antivirus, a Secure VPN and 500 GB '
+                      'of cloud backup.\n'
+                      '\n'
+                      'The LifeLock layer includes three-bureau credit monitoring, 401(k) & investment account alerts, '
+                      'home title monitoring, Identity Lock, up to $1 million in stolen funds reimbursement and up to '
+                      '$10,000 in scam reimbursement for qualifying losses.',
+  'platforms': ['windows', 'macos', 'android', 'ios'],
+  'is_featured': False},
+ {'slug': 'mcafee-plus-ultimate',
+  'name': 'McAfee+ Ultimate',
+  'brand': 'McAfee',
+  'box_variant': 'red',
+  'category': 'McAfee+',
+  'image_url': '',
+  'tagline': 'Maximum identity, privacy and device protection with full-service data removal and unlimited devices.',
+  'description': 'McAfee+ Ultimate delivers unlimited device antivirus, comprehensive identity monitoring, '
+                 'full-service personal data cleanup from broker sites, social privacy management and up to $2 million '
+                 'in identity theft coverage.',
+  'features': ['Unlimited device protection',
+               'Premium antivirus & firewall',
+               'Scam protection & deepfake defense',
+               'Secure VPN',
+               'Full-service Personal Data Cleanup',
+               'Social Privacy Manager',
+               'Comprehensive identity monitoring',
+               'Dark web monitoring',
+               'Up to $2 million identity theft coverage',
+               'Identity restoration experts'],
+  'variants': [{'devices': 999,
+                'years': 1,
+                'label': 'Unlimited Devices / 1 Year',
+                'price': 179.99,
+                'original_price': 249.99}],
+  'long_description': "McAfee+ Ultimate is McAfee's most comprehensive protection plan. It covers an unlimited number "
+                      'of devices with premium antivirus, a firewall, VPN and scam protection, while adding '
+                      'full-service Personal Data Cleanup that removes your info from data broker sites, a Social '
+                      'Privacy Manager and comprehensive identity monitoring.\n'
+                      '\n'
+                      'It also includes up to $2 million in identity theft coverage and access to identity restoration '
+                      'experts if you ever need help recovering from identity theft.',
+  'platforms': ['windows', 'macos', 'android', 'ios', 'chromeos'],
+  'is_featured': False},
+ {'slug': 'webroot-total-protection',
+  'name': 'Webroot Total Protection',
+  'brand': 'Webroot',
+  'box_variant': 'green',
+  'category': 'Webroot Total Protection',
+  'image_url': '',
+  'tagline': "Webroot's most comprehensive plan: antivirus, unlimited backup, VPN, identity protection and parental "
+             'controls for up to 10 devices.',
+  'description': 'Webroot Total Protection combines cloud-based antivirus, unlimited secure cloud backup, a Secure '
+                 'VPN, identity protection, parental controls and a password manager for up to 10 devices and 10 '
+                 'identities.',
+  'features': ['Cloud antivirus for up to 10 devices',
+               'Unlimited secure cloud backup',
+               'Secure VPN',
+               'Identity protection & dark web monitoring',
+               'Up to $1 million identity theft expense reimbursement*',
+               'Parental controls',
+               'Password manager',
+               'Anti-phishing web shield',
+               'Text scam detection & breach monitor'],
+  'variants': [{'devices': 10, 'years': 1, 'label': '10 Devices / 1 Year', 'price': 89.99, 'original_price': 129.99}],
+  'long_description': "Webroot Total Protection is the company's most complete consumer plan. It protects up to 10 "
+                      'PCs, Macs, Chromebooks, smartphones and tablets with cloud-based antivirus that installs in '
+                      'seconds and updates in real time.\n'
+                      '\n'
+                      'It adds unlimited secure cloud backup, a Secure VPN, identity protection with dark web '
+                      'monitoring, up to $1 million in identity theft expense reimbursement, parental controls and a '
+                      'password manager. Text scam detection and a breach monitor help you react quickly when threats '
+                      'appear.',
+  'platforms': ['windows', 'macos', 'android', 'ios', 'chromeos'],
+  'is_featured': False}]
 
 DEFAULT_COUPONS = [
     {"code": "WELCOME10", "description": "10% off your first order", "discount_type": "percent", "discount_value": 10, "max_uses": 1000, "min_order": 0, "is_active": True},
