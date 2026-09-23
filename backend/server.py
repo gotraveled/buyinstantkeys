@@ -1750,65 +1750,65 @@ async def admin_update_activation(req_id: str, body: dict, admin_email: str = De
 
 @api_router.get("/google-merchant-feed")
 async def google_merchant_feed():
-    """Generate Google Merchant Center XML feed for all active products"""
-    products = await db.products.find({"is_active": True}, {"_id": 0}).to_list(200)
-    
-    # Create XML structure
-    rss = Element("rss", {
-        "version": "2.0",
-        "xmlns:g": "http://base.google.com/ns/1.0"
-    })
+    """Generate a Google Merchant Center compliant XML feed."""
+    products = await db.products.find({"is_active": True}, {"_id": 0}).to_list(500)
+
+    rss = Element("rss", {"version": "2.0", "xmlns:g": "http://base.google.com/ns/1.0"})
     channel = SubElement(rss, "channel")
-    
-    # Channel elements
+
     SubElement(channel, "title").text = STORE_NAME
     SubElement(channel, "link").text = STORE_URL
-    SubElement(channel, "description").text = f"Genuine antivirus license keys with fast email delivery from {STORE_NAME}."
-    
+    SubElement(channel, "description").text = f"Genuine antivirus and security license keys with fast email delivery from {STORE_NAME}."
+
+    def clean_desc(text: str) -> str:
+        # Google wants plain text, no HTML, max 5000 chars.
+        return (text or "").replace("\n", " ").strip()[:5000]
+
+    def image_link(slug: str) -> str:
+        return f"{STORE_URL}/images/products/{slug}.png"
+
     for product in products:
-        # Get the lowest price variant as the main product
-        if product.get("variants"):
-            lowest_variant = min(product["variants"], key=lambda x: x["price"])
-        else:
+        if not product.get("variants"):
             continue
-            
-        item = SubElement(channel, "item")
-        
-        # Required fields
-        SubElement(item, "g:id").text = product["id"]
-        SubElement(item, "g:title").text = product["name"]
-        SubElement(item, "g:description").text = product["description"]
-        SubElement(item, "g:link").text = f"{STORE_URL}/products/{product['slug']}"
-        SubElement(item, "g:image_link").text = f"{STORE_URL}/images/products/{product['slug']}.jpg" if product.get("image_url") else f"{STORE_URL}/images/norton-default.jpg"
-        SubElement(item, "g:price").text = f"{lowest_variant['price']} USD"
-        SubElement(item, "g:availability").text = "in stock"
-        SubElement(item, "g:condition").text = "new"
-        SubElement(item, "g:brand").text = "Norton"
-        
-        # Optional but recommended fields
-        SubElement(item, "g:product_type").text = f"Software > Antivirus & Security > {product['category']}"
-        SubElement(item, "g:mpn").text = product["id"]
-        
-        # Add all variants as separate items with different prices
+
+        brand = product.get("brand") or "Norton"
+        category = product.get("category") or "Antivirus"
+        desc = clean_desc(product.get("long_description") or product.get("description") or product.get("tagline"))
+        link = f"{STORE_URL}/products/{product['slug']}"
+        img = image_link(product["slug"])
+
         for variant in product["variants"]:
-            variant_item = SubElement(channel, "item")
-            SubElement(variant_item, "g:id").text = f"{product['id']}-{variant['id']}"
-            SubElement(variant_item, "g:title").text = f"{product['name']} - {variant['label']}"
-            SubElement(variant_item, "g:description").text = product["description"]
-            SubElement(variant_item, "g:link").text = f"{STORE_URL}/products/{product['slug']}"
-            SubElement(variant_item, "g:image_link").text = f"{STORE_URL}/images/products/{product['slug']}.jpg" if product.get("image_url") else f"{STORE_URL}/images/norton-default.jpg"
-            SubElement(variant_item, "g:price").text = f"{variant['price']} USD"
-            if variant.get("original_price"):
-                SubElement(variant_item, "g:sale_price").text = f"{variant['price']} USD"
-            SubElement(variant_item, "g:availability").text = "in stock"
-            SubElement(variant_item, "g:condition").text = "new"
-            SubElement(variant_item, "g:brand").text = "Norton"
-            SubElement(variant_item, "g:product_type").text = f"Software > Antivirus & Security > {product['category']}"
-            SubElement(variant_item, "g:mpn").text = f"{product['id']}-{variant['id']}"
-    
-    # Generate XML string
-    xml_str = tostring(rss, encoding="unicode")
-    
+            price = float(variant.get("price") or 0)
+            original = variant.get("original_price")
+            if original:
+                try:
+                    original = float(original)
+                except (TypeError, ValueError):
+                    original = None
+
+            item = SubElement(channel, "item")
+            SubElement(item, "g:id").text = f"{product['id']}-{variant['id']}"
+            SubElement(item, "g:item_group_id").text = product["id"]
+            SubElement(item, "g:title").text = f"{product['name']} – {variant['label']}"
+            SubElement(item, "g:description").text = desc
+            SubElement(item, "g:link").text = link
+            SubElement(item, "g:image_link").text = img
+            SubElement(item, "g:condition").text = "new"
+            SubElement(item, "g:availability").text = "in stock" if product.get("is_active") else "out of stock"
+            SubElement(item, "g:brand").text = brand
+            SubElement(item, "g:google_product_category").text = "Software > Computer Software > Antivirus & Security Software"
+            SubElement(item, "g:product_type").text = f"Software > Antivirus & Security > {category}"
+            SubElement(item, "g:mpn").text = f"{product['slug']}-{variant['label']}".replace(" ", "-")[:70]
+            SubElement(item, "g:identifier_exists").text = "no"
+
+            if original and original > price:
+                SubElement(item, "g:price").text = f"{original:.2f} USD"
+                SubElement(item, "g:sale_price").text = f"{price:.2f} USD"
+            else:
+                SubElement(item, "g:price").text = f"{price:.2f} USD"
+
+    xml_str = '<?xml version="1.0" encoding="UTF-8"?>' + tostring(rss, encoding="unicode")
+
     return Response(
         content=xml_str,
         media_type="application/xml",
