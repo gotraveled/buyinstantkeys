@@ -47,6 +47,19 @@ export default function ProductDetail() {
     .map((p) => p.trim())
     .filter(Boolean);
 
+  const hasBackup = product.features.some((f) => /cloud backup|secure cloud backup/i.test(f));
+  const isWindowsOnly = product.platforms && product.platforms.length === 1 && product.platforms[0] === "windows";
+  const isMobileOnly = product.platforms && product.platforms.length === 2 && product.platforms.includes("android") && product.platforms.includes("ios");
+  const platformLabels = {
+    windows: { icon: <Monitor size={28} weight="duotone" />, title: "Windows", desc: "Windows 10 / 11 (64-bit)" },
+    macos: { icon: <Laptop size={28} weight="duotone" />, title: "macOS", desc: "macOS 10.15 (Catalina) or later" },
+    android: { icon: <DeviceMobile size={28} weight="duotone" />, title: "Android", desc: "Android 8.0 (Oreo) or later" },
+    ios: { icon: <DeviceMobile size={28} weight="duotone" />, title: "iOS", desc: "iOS 14 or later" },
+  };
+  const platformCards = (product.platforms || ["windows", "macos", "android", "ios"])
+    .filter((p) => platformLabels[p])
+    .map((p) => platformLabels[p]);
+
   const handleAdd = (goCheckout = false) => {
     addItem(product, variant, 1);
     toast.success("Added to cart", { description: `${product.name} · ${variant.label}` });
@@ -168,6 +181,16 @@ export default function ProductDetail() {
               </div>
             ))}
           </div>
+
+          {/* Long description fills the space under the image */}
+          <div className="mt-6 rounded-xl border border-neutral-200 bg-neutral-50 p-6">
+            <h3 className="font-display text-base font-semibold">About {product.name}</h3>
+            <div className="mt-3 space-y-3">
+              {longParas.map((para, i) => (
+                <p key={i} className="text-sm leading-relaxed text-neutral-700">{para}</p>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div>
@@ -233,14 +256,6 @@ export default function ProductDetail() {
             </ul>
           </div>
 
-          <div className="mt-10 rounded-xl border border-neutral-200 bg-neutral-50 p-6">
-            <h3 className="font-display text-base font-semibold">Description</h3>
-            <div className="mt-2 space-y-3">
-              {longParas.map((para, i) => (
-                <p key={i} className="text-sm leading-relaxed text-neutral-700">{para}</p>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
 
@@ -248,13 +263,31 @@ export default function ProductDetail() {
       <section className="mt-16">
         <div className="text-center">
           <h2 className="font-display text-3xl font-bold tracking-tight">Why Choose {product.name}?</h2>
-          <p className="mt-4 text-lg text-neutral-600">Comprehensive protection for your digital life with advanced security features</p>
+          <p className="mt-4 text-lg text-neutral-600">
+            {product.slug.includes("utilities")
+              ? "Clean, tune and speed up your Windows PCs with an all-in-one optimization toolkit"
+              : product.slug.includes("vpn")
+              ? "Browse privately and securely on public Wi-Fi with bank-grade encryption"
+              : "Comprehensive protection for your devices, identity and online privacy"}
+          </p>
         </div>
         <div className="mt-12 grid gap-8 md:grid-cols-3">
           {[
-            { icon: <ShieldCheck size={32} weight="duotone" />, title: "Advanced Protection", desc: "Real-time threat detection against viruses, malware, ransomware, and phishing attacks." },
-            { icon: <Cloud size={32} weight="duotone" />, title: "Cloud Backup", desc: "Secure cloud storage to protect your important files and documents from data loss." },
-            { icon: <Monitor size={32} weight="duotone" />, title: "Multi-Device Coverage", desc: "Protect all your devices including PC, Mac, iOS, and Android with one subscription." },
+            product.slug.includes("utilities")
+              ? { icon: <Lightning size={32} weight="duotone" />, title: "PC Optimization", desc: "Removes junk files, fixes registry issues and optimizes startup for faster boot times." }
+              : product.slug.includes("vpn")
+              ? { icon: <Globe size={32} weight="duotone" />, title: "Private Browsing", desc: "Encrypts your connection and masks your IP address on public Wi-Fi networks." }
+              : { icon: <ShieldCheck size={32} weight="duotone" />, title: "Advanced Threat Protection", desc: "Real-time detection and blocking of viruses, malware, ransomware and phishing." },
+            hasBackup
+              ? { icon: <Cloud size={32} weight="duotone" />, title: "Cloud Backup", desc: "Included cloud storage helps keep your important files safe from ransomware or loss." }
+              : product.slug.includes("utilities")
+              ? { icon: <Monitor size={32} weight="duotone" />, title: "Windows PC Coverage", desc: "Designed for Microsoft Windows PCs, laptops and tablets." }
+              : { icon: <LockKey size={32} weight="duotone" />, title: "Privacy & Identity", desc: "Tools that keep your passwords, browsing and personal details away from prying eyes." },
+            isWindowsOnly
+              ? { icon: <Monitor size={32} weight="duotone" />, title: "Windows PC Coverage", desc: "Built to protect Windows desktop and laptop computers with one subscription." }
+              : isMobileOnly
+              ? { icon: <DeviceMobile size={32} weight="duotone" />, title: "Mobile Coverage", desc: "Protects Android and iOS smartphones and tablets from mobile-specific threats." }
+              : { icon: <Monitor size={32} weight="duotone" />, title: "Multi-Device Coverage", desc: "One subscription protects PCs, Macs and mobile devices across your household." },
           ].map((item, i) => (
             <div key={i} className="rounded-xl border border-neutral-200 bg-white p-6 text-center">
               <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-neutral-100 text-neutral-900">{item.icon}</div>
@@ -265,7 +298,7 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* Features Section */}
+{/* Features Section */}
       <section className="mt-16">
         <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-8 md:p-12">
           <h2 className="font-display text-2xl font-bold tracking-tight">Key Features & Benefits</h2>
@@ -310,14 +343,13 @@ export default function ProductDetail() {
       <section className="mt-16">
         <div className="rounded-2xl border border-neutral-200 bg-white p-8 md:p-12">
           <h2 className="font-display text-2xl font-bold tracking-tight">System Requirements</h2>
-          <p className="mt-3 text-neutral-600">Compatible with all major operating systems and devices</p>
+          <p className="mt-3 text-neutral-600">
+            {platformCards.length > 0
+              ? `Compatible with ${platformCards.map((p) => p.title).join(", ")}`
+              : "Compatible with supported operating systems"}
+          </p>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { icon: <Monitor size={28} weight="duotone" />, title: "Windows", desc: "Windows 10/11 (all versions)" },
-              { icon: <Laptop size={28} weight="duotone" />, title: "macOS", desc: "macOS X 10.15 or later" },
-              { icon: <DeviceMobile size={28} weight="duotone" />, title: "Android", desc: "Android 8.0 or later" },
-              { icon: <DeviceMobile size={28} weight="duotone" />, title: "iOS", desc: "iOS 14 or later" },
-            ].map((req, i) => (
+            {platformCards.map((req, i) => (
               <div key={i} className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-center">
                 <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-white text-neutral-900">{req.icon}</div>
                 <h3 className="mt-3 font-semibold">{req.title}</h3>
@@ -328,7 +360,7 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* FAQ Section */}
+{/* FAQ Section */}
       <section className="mt-16">
         <div className="text-center">
           <h2 className="font-display text-3xl font-bold tracking-tight">Frequently Asked Questions</h2>
@@ -340,7 +372,7 @@ export default function ProductDetail() {
             { q: `How do I activate my ${brandName} license key?`, a: `After purchase, you'll receive your license key via email within 5-15 minutes. Visit ${portal}, sign in or create an account, enter your product key, and follow the on-screen instructions to download and install.` },
             { q: `Is this a genuine ${brandName} license?`, a: `Yes, all our ${brandName} license keys are 100% genuine and legally acquired from trusted channels. Each key is verified before delivery to ensure validity and proper activation.` },
             { q: "What is your refund policy?", a: "We offer a 30-day money-back guarantee. If your license key cannot be activated or you received the wrong product, we'll issue a full refund or replacement within 30 days of purchase." },
-            { q: "Can I use this on multiple devices?", a: `Yes, this plan covers ${variant.devices === 999 ? 'unlimited' : variant.devices} device(s) for ${variant.years} year(s). You can install and activate on all supported devices including Windows, Mac, iOS, and Android.` },
+            { q: "Can I use this on multiple devices?", a: `Yes, this plan covers ${variant.devices === 999 ? 'unlimited' : variant.devices} device(s) for ${variant.years} year(s). You can install and activate on the supported platforms listed above.` },
             { q: "How long does delivery take?", a: "License keys are delivered by email within 5-15 minutes after payment confirmation. In rare cases, it may take up to 24 hours for manual verification." },
           ].map((faq, i) => (
             <div key={i} className="rounded-xl border border-neutral-200 bg-white">
