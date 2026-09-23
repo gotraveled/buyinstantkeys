@@ -182,15 +182,6 @@ export default function ProductDetail() {
             ))}
           </div>
 
-          {/* Long description fills the space under the image */}
-          <div className="mt-6 rounded-xl border border-neutral-200 bg-neutral-50 p-6">
-            <h3 className="font-display text-base font-semibold">About {product.name}</h3>
-            <div className="mt-3 space-y-3">
-              {longParas.map((para, i) => (
-                <p key={i} className="text-sm leading-relaxed text-neutral-700">{para}</p>
-              ))}
-            </div>
-          </div>
         </div>
 
         <div>
@@ -256,6 +247,16 @@ export default function ProductDetail() {
             </ul>
           </div>
 
+        </div>
+      </div>
+
+      {/* Full-width description fills the gap below product info */}
+      <div className="mt-12 rounded-xl border border-neutral-200 bg-neutral-50 p-6 md:p-8">
+        <h3 className="font-display text-base font-semibold">About {product.name}</h3>
+        <div className="mt-3 space-y-3">
+          {longParas.map((para, i) => (
+            <p key={i} className="text-sm leading-relaxed text-neutral-700">{para}</p>
+          ))}
         </div>
       </div>
 
