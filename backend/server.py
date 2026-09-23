@@ -1508,7 +1508,9 @@ async def admin_update_product(product_id: str, body: ProductUpdate, admin_email
 
 @api_router.delete("/admin/products/{product_id}")
 async def admin_delete_product(product_id: str, admin_email: str = Depends(verify_admin)):
-    await db.products.update_one({"id": product_id}, {"$set": {"is_active": False}})
+    result = await db.products.delete_one({"id": product_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Product not found")
     _invalidate_products()
     return {"status": "deleted"}
 

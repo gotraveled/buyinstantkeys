@@ -172,14 +172,14 @@ export default function Home() {
             <Link to="/products" className="hidden text-sm font-semibold text-neutral-700 hover:text-neutral-900 md:inline-flex md:items-center md:gap-1">View all <ArrowRight size={16} /></Link>
           </div>
           {featuredLoading ? (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {[1, 2, 3, 4].map((i) => <div key={i} className="h-80 animate-pulse rounded-xl bg-neutral-100" />)}
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {[1, 2, 3, 4, 5, 6].map((i) => <div key={i} className="h-80 animate-pulse rounded-xl bg-neutral-100" />)}
             </div>
           ) : featuredError ? (
             <LoadError label="featured products" onRetry={loadFeatured} />
           ) : featured.length > 0 ? (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {featured.slice(0, 8).map((p) => (<ProductCard key={p.id} product={p} />))}
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {featured.slice(0, 6).map((p) => (<ProductCard key={p.id} product={p} />))}
             </div>
           ) : (
             <div className="rounded-xl border border-dashed border-neutral-300 bg-white p-12 text-center text-neutral-600">

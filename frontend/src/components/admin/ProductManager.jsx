@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
-import { Plus, PencilSimple, Trash, X, ArrowLeft, Eye, EyeSlash } from "@phosphor-icons/react";
+import { Plus, PencilSimple, Trash, X, ArrowLeft, Eye, EyeSlash, Star } from "@phosphor-icons/react";
 
 const BRANDS = ["Norton", "Webroot", "McAfee"];
 const BOX_VARIANTS = ["gold", "amber", "black", "green", "red", "purple"];
@@ -39,6 +39,7 @@ export default function ProductManager({ products, onChange }) {
   const [editing, setEditing] = useState(null); // null = list, object = form
   const [isNew, setIsNew] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(null);
 
   const startNew = () => { setIsNew(true); setEditing(emptyProduct()); };
   const startEdit = (p) => { setIsNew(false); setEditing(toForm(p)); };
@@ -53,16 +54,32 @@ export default function ProductManager({ products, onChange }) {
 
   const toggleActive = async (p) => {
     try {
-      if (p.is_active) {
-        await api.delete(`/admin/products/${p.id}`);
-        toast.success("Product hidden");
-      } else {
-        await api.patch(`/admin/products/${p.id}`, { is_active: true });
-        toast.success("Product activated");
-      }
+      await api.patch(`/admin/products/${p.id}`, { is_active: !p.is_active });
+      toast.success(p.is_active ? "Product hidden" : "Product activated");
       onChange && onChange();
     } catch (e) {
       toast.error(e?.response?.data?.detail || "Failed to update product");
+    }
+  };
+
+  const toggleFeatured = async (p) => {
+    try {
+      await api.patch(`/admin/products/${p.id}`, { is_featured: !p.is_featured });
+      toast.success(p.is_featured ? "Removed from featured" : "Marked as featured");
+      onChange && onChange();
+    } catch (e) {
+      toast.error(e?.response?.data?.detail || "Failed to update product");
+    }
+  };
+
+  const doDelete = async (p) => {
+    try {
+      await api.delete(`/admin/products/${p.id}`);
+      toast.success("Product deleted");
+      setConfirmDelete(null);
+      onChange && onChange();
+    } catch (e) {
+      toast.error(e?.response?.data?.detail || "Failed to delete product");
     }
   };
 
@@ -117,6 +134,23 @@ export default function ProductManager({ products, onChange }) {
       setSaving(false);
     }
   };
+
+  if (confirmDelete) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+        <div className="w-full max-w-md rounded-xl border border-neutral-200 bg-white p-6 shadow-xl">
+          <h3 className="font-display text-lg font-semibold">Delete product?</h3>
+          <p className="mt-2 text-sm text-neutral-600">
+            This will permanently remove <span className="font-semibold">{confirmDelete.name}</span> ({confirmDelete.slug}). This action cannot be undone.
+          </p>
+          <div className="mt-6 flex justify-end gap-3">
+            <button onClick={() => setConfirmDelete(null)} className="btn-outline">Cancel</button>
+            <button onClick={() => doDelete(confirmDelete)} className="btn-danger bg-red-600 text-white hover:bg-red-700">Delete</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // ---------- FORM VIEW ----------
   if (editing) {
@@ -280,7 +314,10 @@ export default function ProductManager({ products, onChange }) {
                       <button onClick={() => toggleActive(p)} data-testid={`product-toggle-${p.slug}`} title={p.is_active ? "Hide" : "Show"} className="rounded-md p-2 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900">
                         {p.is_active ? <EyeSlash size={16} weight="duotone" /> : <Eye size={16} weight="duotone" />}
                       </button>
-                      <button onClick={() => toggleActive(p)} data-testid={`product-delete-${p.slug}`} title="Delete" className="rounded-md p-2 text-neutral-600 hover:bg-red-50 hover:text-red-600">
+                      <button onClick={() => toggleFeatured(p)} data-testid={`product-feature-${p.slug}`} title={p.is_featured ? "Unfeature" : "Feature"} className={`rounded-md p-2 ${p.is_featured ? "text-yellow-500 hover:bg-yellow-50" : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"}`}>
+                        <Star size={16} weight={p.is_featured ? "fill" : "duotone"} />
+                      </button>
+                      <button onClick={() => setConfirmDelete(p)} data-testid={`product-delete-${p.slug}`} title="Delete" className="rounded-md p-2 text-neutral-600 hover:bg-red-50 hover:text-red-600">
                         <Trash size={16} weight="duotone" />
                       </button>
                     </div>
